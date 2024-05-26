@@ -14,13 +14,14 @@ import java.time.LocalDateTime;
 @Setter
 @SuperBuilder
 
-public class Respones {
+public class Response {
     private int id;
     private Ticket ticket;
     private Person person;
+    private String answer;
     private LocalDateTime dateTime;
     private Status status;
- private String answer;
+
     @Override
     public String toString() {
         return new Gson().toJson(this);

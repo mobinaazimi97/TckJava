@@ -14,13 +14,16 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @SuperBuilder
+
 public class Ticket {
     private int id;
-    private LocalDateTime ticketDateTime;
+    private Group group;
     private Person person;
     private String title;
-    private Group group;
+    private String text;
+    private LocalDateTime ticketDateTime;
     private Status status;
+
     @Override
     public String toString(){
         return new Gson().toJson(this);

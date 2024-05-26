@@ -23,7 +23,7 @@ import java.util.List;
             );
             preparedStatement.setString(1,person.getName());
             preparedStatement.setString(2,person.getFamily());
-            preparedStatement.setString(3,person.getGmail());
+            preparedStatement.setString(3,person.getEmail());
             preparedStatement.setString(4, person.getPhoneNumber());
             preparedStatement.setString(5,person.getAdminName());
             preparedStatement.setString(6,person.getUserName());

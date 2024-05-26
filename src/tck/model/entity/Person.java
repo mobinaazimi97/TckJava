@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import tck.model.entity.enums.Role;
 
 @NoArgsConstructor
 @Getter
@@ -16,10 +17,12 @@ public class Person {
     private String name;
     private String family;
     private String phoneNumber;
-    private String gmail;
-    private String userName;
-    private String passWord;
-    private String adminName;
+    private String email;
+    private String username;
+    private String password;
+    private Role role;
+
+
     @Override
     public String toString(){
         return new Gson().toJson(this);
