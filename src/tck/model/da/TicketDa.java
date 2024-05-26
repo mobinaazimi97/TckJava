@@ -1,7 +1,6 @@
 package tck.model.da;
 
 import tck.model.entity.enums.Group;
-import tck.model.entity.Person;
 import tck.model.entity.enums.Status;
 import tck.model.entity.Ticket;
 import tck.model.tool.CRUD;
@@ -21,14 +20,14 @@ import java.util.List;
         public Ticket save(Ticket ticket) throws Exception {
             ticket.setId(ConnectionProvider.getConnectionProvider().getNextId("TICKET_seq"));
             preparedStatement=connection.prepareStatement(
-                    "INSERT INTO TICKET(ID,TICKET_DATE_TIME,PERSON_ID,TITLE,GROUP,STATUS) VALUES (TICKET_SEQ.NEXTVAL,?,?,?,?,?,?,?,?)"
+                    "INSERT INTO TICKET(ID,TICKET_DATE_TIME,PERSON_NAME,PERSON_FAMILY,PERSON_ID,TITLE,GROUP,STATUS) VALUES (PERSON14_SEQ.NEXTVAL,?,?,?,?,?,?,?,?,)"
             );
             preparedStatement.setInt(1,ticket.getId());
             preparedStatement.setTimestamp(2, Timestamp.valueOf(ticket.getTicketDateTime()));
-            preparedStatement.setString( 3, String.valueOf(ticket.getPerson()));
-            preparedStatement.setString( 4,ticket.getTitle());
-            preparedStatement.setString(   5, String.valueOf(ticket.getGroup()));
-            preparedStatement.setString( 6, String.valueOf(ticket.getStatus()));
+            preparedStatement.setString(3, ticket.getPerson();
+            preparedStatement.setString( 3,ticket.getTitle());
+            preparedStatement.setString(5,ticket.getGroup();
+            preparedStatement.setString(6,ticket.getStatus();
             preparedStatement.execute();
             return ticket;
         }
@@ -36,7 +35,7 @@ import java.util.List;
         @Override
         public Ticket edit(Ticket ticket) throws Exception {
             preparedStatement=connection.prepareStatement(
-                    "UPDATE TICKET SET TICKET_DATE_TIME=?,TICKET_ID=?,TITLE=?,GROUP=?,STATUS=? WHERE id=?");
+                    "UPDATE TICKET SET TICKET_DATE_TIME=?,PERSON_NAMAE=?,PERSON_FAMILY=?,PERSON_ID=?,TITLE=?,GROUP=?,STATUS=? WHERE id=?");
 
             preparedStatement.setInt( 1,ticket.getId());
             preparedStatement.setString( 2, String.valueOf(ticket.getPerson()));
@@ -71,7 +70,6 @@ import java.util.List;
                         .title(resultSet.getString("title"))
                         .group(Group.valueOf(resultSet.getString("group")))
                         .status(Status.valueOf(resultSet.getString("status")))
-                        .person(Person.builder().id(resultSet.getInt("personId")).build())
                         .build();
 
                 ticketList.add(ticket);
@@ -85,19 +83,6 @@ import java.util.List;
             preparedStatement = connection.prepareStatement("select * from TICKET where id=?");
             preparedStatement.setInt(1,id);
             ResultSet resultSet=preparedStatement.executeQuery();
-            Ticket ticket = null;
-            if(resultSet.next()){
-                ticket = Ticket
-                        .builder()
-                        .id(resultSet.getInt("id"))
-                        .person(Person.builder().id(resultSet.getInt("personId")).build())
-                        .title(resultSet.getString("title"))
-                        .ticketDateTime(resultSet.getTimestamp("ticket_date_time").toLocalDateTime())
-                        .group(Group.valueOf(resultSet.getString("group")))
-                        .status(Status.valueOf(resultSet.getString("status")))
-                        .build();
-            }
-            return ticket;
 
 
         }

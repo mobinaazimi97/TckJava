@@ -4,9 +4,7 @@
       <root url="file://$PROJECT_DIR$/src/tck/lib" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES>
-      <root url="file://$PROJECT_DIR$/../javasetck/src" />
-    </SOURCES>
+    <SOURCES />
     <jarDirectory url="file://$PROJECT_DIR$/src/tck/lib" recursive="false" />
   </library>
 </component>
