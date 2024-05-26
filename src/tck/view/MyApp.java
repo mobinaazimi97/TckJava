@@ -16,13 +16,6 @@ public class MyApp extends Application {
         );
         primaryStage.setScene(scene);
         primaryStage.setTitle("ticketing");
-//        primaryStage.setOnCloseRequest((event) -> {
-//            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "are you sure to exit?");
-//            if (alert.showAndWait().get().equals(ButtonType.OK)) {
-//                Platform.exit();
-//            }
-//        });
- //   primaryStage.setTitle("ticketing");
         primaryStage.show();
 
     }

@@ -19,7 +19,7 @@ public class ConnectionProvider {
         basicDataSource.setUrl("jdbc:oracle:thin:@localhost:1521:xe");
         basicDataSource.setUsername("javase");
         basicDataSource.setPassword("java123");
-        basicDataSource.setMinIdle(5);
+        basicDataSource.setMinIdle(10);
         basicDataSource.setMaxTotal(20);
         return basicDataSource.getConnection();
 }

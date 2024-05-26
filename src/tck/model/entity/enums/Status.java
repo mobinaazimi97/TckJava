@@ -1,4 +1,4 @@
-package tck.model.entity;
+package tck.model.entity.enums;
 
 public enum Status {
     seen,
