@@ -1,8 +1,7 @@
 package tck.model.da;
 
-import tck.model.entity.Group;
-import tck.model.entity.Person;
-import tck.model.entity.Status;
+import tck.model.entity.enums.Group;
+import tck.model.entity.enums.Status;
 import tck.model.entity.Ticket;
 import tck.model.tool.CRUD;
 import tck.model.tool.ConnectionProvider;
