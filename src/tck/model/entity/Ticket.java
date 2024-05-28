@@ -25,7 +25,7 @@ public class Ticket {
     private Status status;
 
     @Override
-    public String toString(){
+    public String toString() {
         return new Gson().toJson(this);
     }
 

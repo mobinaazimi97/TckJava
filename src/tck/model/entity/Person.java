@@ -1,4 +1,5 @@
 package tck.model.entity;
+
 import com.google.gson.Gson;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +25,7 @@ public class Person {
 
 
     @Override
-    public String toString(){
+    public String toString() {
         return new Gson().toJson(this);
     }
 

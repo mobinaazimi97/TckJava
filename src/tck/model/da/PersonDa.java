@@ -2,7 +2,7 @@ package tck.model.da;
 
 import lombok.extern.log4j.Log4j;
 import tck.model.entity.Person;
-import tck.model.entity.enums.Group;
+import tck.model.entity.enums.Role;
 import tck.model.entity.enums.Status;
 import tck.model.tool.CRUD;
 import tck.model.tool.ConnectionProvider;
@@ -10,74 +10,85 @@ import tck.model.tool.ConnectionProvider;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 @Log4j
-    public class PersonDa implements AutoCloseable , CRUD<Person> {
-        private final Connection connection;
-        private PreparedStatement preparedStatement;
-        public PersonDa() throws SQLException {
-            connection = ConnectionProvider.getConnectionProvider().getConnection();
-        }
-        @Override
-        public Person save(Person person) throws Exception {
-            person.setId(ConnectionProvider.getConnectionProvider().getNextId("person_seq"));
-            preparedStatement=connection.prepareStatement(
-                    "INSERT INTO PERSON(ID,NAME,FAMILY,Gmail,Phone_Number,USER_NAME,PASSWORD) VALUES (PERSON_SEQ.NEXTVAL,?,?,?,?,?,?,?)"
-            );
-            preparedStatement.setString(1,person.getName());
-            preparedStatement.setString(2,person.getFamily());
-            preparedStatement.setString(3,person.getEmail());
-            preparedStatement.setString(4, person.getPhoneNumber());
-            preparedStatement.setString(5,person.getUserName());
-            preparedStatement.setString(6,person.getPassWord());
-            preparedStatement.execute();
-            return person;
-        }
-        @Override
-        public Person edit(Person person) throws Exception {
-            preparedStatement=connection.prepareStatement(
-                    "UPDATE PERSON SET NAME=?,FAMILY=?,PHONE_NUMBER=?,GMAIL=?,USER_NAME=?,PASSWORD=?WHERE id=?");
+public class PersonDa implements AutoCloseable, CRUD<Person> {
+    private final Connection connection;
+    private PreparedStatement preparedStatement;
 
-            preparedStatement.setString( 1,person.getName());
-            preparedStatement.setString( 2,person.getFamily());
-            preparedStatement.setString( 3,person.getGmail());
-            preparedStatement.setString(   4,person.getPhoneNumber());
-            preparedStatement.setString( 5,person.getUserName());
-            preparedStatement.setString(6,person.getPassWord());
-            preparedStatement.setInt(    7,person.getId());
-            preparedStatement.execute();
-            return person;
-        }
-        @Override
-        public Person remove(int id) throws Exception {
-            preparedStatement=connection.prepareStatement(
-                    "DELETE FROM PERSON WHERE ID = ?"
-            );
-            preparedStatement.setInt(1 , id);
-            preparedStatement.execute();
-            return null;
-        }
-        @Override
-        public List<Person> findAll() throws Exception {
-            List<Person>personList = new ArrayList<>();
-            preparedStatement = connection.prepareStatement("select * from person order by id");
-            ResultSet resultSet=preparedStatement.executeQuery();
-            while(resultSet.next()){
-                Person person = Person
-                        .builder()
-                        .id(resultSet.getInt("id"))
-                        .name(resultSet.getString("name"))
-                        .family(resultSet.getString("family"))
-                        .phoneNumber(resultSet.getString("Phone_Number"))
-                        .gmail(resultSet.getString("Gmail"))
-                        .userName(resultSet.getString("USER_NAME"))
-                        .passWord(resultSet.getString("Password"))
-                        .build();
+    public PersonDa() throws SQLException {
+        connection = ConnectionProvider.getConnectionProvider().getConnection();
+    }
 
-                personList.add(person);
-            }
-            return personList;
+    @Override
+    public Person save(Person person) throws Exception {
+        person.setId(ConnectionProvider.getConnectionProvider().getNextId("person_seq"));
+        preparedStatement = connection.prepareStatement(
+                "INSERT INTO PERSON(ID,PERSON_NAME,PERSON_FAMILY,Email,Phone_Number,USER_NAME,PASSWORD,ROLE) VALUES (PERSON_SEQ.NEXTVAL,?,?,?,?,?,?,?,?)"
+        );
+        preparedStatement.setInt(1, person.getId());
+        preparedStatement.setString(2, person.getName());
+        preparedStatement.setString(3, person.getFamily());
+        preparedStatement.setString(4, person.getEmail());
+        preparedStatement.setString(5, person.getPhoneNumber());
+        preparedStatement.setString(6, person.getUsername());
+        preparedStatement.setString(7, person.getPassword());
+        preparedStatement.setString(8, String.valueOf(person.getRole()));
+        preparedStatement.execute();
+        return person;
+    }
 
+    @Override
+    public Person edit(Person person) throws Exception {
+        preparedStatement = connection.prepareStatement(
+                "UPDATE PERSON SET PERSON_NAME=?,PERSON_FAMILY=?,PHONE_NUMBER=?,EMAIL=?,USER_NAME=?,ROLE=?,,PASSWORD=?WHERE id=?");
+
+        preparedStatement.setString(1, person.getName());
+        preparedStatement.setString(2, person.getFamily());
+        preparedStatement.setString(3, person.getPhoneNumber());
+        preparedStatement.setString(4, person.getEmail());
+        preparedStatement.setString(5, person.getUsername());
+        preparedStatement.setString(6, String.valueOf(person.getRole()));
+        preparedStatement.setString(7, person.getPassword());
+        preparedStatement.setInt(7, person.getId());
+        preparedStatement.execute();
+        return person;
+    }
+
+    @Override
+    public Person remove(int id) throws Exception {
+        preparedStatement = connection.prepareStatement(
+                "DELETE FROM PERSON WHERE ID = ?"
+        );
+        preparedStatement.setInt(1, id);
+        preparedStatement.execute();
+        return null;
+    }
+
+    @Override
+    public List<Person> findAll() throws Exception {
+        List<Person> personList = new ArrayList<>();
+        preparedStatement = connection.prepareStatement("select * from person order by id");
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            Person person = Person
+                    .builder()
+                    .id(resultSet.getInt("id"))
+                    .name(resultSet.getString("name"))
+                    .family(resultSet.getString("family"))
+                    .phoneNumber(resultSet.getString("Phone_Number"))
+                    .email(resultSet.getString("email"))
+                    .username(resultSet.getString("USER_NAME"))
+                    .password(resultSet.getString("Password"))
+                    .role(Role.valueOf(resultSet.getString("Role")))
+                    .build();
+
+            personList.add(person);
         }
+        return personList;
+
+    }
+
     public List<Person> findByFamily(String family) throws Exception {
         List<Person> personList = new ArrayList<>();
         preparedStatement = connection.prepareStatement("select * from person where family LIKE ? order by id");
@@ -90,9 +101,10 @@ import java.util.List;
                     .name(resultSet.getString("name"))
                     .family(resultSet.getString("family"))
                     .phoneNumber(resultSet.getString("phoneNumber"))
-                    .gmail(resultSet.getString("gmail"))
-                    .userName(resultSet.getString("userName"))
-                    .passWord(resultSet.getString("passWord"))
+                    .email(resultSet.getString("email"))
+                    .username(resultSet.getString("userName"))
+                    .password(resultSet.getString("passWord"))
+                    .role(Role.valueOf(resultSet.getString("Role")))
 
                     .build();
 
@@ -100,31 +112,32 @@ import java.util.List;
         }
         return personList;
     }
-        @Override
-        public Person findById(int id) throws Exception {
-            preparedStatement = connection.prepareStatement("select * from person where id=?");
-            preparedStatement.setInt(1,id);
-            ResultSet resultSet=preparedStatement.executeQuery();
-            Person person = null;
-            if(resultSet.next()){
-                person = Person
-                        .builder()
-                        .id(resultSet.getInt("id"))
-                        .name(resultSet.getString("name"))
-                        .family(resultSet.getString("family"))
-                        .phoneNumber(resultSet.getString("Phone_Number"))
-                        .gmail(resultSet.getString("Gmail"))
-                        .userName(resultSet.getString("User_Name"))
-                        .passWord(resultSet.getString("Password"))
-                        .build();
-            }
-            return person;
 
+    @Override
+    public Person findById(int id) throws Exception {
+        preparedStatement = connection.prepareStatement("select * from person where id=?");
+        preparedStatement.setInt(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        Person person = null;
+        if (resultSet.next()) {
+            person = Person
+                    .builder()
+                    .id(resultSet.getInt("id"))
+                    .name(resultSet.getString("name"))
+                    .family(resultSet.getString("family"))
+                    .phoneNumber(resultSet.getString("Phone_Number"))
+                    .email(resultSet.getString("email"))
+                    .username(resultSet.getString("User_Name"))
+                    .password(resultSet.getString("Password"))
+                    .role(Role.valueOf(resultSet.getString("Role")))
+                    .build();
         }
+        return person;
+    }
 
-        @Override
-        public void close()throws  Exception {
-            preparedStatement.close();
-            connection.close();
-        }
+    @Override
+    public void close() throws Exception {
+        preparedStatement.close();
+        connection.close();
+    }
 }
