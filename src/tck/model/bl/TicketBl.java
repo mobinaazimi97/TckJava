@@ -85,14 +85,19 @@ public class TicketBl implements CRUD<Ticket> {
         }
     }
 
- //   public Ticket findByPersonFamily(String family) throws Exception {
- //       try (TicketDa ticketDa = new TicketDa()) {
-    //           Person person = PersonBl.getPersonBl().findByFamily(family);              //   TODO
-//            Ticket ticket= ticketDa.findByPersonId(person.getId());
-//            ticket.setPerson(PersonBl.getPersonBl().findById(ticket.getPerson().getId()));
-//           return ticket;
-    //           }
- //       }
+    public List<Ticket> findByPersonFamily(String family) throws Exception {
+        try (TicketDa ticketDa = new TicketDa()) {
+            List<Ticket> ticketList = ticketDa.findByPersonFamily(family);
+            if (!ticketList.isEmpty()) {
+                List<Person> person = PersonBl.getPersonBl().findByFamily(family);
+                Ticket ticket = ticketDa.findByPersonId(person.get());                         //   TODO
+                ticket.setPerson(PersonBl.getPersonBl().findById(ticket.getPerson().getId()));
+                return ticketList;
+            }else {
+                throw new NoTicketFoundException();
+            }
+        }
+    }
 
     public Ticket findByStatus(Status status) throws Exception {
         try (TicketDa ticketDa = new TicketDa()) {

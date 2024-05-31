@@ -249,12 +249,12 @@ public class TicketDa implements AutoCloseable, CRUD<Ticket> {
     }
 
     public List<Ticket> findByPersonFamily(String personFamily) throws Exception {
-        preparedStatement = connection.prepareStatement("SELECT * FROM TICKET WHERE PERSON_FAMILY=?");
+        List<Ticket> ticketList = new ArrayList<>();
+        preparedStatement = connection.prepareStatement("SELECT * FROM TICKET WHERE PERSON_FAMILY=? order by id");
         preparedStatement.setString(1, personFamily);
         ResultSet resultSet = preparedStatement.executeQuery();
-        Ticket ticket= null;
-        if (resultSet.next()) {
-            ticket= Ticket
+        while (resultSet.next()) {
+            Ticket ticket= Ticket
                     .builder()
                     .id(resultSet.getInt("id"))
                     .person(Person.builder().id(resultSet.getInt("PERSON_ID")).build())
@@ -266,8 +266,9 @@ public class TicketDa implements AutoCloseable, CRUD<Ticket> {
                     .text(resultSet.getString("text"))
 //                .dateRange(resultSet.getTimestamp("date_range").toLocalDateTime())      //  TODO
                     .build();
+            ticketList.add(ticket);
         }
-        return ticket;
+        return ticketList;
     }
 
     @Override
