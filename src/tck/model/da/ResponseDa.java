@@ -1,6 +1,8 @@
 package tck.model.da;
 
 import tck.model.entity.*;
+import tck.model.entity.enums.Group;
+import tck.model.entity.enums.Role;
 import tck.model.entity.enums.Status;
 import tck.model.tool.CRUD;
 import tck.model.tool.ConnectionProvider;
@@ -9,6 +11,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,9 +32,9 @@ public class ResponseDa implements AutoCloseable, CRUD<Response> {
                 "INSERT INTO RESPONSE (RESPONSE_ID,TICKET_ID,PERSON_ID,RESPONSE_DATE_TIME,STATUS,ANSWER) VALUES (RESPONSE_SEQ.NEXTVAL,?,?,?,?,?,?) "
         );
         preparedStatement.setInt(1, response.getId());
-        preparedStatement.setString(4, String.valueOf(response.getTicket()));
-        preparedStatement.setString(3, String.valueOf(response.getPerson()));
-        preparedStatement.setTimestamp(2, Timestamp.valueOf(response.getDateTime()));
+        preparedStatement.setInt(2, response.getTicket().getId());
+        preparedStatement.setInt(3, response.getPerson().getId());
+        preparedStatement.setTimestamp(4, Timestamp.valueOf(response.getDateTime()));
         preparedStatement.setString(5, String.valueOf(response.getStatus()));
         preparedStatement.setString(6, response.getAnswer());
         preparedStatement.execute();
@@ -42,8 +46,8 @@ public class ResponseDa implements AutoCloseable, CRUD<Response> {
         preparedStatement = connection.prepareStatement(
                 "UPDATE RESPONSE SET RESPONSE_ID=?,TICKET_ID=?,PERSON_ID=?,RESPONSE_DATE_TIME=?,STATUS=? , ANSWER=? WHERE id=?");
         preparedStatement.setInt(1, response.getId());
-        preparedStatement.setString(2, String.valueOf(response.getTicket()));
-        preparedStatement.setString(3, String.valueOf(response.getPerson()));
+        preparedStatement.setInt(2, response.getTicket().getId());
+        preparedStatement.setInt(3, response.getPerson().getId());
         preparedStatement.setTimestamp(4, Timestamp.valueOf(response.getDateTime()));
         preparedStatement.setString(5, String.valueOf(response.getStatus()));
         preparedStatement.setString(6, response.getAnswer());
@@ -70,8 +74,8 @@ public class ResponseDa implements AutoCloseable, CRUD<Response> {
             Response respones = Response
                     .builder()
                     .id(resultSet.getInt("id"))
-                    .person(Person.builder().id(resultSet.getInt("personId")).build())
-                    .ticket(Ticket.builder().id(resultSet.getInt("ticketId")).build())
+                    .person(Person.builder().id(resultSet.getInt("PERSON_ID")).build())
+                    .ticket(Ticket.builder().id(resultSet.getInt("TICKET_ID")).build())
                     .dateTime(resultSet.getTimestamp("dateTime").toLocalDateTime())
                     .status(Status.valueOf(resultSet.getString("status")))
                     .answer(resultSet.getString("answer"))
@@ -97,6 +101,82 @@ public class ResponseDa implements AutoCloseable, CRUD<Response> {
                     .dateTime(resultSet.getTimestamp("Date_Time").toLocalDateTime())
                     .status(Status.valueOf(resultSet.getString("status")))
                     .answer(resultSet.getString("answer"))
+                    .build();
+        }
+        return response;
+    }
+
+    public Response findByPersonId(int personId) throws Exception {
+        preparedStatement = connection.prepareStatement("select * from RESPONSE where PERSON_ID=?");
+        preparedStatement.setInt(1, personId);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        Response response = null;
+        if (resultSet.next()) {
+            response = Response
+                    .builder()
+                    .id(resultSet.getInt("id"))
+                    .person(Person.builder().id(resultSet.getInt("PERSON_ID")).build())
+                    .ticket(Ticket.builder().id(resultSet.getInt("TICKET_ID")).build())
+                    .answer(resultSet.getString("answer"))
+                    .dateTime(resultSet.getTimestamp("response_Date_Time").toLocalDateTime())
+                    .status(Status.valueOf(resultSet.getString("status")))
+                    .build();
+        }
+        return response;
+    }
+
+    public Response findByTicketId(int ticketId) throws Exception {
+        preparedStatement = connection.prepareStatement("select * from RESPONSE where TICKET_ID=?");
+        preparedStatement.setInt(1, ticketId);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        Response response = null;
+        if (resultSet.next()) {
+            response = Response
+                    .builder()
+                    .id(resultSet.getInt("id"))
+                    .person(Person.builder().id(resultSet.getInt("PERSON_ID")).build())
+                    .ticket(Ticket.builder().id(resultSet.getInt("TICKET_ID")).build())
+                    .answer(resultSet.getString("answer"))
+                    .dateTime(resultSet.getTimestamp("response_Date_Time").toLocalDateTime())
+                    .status(Status.valueOf(resultSet.getString("status")))
+                    .build();
+        }
+        return response;
+    }
+
+    public Response findByAnswer(String answer) throws Exception {
+        preparedStatement = connection.prepareStatement("select * from RESPONSE where answer=?");
+        preparedStatement.setString(1, answer);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        Response response = null;
+        if (resultSet.next()) {
+            response = Response
+                    .builder()
+                    .id(resultSet.getInt("id"))
+                    .person(Person.builder().id(resultSet.getInt("personId")).build())
+                    .ticket(Ticket.builder().id(resultSet.getInt("ticketId")).build())
+                    .dateTime(resultSet.getTimestamp("Date_Time").toLocalDateTime())
+                    .status(Status.valueOf(resultSet.getString("status")))
+                    .answer(resultSet.getString("answer"))
+                    .build();
+        }
+        return response;
+    }
+
+    public Response findByDateTime(LocalDateTime dateTime) throws Exception {
+        preparedStatement = connection.prepareStatement("select * from response where response_date_time =?");
+        preparedStatement.setTimestamp(1, Timestamp.valueOf(dateTime));
+        ResultSet resultSet = preparedStatement.executeQuery();
+        Response response = null;
+        if (resultSet.next()) {
+            response = Response
+                    .builder()
+                    .id(resultSet.getInt("id"))
+                    .person(Person.builder().id(resultSet.getInt("PERSON_ID")).build())
+                    .ticket(Ticket.builder().id(resultSet.getInt("TICKET_ID")).build())
+                    .answer(resultSet.getString("answer"))
+                    .dateTime(resultSet.getTimestamp("response_Date_Time").toLocalDateTime())
+                    .status(Status.valueOf(resultSet.getString("status")))
                     .build();
         }
         return response;

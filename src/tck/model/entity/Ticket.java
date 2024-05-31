@@ -8,6 +8,7 @@ import lombok.experimental.SuperBuilder;
 import tck.model.entity.enums.Group;
 import tck.model.entity.enums.Status;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -22,6 +23,7 @@ public class Ticket {
     private String title;
     private String text;
     private LocalDateTime ticketDateTime;
+    private LocalDate dateRange;
     private Status status;
 
     @Override

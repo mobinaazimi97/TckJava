@@ -2,8 +2,12 @@ package tck.model.bl;
 
 import lombok.Getter;
 import tck.controller.exceptions.NoResponseFoundException;
+import tck.controller.exceptions.NoTicketFoundException;
 import tck.model.da.ResponseDa;
+import tck.model.da.TicketDa;
+import tck.model.entity.Person;
 import tck.model.entity.Response;
+import tck.model.entity.Ticket;
 import tck.model.tool.CRUD;
 
 import java.util.List;
@@ -65,6 +69,9 @@ public class ResponseBl implements CRUD<Response> {
         try (ResponseDa responseDa = new ResponseDa()) {
             Response response = responseDa.findById(id);
             if (response != null) {
+                int personId = response.getPerson().getId();
+                Person person = PersonBl.getPersonBl().findById(personId);
+                response.setPerson(person);
                 return response;
             } else {
                 throw new NoResponseFoundException();

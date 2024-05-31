@@ -3,7 +3,6 @@ package tck.model.da;
 import lombok.extern.log4j.Log4j;
 import tck.model.entity.Person;
 import tck.model.entity.enums.Role;
-import tck.model.entity.enums.Status;
 import tck.model.tool.CRUD;
 import tck.model.tool.ConnectionProvider;
 
@@ -22,9 +21,9 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
 
     @Override
     public Person save(Person person) throws Exception {
-        person.setId(ConnectionProvider.getConnectionProvider().getNextId("person_seq"));
+        person.setId(ConnectionProvider.getConnectionProvider().getNextId("ticket_seq"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO PERSON(ID,PERSON_NAME,PERSON_FAMILY,Email,Phone_Number,USER_NAME,PASSWORD,ROLE) VALUES (PERSON_SEQ.NEXTVAL,?,?,?,?,?,?,?,?)"
+                "INSERT INTO PERSON(ID,PERSON_NAME,PERSON_FAMILY,Email,Phone_Number,USER_NAME,PASSWORD,ROLE,ENABLED) VALUES (PERSON_SEQ.NEXTVAL,?,?,?,?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, person.getId());
         preparedStatement.setString(2, person.getName());
@@ -34,6 +33,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
         preparedStatement.setString(6, person.getUsername());
         preparedStatement.setString(7, person.getPassword());
         preparedStatement.setString(8, String.valueOf(person.getRole()));
+        preparedStatement.setBoolean(9, person.isEnabled());
         preparedStatement.execute();
         return person;
     }
@@ -41,7 +41,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
     @Override
     public Person edit(Person person) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE PERSON SET PERSON_NAME=?,PERSON_FAMILY=?,PHONE_NUMBER=?,EMAIL=?,USER_NAME=?,ROLE=?,,PASSWORD=?WHERE id=?");
+                "UPDATE PERSON SET PERSON_NAME=?,PERSON_FAMILY=?,PHONE_NUMBER=?,EMAIL=?,USER_NAME=?,ROLE=?,PASSWORD=?,ENABLED=? WHERE id=?");
 
         preparedStatement.setString(1, person.getName());
         preparedStatement.setString(2, person.getFamily());
@@ -50,7 +50,8 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
         preparedStatement.setString(5, person.getUsername());
         preparedStatement.setString(6, String.valueOf(person.getRole()));
         preparedStatement.setString(7, person.getPassword());
-        preparedStatement.setInt(7, person.getId());
+        preparedStatement.setInt(8, person.getId());
+        preparedStatement.setBoolean(9, person.isEnabled());
         preparedStatement.execute();
         return person;
     }
@@ -81,12 +82,12 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
                     .username(resultSet.getString("USER_NAME"))
                     .password(resultSet.getString("Password"))
                     .role(Role.valueOf(resultSet.getString("Role")))
+                    .enabled(resultSet.getBoolean("ENABLED"))
                     .build();
 
             personList.add(person);
         }
         return personList;
-
     }
 
     public List<Person> findByFamily(String family) throws Exception {
@@ -105,9 +106,8 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
                     .username(resultSet.getString("userName"))
                     .password(resultSet.getString("passWord"))
                     .role(Role.valueOf(resultSet.getString("Role")))
-
+                    .enabled(resultSet.getBoolean("ENABLED"))
                     .build();
-
             personList.add(person);
         }
         return personList;
@@ -130,6 +130,52 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
                     .username(resultSet.getString("User_Name"))
                     .password(resultSet.getString("Password"))
                     .role(Role.valueOf(resultSet.getString("Role")))
+                    .enabled(resultSet.getBoolean("ENABLED"))
+                    .build();
+        }
+        return person;
+    }
+
+    public Person findByUsername(String username) throws Exception {
+        preparedStatement = connection.prepareStatement("SELECT * FROM  PERSON WHERE USER_NAME=?");
+        preparedStatement.setString(1, username);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        Person person = null;
+        if (resultSet.next()) {
+            person = Person
+                    .builder()
+                    .id(resultSet.getInt("ID"))
+                    .name(resultSet.getString("NAME"))
+                    .family(resultSet.getString("FAMILY"))
+                    .phoneNumber(resultSet.getString("Phone_Number"))
+                    .email(resultSet.getString("email"))
+                    .username(resultSet.getString("User_Name"))
+                    .password(resultSet.getString("Password"))
+                    .role(Role.valueOf(resultSet.getString("Role")))
+                    .enabled(resultSet.getBoolean("ENABLED"))
+                    .build();
+        }
+        return person;
+    }
+
+    public Person findByUsernameAndPassword(String username, String password) throws Exception {
+        preparedStatement = connection.prepareStatement("SELECT * FROM  PERSON WHERE USER_NAME=? AND PASSWORD=?");
+        preparedStatement.setString(1, username);
+        preparedStatement.setString(2, password);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        Person person = null;
+        if (resultSet.next()) {
+            person = Person
+                    .builder()
+                    .id(resultSet.getInt("ID"))
+                    .name(resultSet.getString("NAME"))
+                    .family(resultSet.getString("FAMILY"))
+                    .phoneNumber(resultSet.getString("Phone_Number"))
+                    .email(resultSet.getString("email"))
+                    .username(resultSet.getString("User_Name"))
+                    .password(resultSet.getString("Password"))
+                    .role(Role.valueOf(resultSet.getString("Role")))
+                    .enabled(resultSet.getBoolean("ENABLED"))
                     .build();
         }
         return person;

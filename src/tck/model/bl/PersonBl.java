@@ -1,6 +1,7 @@
 package tck.model.bl;
 
 import lombok.Getter;
+import tck.controller.exceptions.DuplicateUsernameException;
 import tck.controller.exceptions.NoPersonFoundException;
 import tck.model.da.PersonDa;
 import tck.model.entity.Person;
@@ -18,10 +19,13 @@ public class PersonBl implements CRUD<Person> {
     @Override
     public Person save(Person person) throws Exception {
         try (PersonDa personDa = new PersonDa()) {
-            personDa.save(person);
-            return person;
+            if (personDa.findByUsername(person.getUsername()) == null) {
+                personDa.save(person);
+                return person;
+            }
+            throw new DuplicateUsernameException();
+            }
         }
-    }
 
     @Override
     public Person edit(Person person) throws Exception {
@@ -77,6 +81,28 @@ public class PersonBl implements CRUD<Person> {
             List<Person> personList = personDa.findByFamily(family);
             if (!personList.isEmpty()) {
                 return personList;
+            } else {
+                throw new NoPersonFoundException();
+            }
+        }
+    }
+
+    public Person findByUsername(String username) throws Exception {
+        try (PersonDa personDa = new PersonDa()) {
+            Person person = personDa.findByUsername(username);
+            if (person != null) {
+                return person;
+            } else {
+                throw new NoPersonFoundException();
+            }
+        }
+    }
+
+    public Person findByUsernameAndPassword(String username, String password) throws Exception {
+        try (PersonDa personDa = new PersonDa()) {
+            Person person = personDa.findByUsernameAndPassword(username, password);
+            if (person != null) {
+                return person;
             } else {
                 throw new NoPersonFoundException();
             }

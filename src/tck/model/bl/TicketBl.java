@@ -1,14 +1,17 @@
 package tck.model.bl;
 
 import lombok.Getter;
-import tck.controller.exceptions.NoResponseFoundException;
+import tck.controller.exceptions.NoPersonFoundException;
 import tck.controller.exceptions.NoTicketFoundException;
-import tck.model.da.ResponseDa;
+import tck.model.da.PersonDa;
 import tck.model.da.TicketDa;
-import tck.model.entity.Response;
+import tck.model.entity.Person;
 import tck.model.entity.Ticket;
+import tck.model.entity.enums.Group;
+import tck.model.entity.enums.Status;
 import tck.model.tool.CRUD;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class TicketBl implements CRUD<Ticket> {
@@ -56,6 +59,9 @@ public class TicketBl implements CRUD<Ticket> {
         try (TicketDa ticketDa = new TicketDa()) {
             List<Ticket> ticketList = ticketDa.findAll();
             if (!ticketList.isEmpty()) {
+                for (Ticket ticket : ticketList) {
+                    ticket.setPerson(PersonBl.getPersonBl().findById(ticket.getPerson().getId()));
+                }
                 return ticketList;
             } else {
                 throw new NoTicketFoundException();
@@ -68,10 +74,87 @@ public class TicketBl implements CRUD<Ticket> {
         try (TicketDa ticketDa = new TicketDa()) {
             Ticket ticket = ticketDa.findById(id);
             if (ticket != null) {
+                int personId = ticket.getPerson().getId();
+                Person person = PersonBl.getPersonBl().findById(personId);
+                //   ticket.setPerson(PersonBl.getPersonBl().findById(ticket.getPerson().getId()));
+                ticket.setPerson(person);
                 return ticket;
             } else {
                 throw new NoTicketFoundException();
             }
+        }
+    }
+
+ //   public Ticket findByPersonFamily(String family) throws Exception {
+ //       try (TicketDa ticketDa = new TicketDa()) {
+    //           Person person = PersonBl.getPersonBl().findByFamily(family);              //   TODO
+//            Ticket ticket= ticketDa.findByPersonId(person.getId());
+//            ticket.setPerson(PersonBl.getPersonBl().findById(ticket.getPerson().getId()));
+//           return ticket;
+    //           }
+ //       }
+
+    public Ticket findByStatus(Status status) throws Exception {
+        try (TicketDa ticketDa = new TicketDa()) {
+            Ticket ticket = ticketDa.findByStatus(Status.valueOf(String.valueOf(status)));
+            if (ticket != null) {
+                return ticket;
+            } else {
+                throw new NoTicketFoundException();
+            }
+        }
+    }
+
+    public Ticket findByGroup(Group group) throws Exception {
+        try (TicketDa ticketDa = new TicketDa()) {
+            Ticket ticket = ticketDa.findByGroup(Group.valueOf(String.valueOf(group)));
+            if (ticket != null) {
+                return ticket;
+            } else {
+                throw new NoTicketFoundException();
+            }
+        }
+    }
+
+    public Ticket findByTitle(String title) throws Exception {
+        try (TicketDa ticketDa = new TicketDa()) {
+            Ticket ticket = ticketDa.findByTitle(title);
+            if (ticket != null) {
+                return ticket;
+            } else {
+                throw new NoTicketFoundException();
+            }
+        }
+    }
+
+    public Ticket findByText(String text) throws Exception {
+        try (TicketDa ticketDa = new TicketDa()) {
+            Ticket ticket = ticketDa.findByText(text);
+            if (ticket != null) {
+                return ticket;
+            } else {
+                throw new NoTicketFoundException();
+            }
+        }
+    }
+
+    public Ticket findByDateRange(LocalDate dateRange) throws Exception {
+        try (TicketDa ticketDa = new TicketDa()) {
+            Ticket ticket = ticketDa.findByDateRange(dateRange);
+            if (ticket != null) {
+                return ticket;
+            } else {
+                throw new NoTicketFoundException();
+            }
+        }
+    }
+
+    public Ticket findByUsername(String username) throws Exception {
+        try (TicketDa ticketDa = new TicketDa()) {
+            Person person = PersonBl.getPersonBl().findByUsername(username);
+            Ticket ticket = ticketDa.findByPersonId(person.getId());
+            ticket.setPerson(PersonBl.getPersonBl().findById(ticket.getPerson().getId()));
+            return ticket;
         }
     }
 }

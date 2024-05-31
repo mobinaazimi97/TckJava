@@ -22,6 +22,7 @@ public class Person {
     private String username;
     private String password;
     private Role role;
+    private boolean enabled;
 
 
     @Override
