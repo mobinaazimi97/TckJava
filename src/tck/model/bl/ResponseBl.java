@@ -10,6 +10,7 @@ import tck.model.entity.Response;
 import tck.model.entity.Ticket;
 import tck.model.tool.CRUD;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class ResponseBl implements CRUD<Response> {
@@ -72,6 +73,41 @@ public class ResponseBl implements CRUD<Response> {
                 int personId = response.getPerson().getId();
                 Person person = PersonBl.getPersonBl().findById(personId);
                 response.setPerson(person);
+                return response;
+            } else {
+                throw new NoResponseFoundException();
+            }
+        }
+    }
+
+    public Response findByTicketId(int id) throws Exception {
+        try (ResponseDa responseDa = new ResponseDa()) {
+            Response response = responseDa.findByTicketId(id);
+            if (response != null) {
+                int ticketId = response.getTicket().getId();
+                Ticket ticket = TicketBl.getTicketBl().findById(ticketId);
+                response.setTicket(ticket);
+                return response;
+            } else {
+                throw new NoResponseFoundException();
+            }
+        }
+    }
+
+    public Response findByAanswer(String answer) throws Exception {
+        try (ResponseDa responseDa = new ResponseDa()) {
+            Response response = responseDa.findByAnswer(answer);
+            if (answer != null) {                     //      TODO    :       answer | response ?
+                return response;
+            } else {
+                throw new NoResponseFoundException();
+            }
+        }
+    }
+    public Response findByDateTime(LocalDateTime dateTime) throws Exception {
+        try (ResponseDa responseDa = new ResponseDa()) {
+            Response response = responseDa.findByDateTime(dateTime);
+            if (response != null) {                     //      TODO
                 return response;
             } else {
                 throw new NoResponseFoundException();

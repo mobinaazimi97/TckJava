@@ -1,8 +1,6 @@
 package tck.model.da;
 
 import tck.model.entity.*;
-import tck.model.entity.enums.Group;
-import tck.model.entity.enums.Role;
 import tck.model.entity.enums.Status;
 import tck.model.tool.CRUD;
 import tck.model.tool.ConnectionProvider;
@@ -11,7 +9,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -127,7 +124,7 @@ public class ResponseDa implements AutoCloseable, CRUD<Response> {
 
     public Response findByTicketId(int ticketId) throws Exception {
         preparedStatement = connection.prepareStatement("select * from RESPONSE where TICKET_ID=?");
-        preparedStatement.setInt(1, ticketId);
+        preparedStatement.setInt(1, ticketId);              //  TODO
         ResultSet resultSet = preparedStatement.executeQuery();
         Response response = null;
         if (resultSet.next()) {
