@@ -89,8 +89,8 @@ public class TicketBl implements CRUD<Ticket> {
         try (TicketDa ticketDa = new TicketDa()) {
             List<Ticket> ticketList = ticketDa.findByPersonFamily(family);
             if (!ticketList.isEmpty()) {
-                List<Person> person = PersonBl.getPersonBl().findByFamily(family);
- //               Ticket ticket = ticketDa.findByPersonId(person.get());                         //   TODO
+                List<Person> personList = PersonBl.getPersonBl().findByFamily(family);
+//              Ticket ticket = ticketDa.findByPersonId(personList.get(family));                         //   TODO
  //               ticket.setPerson(PersonBl.getPersonBl().findById(ticket.getPerson().getId()));        //DO
                 return ticketList;
             }else {
