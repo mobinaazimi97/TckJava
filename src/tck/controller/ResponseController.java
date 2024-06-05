@@ -8,12 +8,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("/Response")
-public class ResponseController {
+//@Path("/Response")
+//public class ResponseController {
+//
+//    @GET
+//    @Produces(MediaType.APPLICATION_JSON)
+  //  public Response getResponse(){
+ //       ResponseBl.getResponseBl().getClass();
 
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getResponse(){
-        ResponseBl.getResponseBl().getClass();
-
-}
+//}

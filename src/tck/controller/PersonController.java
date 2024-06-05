@@ -44,7 +44,7 @@ public class PersonController {
             @QueryParam("password") String password,
             @QueryParam("role") Role role,
             @QueryParam("enabled") Boolean enabled) {
-        PersonBl.getPersonBl().save();
+ //       PersonBl.getPersonBl().save();
         return Person
                 .builder()
                 .id(1)
@@ -58,9 +58,12 @@ public class PersonController {
                 .enabled(true)
                 .build();
     }
-    public String findAall() throws SQLException {
-        PersonDa personDa=new PersonDa();
-        List<Person> personList=new ArrayList<>();
-        personList.add(personDa.findAll())
-    }
 }
+
+//    public String findAall() throws SQLException {
+   //     PersonDa personDa = new PersonDa();
+//        List<Person> personList=new ArrayList<>();
+        //       personList.add(personDa.findAll())
+        //   }
+ //   }
+
