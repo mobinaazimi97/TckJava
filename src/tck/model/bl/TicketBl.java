@@ -1,17 +1,19 @@
 package tck.model.bl;
 
 import lombok.Getter;
-import tck.controller.exceptions.NoPersonFoundException;
+import tck.controller.exceptions.NoResponseFoundException;
 import tck.controller.exceptions.NoTicketFoundException;
-import tck.model.da.PersonDa;
+import tck.model.da.ResponseDa;
 import tck.model.da.TicketDa;
 import tck.model.entity.Person;
+import tck.model.entity.Response;
 import tck.model.entity.Ticket;
 import tck.model.entity.enums.Group;
 import tck.model.entity.enums.Status;
 import tck.model.tool.CRUD;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class TicketBl implements CRUD<Ticket> {
@@ -85,19 +87,19 @@ public class TicketBl implements CRUD<Ticket> {
         }
     }
 
-    public List<Ticket> findByPersonFamily(String family) throws Exception {
+    public Ticket findByPersonId(int id) throws Exception {
         try (TicketDa ticketDa = new TicketDa()) {
-            List<Ticket> ticketList = ticketDa.findByPersonFamily(family);
-            if (!ticketList.isEmpty()) {
-                List<Person> personList = PersonBl.getPersonBl().findByFamily(family);
-//              Ticket ticket = ticketDa.findByPersonId(personList.get(family));                         //   TODO
- //               ticket.setPerson(PersonBl.getPersonBl().findById(ticket.getPerson().getId()));        //DO
-                return ticketList;
-            }else {
+            Ticket ticket= ticketDa.findByPersonId(id);
+            if (ticket != null) {
+                int personId= ticket.getPerson().getId();
+                Person person = PersonBl.getPersonBl().findById(id);
+                ticket.setPerson(person);
+                return ticket;
+            } else {
                 throw new NoTicketFoundException();
             }
+            }
         }
-    }
 
     public Ticket findByStatus(Status status) throws Exception {
         try (TicketDa ticketDa = new TicketDa()) {
@@ -143,9 +145,9 @@ public class TicketBl implements CRUD<Ticket> {
         }
     }
 
-    public Ticket findByDateRange(LocalDate dateRange) throws Exception {
+    public Ticket findByDateRange(LocalDateTime startDateTime, LocalDateTime endDateTime) throws Exception {
         try (TicketDa ticketDa = new TicketDa()) {
-            Ticket ticket = ticketDa.findByDateRange(dateRange);
+            Ticket ticket = ticketDa.findByDateRange(startDateTime, endDateTime);
             if (ticket != null) {
                 return ticket;
             } else {
@@ -153,7 +155,6 @@ public class TicketBl implements CRUD<Ticket> {
             }
         }
     }
-
     public Ticket findByUsername(String username) throws Exception {
         try (TicketDa ticketDa = new TicketDa()) {
             Person person = PersonBl.getPersonBl().findByUsername(username);

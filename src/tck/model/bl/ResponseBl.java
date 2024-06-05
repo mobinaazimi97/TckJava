@@ -94,10 +94,10 @@ public class ResponseBl implements CRUD<Response> {
         }
     }
 
-    public Response findByAanswer(String answer) throws Exception {
+    public Response findByAnswer(String answer) throws Exception {
         try (ResponseDa responseDa = new ResponseDa()) {
             Response response = responseDa.findByAnswer(answer);
-            if (answer != null) {                     //      TODO    :       answer | response ?
+            if (response != null) {                     //      TODO    :       answer | response ?
                 return response;
             } else {
                 throw new NoResponseFoundException();

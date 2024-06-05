@@ -124,7 +124,7 @@ public class ResponseDa implements AutoCloseable, CRUD<Response> {
 
     public Response findByTicketId(int ticketId) throws Exception {
         preparedStatement = connection.prepareStatement("select * from RESPONSE where TICKET_ID=?");
-        preparedStatement.setInt(1, ticketId);              //  TODO
+        preparedStatement.setInt(1, ticketId);          //TODO
         ResultSet resultSet = preparedStatement.executeQuery();
         Response response = null;
         if (resultSet.next()) {

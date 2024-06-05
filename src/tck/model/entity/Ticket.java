@@ -23,7 +23,6 @@ public class Ticket {
     private String title;
     private String text;
     private LocalDateTime ticketDateTime;
-    private LocalDate dateRange;
     private Status status;
 
     @Override

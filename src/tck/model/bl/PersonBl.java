@@ -1,7 +1,6 @@
 package tck.model.bl;
 
 import lombok.Getter;
-import tck.controller.exceptions.DuplicateUsernameException;
 import tck.controller.exceptions.NoPersonFoundException;
 import tck.model.da.PersonDa;
 import tck.model.entity.Person;
