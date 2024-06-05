@@ -23,7 +23,7 @@ public class Ticket {
     private String title;
     private String text;
     private LocalDateTime ticketDateTime;
-    private Status status;
+// private Status status;                                           //TODO
 
     @Override
     public String toString() {

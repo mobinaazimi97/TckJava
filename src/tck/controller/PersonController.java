@@ -1,17 +1,10 @@
 package tck.controller;
 
-import com.google.gson.Gson;
-import tck.model.bl.PersonBl;
-import tck.model.da.PersonDa;
 import tck.model.entity.Person;
 import tck.model.entity.enums.Role;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 @Path("   /  person")
 public class PersonController {

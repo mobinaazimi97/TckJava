@@ -20,7 +20,7 @@ public class Response {
     private Person person;
     private String answer;
     private LocalDateTime dateTime;
-    private Status status;
+    private Status status;                          //TODO
 
     @Override
     public String toString() {

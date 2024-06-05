@@ -101,16 +101,16 @@ public class TicketBl implements CRUD<Ticket> {
             }
         }
 
-    public Ticket findByStatus(Status status) throws Exception {
-        try (TicketDa ticketDa = new TicketDa()) {
-            Ticket ticket = ticketDa.findByStatus(Status.valueOf(String.valueOf(status)));
-            if (ticket != null) {
-                return ticket;
-            } else {
-                throw new NoTicketFoundException();
-            }
-        }
-    }
+//    public Ticket findByStatus(Status status) throws Exception {                      //  TODO
+//        try (TicketDa ticketDa = new TicketDa()) {
+//            Ticket ticket = ticketDa.findByStatus(Status.valueOf(String.valueOf(status)));
+//            if (ticket != null) {
+//                return ticket;
+//            } else {
+//                throw new NoTicketFoundException();
+//            }
+//        }
+//    }
 
     public Ticket findByGroup(Group group) throws Exception {
         try (TicketDa ticketDa = new TicketDa()) {
