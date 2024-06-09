@@ -23,49 +23,54 @@ public class Ticket {
         return id;
     }
 
-    public void setId(int id) {
+    public Ticket setId(int id) {
         this.id = id;
+        return this;
     }
 
     public Group getGroup() {
         return group;
     }
 
-    public void setGroup(Group group) {
+    public Ticket setGroup(Group group) {
         this.group = group;
+        return this;
     }
 
     public Person getPerson() {
         return person;
     }
 
-    public void setPerson(Person person) {
-  //      person.toBuilder()                //TODO
+    public Ticket setPerson(Person person) {
         this.person = person;
+        return this;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
+    public Ticket setTitle(String title) {
         this.title = title;
+        return this;
     }
 
     public String getText() {
         return text;
     }
 
-    public void setText(String text) {
+    public Ticket setText(String text) {
         this.text = text;
+        return this;
     }
 
     public LocalDateTime getTicketDateTime() {
         return ticketDateTime;
     }
 
-    public void setTicketDateTime(LocalDateTime ticketDateTime) {
+    public Ticket setTicketDateTime(LocalDateTime ticketDateTime) {
         this.ticketDateTime = ticketDateTime;
+        return this;
     }
 }
 

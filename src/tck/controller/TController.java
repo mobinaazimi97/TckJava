@@ -11,7 +11,7 @@ public class TController {
     public static void save(Group group, Person person, String title, String text, LocalDateTime ticketDateTime) {
         try {
             Ticket ticket = new Ticket();
-            ticket.setGroup(group).setPerson(person).setTitle(title).setText(text).setLocalDateTime(ticketDateTime);    //TODO
+            ticket.setGroup(group).setPerson(person).setTitle(title).setText(text).setTicketDateTime(ticketDateTime);    //TODO
             TicketBl.getTicketBl().save(ticket);
             System.out.println("ticket saved.");
         } catch (Exception e) {
