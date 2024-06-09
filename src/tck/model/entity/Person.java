@@ -64,9 +64,9 @@ public class Person implements Serializable {
     public String getPhoneNumber() {
         return phoneNumber;
     }
-
     public Person setPhoneNumber(String phoneNumber) throws Exception {
-        if(Pattern.matches("^[0-9]{11}$",phoneNumber)) {
+//        if(Pattern.matches("^[0-9]{11}$",phoneNumber)) {                //TODO : CHECK!!!
+        if(Pattern.matches("^[\\d]{10} | [\\d]{3}-[\\d]{6}- [\\d]$",phoneNumber)){      //TODO : [ ]
             this.phoneNumber  = phoneNumber;
         }else{
             throw new Exception("Invalid PhoneNumber");

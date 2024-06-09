@@ -8,10 +8,13 @@ import tck.model.da.TicketDa;
 import tck.model.entity.Person;
 import tck.model.entity.Response;
 import tck.model.entity.Ticket;
+import tck.model.entity.enums.Status;
 import tck.model.tool.CRUD;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import static tck.model.entity.enums.Status.answer;
 
 public class ResponseBl implements CRUD<Response> {
     @Getter
@@ -85,8 +88,31 @@ public class ResponseBl implements CRUD<Response> {
             Response response = responseDa.findByTicketId(id);
             if (response != null) {
                 int ticketId = response.getTicket().getId();
-                Ticket ticket = TicketBl.getTicketBl().findById(ticketId);
+                Ticket ticket = TicketBl.getTicketBl().findById(ticketId);              //TODO
                 response.setTicket(ticket);
+                return response;
+            } else {
+                throw new NoResponseFoundException();
+            }
+        }
+    }
+    public Response findByPersonId(int id) throws Exception {
+        try (ResponseDa responseDa = new ResponseDa()) {
+            Response response = responseDa.findByPersonId(id);
+            if (response != null) {
+                int personId = response.getPerson().getId();
+                Person person = PersonBl.getPersonBl().findById(id);
+                response.setPerson(person);
+                return response;
+            } else {
+                throw new NoResponseFoundException();
+            }
+        }
+    }
+    public Response findByStatus(Status status) throws Exception {                      //  TODO
+        try (ResponseDa responseDa = new ResponseDa()) {
+            Response response = responseDa.findByStatus(Status.valueOf(String.valueOf(status)));
+            if (response!= null) {
                 return response;
             } else {
                 throw new NoResponseFoundException();

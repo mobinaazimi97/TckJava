@@ -102,6 +102,24 @@ public class ResponseDa implements AutoCloseable, CRUD<Response> {
         }
         return response;
     }
+    public Response findByStatus(Status status) throws Exception {
+        preparedStatement = connection.prepareStatement("select * from RESPONSE where status=?");
+        preparedStatement.setString(1, String.valueOf(status));
+        ResultSet resultSet = preparedStatement.executeQuery();
+        Response response = null;
+        if (resultSet.next()) {
+            response = Response
+                    .builder()
+                    .id(resultSet.getInt("id"))
+                    .person(Person.builder().id(resultSet.getInt("personId")).build())
+                    .ticket(Ticket.builder().id(resultSet.getInt("ticketId")).build())
+                    .dateTime(resultSet.getTimestamp("Date_Time").toLocalDateTime())
+                    .status(Status.valueOf(resultSet.getString("status")))
+                    .answer(resultSet.getString("answer"))
+                    .build();
+        }
+        return response;
+    }
 
     public Response findByPersonId(int personId) throws Exception {
         preparedStatement = connection.prepareStatement("select * from RESPONSE where PERSON_ID=?");

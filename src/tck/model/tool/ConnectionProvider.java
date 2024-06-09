@@ -21,14 +21,14 @@ public class ConnectionProvider {
         basicDataSource.setUrl("jdbc:oracle:thin:@localhost:1521:xe");
         basicDataSource.setUsername("javase");
         basicDataSource.setPassword("java123");
-        basicDataSource.setMinIdle(10);
+        basicDataSource.setMinIdle(5);
         basicDataSource.setMaxTotal(20);
         return basicDataSource.getConnection();
     }
 
     public int getNextId(String sequenceName) throws SQLException {
-        Connection connection = getConnection();
-        PreparedStatement preparedStatement = getConnection().prepareStatement("SELECT" + sequenceName + "NEXTVAL AS NEXT_ID FROM DUAL");
+        Connection connection= getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT" + sequenceName + "NEXTVAL AS NEXT_ID FROM DUAL");
         ResultSet resultSet = preparedStatement.executeQuery();
         resultSet.next();
         return resultSet.getInt("NEXT_ID");

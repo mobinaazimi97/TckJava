@@ -1,17 +1,13 @@
 package tck.model.entity;
 
 import com.google.gson.Gson;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import tck.model.entity.enums.Status;
 
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
-@Getter
-@Setter
 @SuperBuilder
 
 public class Response {
@@ -22,9 +18,52 @@ public class Response {
     private LocalDateTime dateTime;
     private Status status;                          //TODO
 
-    @Override
-    public String toString() {
-        return new Gson().toJson(this);
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Ticket getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }
 

@@ -16,7 +16,7 @@ public class TicketDa implements AutoCloseable, CRUD<Ticket> {
     private final Connection connection;
     private PreparedStatement preparedStatement;
 
-    public TicketDa() throws Exception {
+    public TicketDa() throws SQLException {
         connection = ConnectionProvider.getConnectionProvider().getConnection();
     }
 
@@ -56,7 +56,7 @@ public class TicketDa implements AutoCloseable, CRUD<Ticket> {
     @Override
     public Ticket remove(int id) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "DELETE FROM TICKET WHERE ID = ?"
+                "DELETE FROM TICKET WHERE TICKET_ID = ?"
         );
         preparedStatement.setInt(1, id);
         preparedStatement.execute();
@@ -119,7 +119,7 @@ public class TicketDa implements AutoCloseable, CRUD<Ticket> {
                     .id(resultSet.getInt("ticket_id"))
                     .person(Person.builder().id(resultSet.getInt("PERSON_ID")).build())
                     .ticketDateTime(resultSet.getTimestamp("TicketDate_Time").toLocalDateTime())
-  //TODO                  .status(Status.valueOf(resultSet.getString("status")))
+  //TODO    .status(Status.valueOf(resultSet.getString("status")))
                     .group(Group.valueOf(resultSet.getString("group_name")))
                     .title(resultSet.getString("title"))
                     .text(resultSet.getString("text"))
@@ -221,6 +221,24 @@ public class TicketDa implements AutoCloseable, CRUD<Ticket> {
                     .person(Person.builder().id(resultSet.getInt("PERSON_ID")).build())
                     .ticketDateTime(resultSet.getTimestamp("Ticket_Date_Time").toLocalDateTime())
    //TODO                 .status(Status.valueOf(resultSet.getString("status")))
+                    .group(Group.valueOf(resultSet.getString("group_name")))
+                    .title(resultSet.getString("title"))
+                    .text(resultSet.getString("text"))
+                    .build();
+        }
+        return ticket;
+    }
+    public Ticket findByUsername(String username) throws Exception {
+        preparedStatement = connection.prepareStatement("select * from TICKET where user_name=?");
+        preparedStatement.setString(1, username);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        Ticket ticket = null;
+        if (resultSet.next()) {
+            ticket = Ticket
+                    .builder()
+                    .id(resultSet.getInt("ticket_id"))
+                    .person(Person.builder().username(resultSet.getString("user_name")).build())
+                    .ticketDateTime(resultSet.getTimestamp("TicketDate_Time").toLocalDateTime())
                     .group(Group.valueOf(resultSet.getString("group_name")))
                     .title(resultSet.getString("title"))
                     .text(resultSet.getString("text"))

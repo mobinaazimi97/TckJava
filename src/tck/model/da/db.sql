@@ -17,8 +17,7 @@ ticket_date_time        timestamp,
 person_id                   references  p,
 title                             nvarchar2(20),
 text                             nvarchar2(70),
-group_name              nvarchar2(10),
-status                          varchar2(6));
+group_name              nvarchar2(10));
 create sequence ticket_seq start with 1 increment by 1;
 
 create table response(

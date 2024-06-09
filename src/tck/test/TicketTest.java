@@ -28,7 +28,6 @@ public class TicketTest {
               Ticket.builder()
                       .id(1)
                       .group(Group.Materiel)
-                      .status(Status.answer)
                       .ticketDateTime(LocalDateTime.now())
                       .text("answered")
                       .title("requiery")
