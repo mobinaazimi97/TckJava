@@ -24,7 +24,7 @@ CREATE TABLE TICKET
 );
 create sequence ticket_seq start with 1 increment by 1;
 
-create table response
+create table RESPONSE
 (
     response_id        number primary key,
     response_date_time timestamp,
