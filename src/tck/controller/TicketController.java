@@ -37,8 +37,9 @@ public class TicketController {
             @QueryParam("personId") int personId,
             @QueryParam("title") String title,
             @QueryParam("text") String text,
-            @QueryParam("ticketDateTime") LocalDateTime ticketDateTime) {         //TODO
-        return Ticket
+            @QueryParam("ticketDateTime") LocalDateTime ticketDateTime) throws Exception {         //TODO
+      Ticket ticket =
+              Ticket
                 .builder()
                 .id(1)
              //.group(Group.Materiel)                              //TODO ??
@@ -48,6 +49,7 @@ public class TicketController {
                 .ticketDateTime(LocalDateTime.now())
                 .build();
         TicketBl.getTicketBl().save(ticket);        //TODO
+        return ticket;
     }
 
     @PUT
