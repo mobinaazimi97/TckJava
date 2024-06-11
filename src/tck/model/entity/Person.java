@@ -70,12 +70,10 @@ public class Person implements Serializable {
         }
         return this;
     }
-
-    public String getEmail() {
+      public String getEmail() {
         return email;
     }
-
-    public Person setEmail(String email) throws Exception {
+      public Person setEmail(String email) throws Exception {
         if(Pattern.matches("^[a-zA-Z0-9]{15,20}$",email)) {
             this.email = email;
         }else{

@@ -33,12 +33,11 @@ public class Ticket {
     public Group getGroup() {
         return group;
     }
-
     public Ticket setGroup(Group group) throws Exception {
         if(Pattern.matches("^[a-zA-Z]{}$",group)) {
             this.group= group;
         }else{
-            throw new Exception("Invalid Answer");
+            throw new Exception("Invalid Group");
         }
         return this;
     }
@@ -60,7 +59,7 @@ public class Ticket {
         if(Pattern.matches("^[a-zA-Z\\s]{}$",title)) {
             this.title = title;
         }else{
-            throw new Exception("Invalid Answer");
+            throw new Exception("Invalid Title");
         }
         return this;
     }
@@ -73,7 +72,7 @@ public class Ticket {
         if(Pattern.matches("^[a-zA-Z\\s]{}$",text)) {
             this.text = text;
         }else{
-            throw new Exception("Invalid Answer");
+            throw new Exception("Invalid Text");
         }
         return this;
     }
@@ -94,7 +93,7 @@ public class Ticket {
         if(Pattern.matches("^[a-zA-Z]{}$",group)) {
             this.group = group;
         }else{
-            throw new Exception("Invalid Answer");
+            throw new Exception("Invalid Status");
         }
         return this;
     }
