@@ -34,7 +34,7 @@ public class Ticket {
         return group;
     }
     public Ticket setGroup(Group group) throws Exception {
-        if(Pattern.matches("^[a-zA-Z]{}$",group)) {
+        if(Pattern.matches("^[a-zA-Z]{5,20}$",group)) {
             this.group= group;
         }else{
             throw new Exception("Invalid Group");
@@ -56,7 +56,7 @@ public class Ticket {
     }
 
     public Ticket setTitle(String title) throws Exception {
-        if(Pattern.matches("^[a-zA-Z\\s]{}$",title)) {
+        if(Pattern.matches("^[a-zA-Z\\s]{5,20}$",title)) {
             this.title = title;
         }else{
             throw new Exception("Invalid Title");
@@ -69,7 +69,7 @@ public class Ticket {
     }
 
     public Ticket setText(String text) throws Exception {
-        if(Pattern.matches("^[a-zA-Z\\s]{}$",text)) {
+        if(Pattern.matches("^[a-zA-Z\\s]{10,255}$",text)) {
             this.text = text;
         }else{
             throw new Exception("Invalid Text");
@@ -90,7 +90,7 @@ public class Ticket {
     }
 
     public Ticket setStatus(Status status) throws Exception {
-        if(Pattern.matches("^[a-zA-Z]{}$",group)) {
+        if(Pattern.matches("^[a-zA-Z]{6}$",group)) {
             this.group = group;
         }else{
             throw new Exception("Invalid Status");

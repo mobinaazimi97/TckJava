@@ -43,7 +43,7 @@ public class Response {
     }
 
     public Response setAnswer(String answer) throws Exception {
-        if(Pattern.matches("^[a-zA-Z\\s]{3,200}$",answer)) {
+        if(Pattern.matches("^[a-zA-Z\\s]{10,255}$",answer)) {
             this.answer = answer;
         }else{
             throw new Exception("Invalid Answer");

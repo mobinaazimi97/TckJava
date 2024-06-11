@@ -62,7 +62,7 @@ public class Person implements Serializable {
         return phoneNumber;
     }
     public Person setPhoneNumber(String phoneNumber) throws Exception {
-      if(Pattern.matches("^[0-9]{11}$",phoneNumber)) {                //TODO : CHECK!!!
+      if(Pattern.matches("^[0-9]{10,13}$",phoneNumber)) {                //TODO : CHECK!!!
         if(Pattern.matches("^[\\d]{10} | [\\d]{3}-[\\d]{6}- [\\d]$",phoneNumber)){      //TODO : [ ]
             this.phoneNumber  = phoneNumber;
         }else{
@@ -74,7 +74,7 @@ public class Person implements Serializable {
         return email;
     }
       public Person setEmail(String email) throws Exception {
-        if(Pattern.matches("^[a-zA-Z0-9]{15,20}$",email)) {
+        if(Pattern.matches("^[a-zA-Z0-9]{20,50}$",email)) {
             this.email = email;
         }else{
             throw new Exception("Invalid Email");
@@ -87,7 +87,7 @@ public class Person implements Serializable {
     }
 
     public Person setUsername(String username) throws Exception {
-        if(Pattern.matches("^[a-zA-Z0-9\\s]{5,10}$",username)) {
+        if(Pattern.matches("^[a-zA-Z0-9\\s]{5,20}$",username)) {
             this.username  = username;
         }else{
             throw new Exception("Invalid username");
@@ -100,7 +100,7 @@ public class Person implements Serializable {
     }
 
     public Person setPassword(String password) throws Exception {
-        if(Pattern.matches("^[a-zA-Z0-9]{6,30}$",password)) {
+        if(Pattern.matches("^[a-zA-Z0-9]{6,10}$",password)) {
             this.password = password;
         }else{
             throw new Exception("Invalid Password");
@@ -114,7 +114,7 @@ public class Person implements Serializable {
 
   public Person setRole(Role role) throws Exception {
 
-        if(Pattern.matches("^[a-zA-Z]{6}$",Role.valueOf(String.valueOf(role))) {
+        if(Pattern.matches("^[a-zA-Z]{5}$",Role.valueOf(String.valueOf(role))) {
             this.role  = Role.valueOf(String.valueOf(role));
         }else{
             throw new Exception("Invalid Role");
