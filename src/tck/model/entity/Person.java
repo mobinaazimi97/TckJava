@@ -62,8 +62,8 @@ public class Person implements Serializable {
         return phoneNumber;
     }
     public Person setPhoneNumber(String phoneNumber) throws Exception {
-      if(Pattern.matches("^[0-9]{10,13}$",phoneNumber)) {                //TODO : CHECK!!!
-        if(Pattern.matches("^[\\d]{10} | [\\d]{3}-[\\d]{6}- [\\d]$",phoneNumber)){      //TODO : [ ]
+      if(Pattern.matches("^[0-9]{10,13}$",phoneNumber)) {                                                    //TODO : CHECK!!!
+  //      if(Pattern.matches("^[\\d]{10} | [\\d]{3}-[\\d]{6}- [\\d]$",phoneNumber)){                            //TODO : [ ]
             this.phoneNumber  = phoneNumber;
         }else{
             throw new Exception("Invalid PhoneNumber");
@@ -95,7 +95,7 @@ public class Person implements Serializable {
         return this;
     }
 
-    public Person getPassword() {
+    public String getPassword() {
         return password;
     }
 
@@ -113,7 +113,6 @@ public class Person implements Serializable {
     }
 
   public Person setRole(Role role) throws Exception {
-
         if(Pattern.matches("^[a-zA-Z]{5}$",Role.valueOf(String.valueOf(role))) {
             this.role  = Role.valueOf(String.valueOf(role));
         }else{
