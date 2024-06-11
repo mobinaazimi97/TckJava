@@ -100,7 +100,7 @@ public class Person implements Serializable {
         return this;
     }
 
-    public String getPassword() {
+    public Person getPassword() {
         return password;
     }
 
@@ -117,13 +117,13 @@ public class Person implements Serializable {
         return role;
     }
 
-  public Person setRole(Role role) throws Exception {                                               //  TODO :  NEED ENUMS TO VALIDATE  ??
+  public Person setRole(Role role) throws Exception {
 
-//        if(Pattern.matches("^[a-zA-Z]{6}$",Role.valueOf(String.valueOf(role))) {
-//            this.role  = Role.valueOf(String.valueOf(role));
-//        }else{
-//            throw new Exception("Invalid Role");
-//        }
+        if(Pattern.matches("^[a-zA-Z]{6}$",Role.valueOf(String.valueOf(role))) {
+            this.role  = Role.valueOf(String.valueOf(role));
+        }else{
+            throw new Exception("Invalid Role");
+        }
         return this;
     }
 

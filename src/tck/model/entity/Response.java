@@ -1,11 +1,9 @@
 package tck.model.entity;
 
-import com.google.gson.Gson;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import tck.model.entity.enums.Status;
-
 import java.time.LocalDateTime;
+import java.util.regex.Pattern;
 
 @NoArgsConstructor
 @SuperBuilder
@@ -20,23 +18,23 @@ public class Response {
         return id;
     }
 
-    public void setId(int id) {
+    public Response setId(int id) {
         this.id = id;
+        return this;
     }
-
     public Ticket getTicket() {
         return ticket;
     }
-
-    public void setTicket(Ticket ticket) {
+    public Response setTicket(Ticket ticket) {
         this.ticket = ticket;
+
     }
 
     public Person getPerson() {
         return person;
     }
 
-    public void setPerson(Person person) {
+    public Response setPerson(Person person) {
         this.person = person;
     }
 
@@ -44,15 +42,20 @@ public class Response {
         return answer;
     }
 
-    public void setAnswer(String answer) {
-        this.answer = answer;
+    public Response setAnswer(String answer) throws Exception {
+        if(Pattern.matches("^[a-zA-Z\\s]{3,200}$",answer)) {
+            this.answer = answer;
+        }else{
+            throw new Exception("Invalid Answer");
+        }
+        return this;
     }
 
     public LocalDateTime getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
+    public Response setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
 

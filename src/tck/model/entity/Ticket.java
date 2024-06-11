@@ -1,12 +1,12 @@
 package tck.model.entity;
 
-import com.google.gson.Gson;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import tck.model.entity.enums.Group;
 import tck.model.entity.enums.Status;
 
 import java.time.LocalDateTime;
+import java.util.regex.Pattern;
 
 @NoArgsConstructor
 @SuperBuilder
@@ -34,8 +34,12 @@ public class Ticket {
         return group;
     }
 
-    public Ticket setGroup(Group group) {
-        this.group = group;
+    public Ticket setGroup(Group group) throws Exception {
+        if(Pattern.matches("^[a-zA-Z]{}$",group)) {
+            this.group= group;
+        }else{
+            throw new Exception("Invalid Answer");
+        }
         return this;
     }
 
@@ -52,8 +56,12 @@ public class Ticket {
         return title;
     }
 
-    public Ticket setTitle(String title) {
-        this.title = title;
+    public Ticket setTitle(String title) throws Exception {
+        if(Pattern.matches("^[a-zA-Z\\s]{}$",title)) {
+            this.title = title;
+        }else{
+            throw new Exception("Invalid Answer");
+        }
         return this;
     }
 
@@ -61,8 +69,12 @@ public class Ticket {
         return text;
     }
 
-    public Ticket setText(String text) {
-        this.text = text;
+    public Ticket setText(String text) throws Exception {
+        if(Pattern.matches("^[a-zA-Z\\s]{}$",text)) {
+            this.text = text;
+        }else{
+            throw new Exception("Invalid Answer");
+        }
         return this;
     }
 
@@ -78,8 +90,13 @@ public class Ticket {
         return status;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public Ticket setStatus(Status status) throws Exception {
+        if(Pattern.matches("^[a-zA-Z]{}$",group)) {
+            this.group = group;
+        }else{
+            throw new Exception("Invalid Answer");
+        }
+        return this;
     }
 }
 
