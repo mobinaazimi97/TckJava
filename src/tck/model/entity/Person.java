@@ -1,9 +1,6 @@
 package tck.model.entity;
 
-import com.google.gson.Gson;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import tck.model.entity.enums.Role;
 
@@ -65,7 +62,7 @@ public class Person implements Serializable {
         return phoneNumber;
     }
     public Person setPhoneNumber(String phoneNumber) throws Exception {
-//        if(Pattern.matches("^[0-9]{11}$",phoneNumber)) {                //TODO : CHECK!!!
+      if(Pattern.matches("^[0-9]{11}$",phoneNumber)) {                //TODO : CHECK!!!
         if(Pattern.matches("^[\\d]{10} | [\\d]{3}-[\\d]{6}- [\\d]$",phoneNumber)){      //TODO : [ ]
             this.phoneNumber  = phoneNumber;
         }else{
