@@ -109,17 +109,6 @@ public class ResponseBl implements CRUD<Response> {
             }
         }
     }
-    public Response findByStatus(Status status) throws Exception {                      //  TODO
-        try (ResponseDa responseDa = new ResponseDa()) {
-            Response response = responseDa.findByStatus(Status.valueOf(String.valueOf(status)));
-            if (response!= null) {
-                return response;
-            } else {
-                throw new NoResponseFoundException();
-            }
-        }
-    }
-
     public Response findByAnswer(String answer) throws Exception {
         try (ResponseDa responseDa = new ResponseDa()) {
             Response response = responseDa.findByAnswer(answer);

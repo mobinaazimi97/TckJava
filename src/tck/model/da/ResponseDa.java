@@ -1,7 +1,6 @@
 package tck.model.da;
 
 import tck.model.entity.*;
-import tck.model.entity.enums.Status;
 import tck.model.tool.CRUD;
 import tck.model.tool.ConnectionProvider;
 
@@ -26,14 +25,13 @@ public class ResponseDa implements AutoCloseable, CRUD<Response> {
     public Response save(Response response) throws Exception {
         response.setId(ConnectionProvider.getConnectionProvider().getNextId("Response_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO RESPONSE (RESPONSE_ID,TICKET_ID,PERSON_ID,RESPONSE_DATE_TIME,STATUS,ANSWER) VALUES (RESPONSE_SEQ.NEXTVAL,?,?,?,?,?,?) "
+                "INSERT INTO RESPONSE (RESPONSE_ID,TICKET_ID,PERSON_ID,RESPONSE_DATE_TIME,ANSWER) VALUES (RESPONSE_SEQ.NEXTVAL,?,?,?,?,?) "
         );
         preparedStatement.setInt(1, response.getId());
         preparedStatement.setInt(2, response.getTicket().getId());
         preparedStatement.setInt(3, response.getPerson().getId());
         preparedStatement.setTimestamp(4, Timestamp.valueOf(response.getDateTime()));
-        preparedStatement.setString(5, String.valueOf(response.getStatus()));
-        preparedStatement.setString(6, response.getAnswer());
+        preparedStatement.setString(5, response.getAnswer());
         preparedStatement.execute();
         return response;
     }
@@ -41,13 +39,12 @@ public class ResponseDa implements AutoCloseable, CRUD<Response> {
     @Override
     public Response edit(Response response) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE RESPONSE SET RESPONSE_ID=?,TICKET_ID=?,PERSON_ID=?,RESPONSE_DATE_TIME=?,STATUS=? , ANSWER=? WHERE id=?");
+                "UPDATE RESPONSE SET RESPONSE_ID=?,TICKET_ID=?,PERSON_ID=?,RESPONSE_DATE_TIME=?,ANSWER=? WHERE id=?");
         preparedStatement.setInt(1, response.getId());
         preparedStatement.setInt(2, response.getTicket().getId());
         preparedStatement.setInt(3, response.getPerson().getId());
         preparedStatement.setTimestamp(4, Timestamp.valueOf(response.getDateTime()));
-        preparedStatement.setString(5, String.valueOf(response.getStatus()));
-        preparedStatement.setString(6, response.getAnswer());
+        preparedStatement.setString(5, response.getAnswer());
         preparedStatement.execute();
         return response;
     }
@@ -74,7 +71,6 @@ public class ResponseDa implements AutoCloseable, CRUD<Response> {
                     .person(Person.builder().id(resultSet.getInt("PERSON_ID")).build())
                     .ticket(Ticket.builder().id(resultSet.getInt("TICKET_ID")).build())
                     .dateTime(resultSet.getTimestamp("dateTime").toLocalDateTime())
-                    .status(Status.valueOf(resultSet.getString("status")))
                     .answer(resultSet.getString("answer"))
                     .build();
 
@@ -96,25 +92,6 @@ public class ResponseDa implements AutoCloseable, CRUD<Response> {
                     .person(Person.builder().id(resultSet.getInt("personId")).build())
                     .ticket(Ticket.builder().id(resultSet.getInt("ticketId")).build())
                     .dateTime(resultSet.getTimestamp("Date_Time").toLocalDateTime())
-                    .status(Status.valueOf(resultSet.getString("status")))
-                    .answer(resultSet.getString("answer"))
-                    .build();
-        }
-        return response;
-    }
-    public Response findByStatus(Status status) throws Exception {
-        preparedStatement = connection.prepareStatement("select * from RESPONSE where status=?");
-        preparedStatement.setString(1, String.valueOf(status));
-        ResultSet resultSet = preparedStatement.executeQuery();
-        Response response = null;
-        if (resultSet.next()) {
-            response = Response
-                    .builder()
-                    .id(resultSet.getInt("id"))
-                    .person(Person.builder().id(resultSet.getInt("personId")).build())
-                    .ticket(Ticket.builder().id(resultSet.getInt("ticketId")).build())
-                    .dateTime(resultSet.getTimestamp("Date_Time").toLocalDateTime())
-                    .status(Status.valueOf(resultSet.getString("status")))
                     .answer(resultSet.getString("answer"))
                     .build();
         }
@@ -134,7 +111,6 @@ public class ResponseDa implements AutoCloseable, CRUD<Response> {
                     .ticket(Ticket.builder().id(resultSet.getInt("TICKET_ID")).build())
                     .answer(resultSet.getString("answer"))
                     .dateTime(resultSet.getTimestamp("response_Date_Time").toLocalDateTime())
-                    .status(Status.valueOf(resultSet.getString("status")))
                     .build();
         }
         return response;
@@ -142,7 +118,7 @@ public class ResponseDa implements AutoCloseable, CRUD<Response> {
 
     public Response findByTicketId(int ticketId) throws Exception {
         preparedStatement = connection.prepareStatement("select * from RESPONSE where TICKET_ID=?");
-        preparedStatement.setInt(1, ticketId);          //TODO
+        preparedStatement.setInt(1, ticketId);
         ResultSet resultSet = preparedStatement.executeQuery();
         Response response = null;
         if (resultSet.next()) {
@@ -153,7 +129,6 @@ public class ResponseDa implements AutoCloseable, CRUD<Response> {
                     .ticket(Ticket.builder().id(resultSet.getInt("TICKET_ID")).build())
                     .answer(resultSet.getString("answer"))
                     .dateTime(resultSet.getTimestamp("response_Date_Time").toLocalDateTime())
-                    .status(Status.valueOf(resultSet.getString("status")))
                     .build();
         }
         return response;
@@ -171,7 +146,6 @@ public class ResponseDa implements AutoCloseable, CRUD<Response> {
                     .person(Person.builder().id(resultSet.getInt("personId")).build())
                     .ticket(Ticket.builder().id(resultSet.getInt("ticketId")).build())
                     .dateTime(resultSet.getTimestamp("Date_Time").toLocalDateTime())
-                    .status(Status.valueOf(resultSet.getString("status")))
                     .answer(resultSet.getString("answer"))
                     .build();
         }
@@ -191,7 +165,6 @@ public class ResponseDa implements AutoCloseable, CRUD<Response> {
                     .ticket(Ticket.builder().id(resultSet.getInt("TICKET_ID")).build())
                     .answer(resultSet.getString("answer"))
                     .dateTime(resultSet.getTimestamp("response_Date_Time").toLocalDateTime())
-                    .status(Status.valueOf(resultSet.getString("status")))
                     .build();
         }
         return response;

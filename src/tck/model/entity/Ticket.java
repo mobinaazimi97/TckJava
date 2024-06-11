@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import tck.model.entity.enums.Group;
+import tck.model.entity.enums.Status;
+
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -16,7 +18,7 @@ public class Ticket {
     private String title;
     private String text;
     private LocalDateTime ticketDateTime;
-// private Status status;                                           //TODO
+    private Status status;
 
 
     public int getId() {
@@ -71,6 +73,13 @@ public class Ticket {
     public Ticket setTicketDateTime(LocalDateTime ticketDateTime) {
         this.ticketDateTime = ticketDateTime;
         return this;
+    }
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }
 

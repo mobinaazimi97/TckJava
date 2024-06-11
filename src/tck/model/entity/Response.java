@@ -16,8 +16,6 @@ public class Response {
     private Person person;
     private String answer;
     private LocalDateTime dateTime;
-    private Status status;                          //TODO
-
     public int getId() {
         return id;
     }
@@ -58,12 +56,5 @@ public class Response {
         this.dateTime = dateTime;
     }
 
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
 }
 

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="984.0" prefWidth="1267.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <GridPane layoutY="36.0" prefHeight="796.0" prefWidth="409.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints />
+          <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="120.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Ticket id" GridPane.rowIndex="1" />
+            <Label text="Person id" GridPane.rowIndex="2" />
+            <Label text="Title" GridPane.rowIndex="3" />
+            <Label text="Ticket date time" GridPane.rowIndex="4" />
+            <Label text="Group" GridPane.rowIndex="5" />
+            <Label text="text" GridPane.rowIndex="7" />
+            <TextField fx:id="ticketIdTxt" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="personIdTxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="titleTxt" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <DatePicker fx:id="ticketDateTime" prefHeight="31.0" prefWidth="336.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <VBox fx:id="groupToggle" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <children>
+                  <HBox prefHeight="123.0" prefWidth="204.0">
+                     <children>
+                        <RadioButton mnemonicParsing="false" selected="true" text="Material">
+                           <padding>
+                              <Insets bottom="3.0" top="10.0" />
+                           </padding>
+                           <toggleGroup>
+                              <ToggleGroup />
+                           </toggleGroup>
+                           <HBox.margin>
+                              <Insets top="30.0" />
+                           </HBox.margin>
+                        </RadioButton>
+                        <RadioButton mnemonicParsing="false" text="Facilities">
+                           <padding>
+                              <Insets bottom="10.0" top="10.0" />
+                           </padding>
+                           <toggleGroup>
+                              <ToggleGroup />
+                           </toggleGroup>
+                           <HBox.margin>
+                              <Insets left="30.0" top="30.0" />
+                           </HBox.margin>
+                        </RadioButton>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <TextField fx:id="textTxt" prefHeight="183.0" prefWidth="202.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+               <GridPane.margin>
+                  <Insets top="10.0" />
+               </GridPane.margin>
+            </TextField>
+            <Label text="Status" GridPane.rowIndex="6" />
+            <VBox prefHeight="129.0" prefWidth="204.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <children>
+                  <CheckBox fx:id="seenChk" mnemonicParsing="false" text="Seen">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </CheckBox>
+                  <CheckBox fx:id="downChk" mnemonicParsing="false" selected="true" text="Down">
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </CheckBox>
+                  <CheckBox fx:id="answerChk" mnemonicParsing="false" text="Answer">
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </CheckBox>
+               </children>
+            </VBox>
+         </children>
+      </GridPane>
+      <TableView fx:id="ticketTbl" layoutX="439.0" layoutY="67.0" prefHeight="770.0" prefWidth="792.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="Id" />
+          <TableColumn prefWidth="77.0" text="findAll" />
+            <TableColumn prefWidth="118.0" text="findByPersonId" />
+            <TableColumn prefWidth="100.0" text="findByGroup" />
+            <TableColumn minWidth="0.0" prefWidth="100.0" text="findByStatus" />
+            <TableColumn minWidth="0.0" prefWidth="104.0" text="findByText" />
+            <TableColumn prefWidth="93.0" text="findByTitle" />
+            <TableColumn prefWidth="124.0" text="fidByDateRange" />
+        </columns>
+      </TableView>
+      <ToolBar layoutX="17.0" layoutY="843.0" prefHeight="45.0" prefWidth="392.0">
+        <items>
+          <Button fx:id="saveBtn" mnemonicParsing="false" prefHeight="31.0" prefWidth="119.0" text="save" />
+            <Button fx:id="editBtn" mnemonicParsing="false" prefHeight="31.0" prefWidth="116.0" text="edit" />
+            <Button fx:id="removeBtn" mnemonicParsing="false" prefHeight="31.0" prefWidth="129.0" text="remove" />
+        </items>
+      </ToolBar>
+   </children>
+</Pane>
