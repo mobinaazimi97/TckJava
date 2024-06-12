@@ -34,11 +34,11 @@ public class Ticket {
         return group;
     }
     public Ticket setGroup(Group group) throws Exception {
-        if(Pattern.matches("^[a-zA-Z]{5,20}$",group)) {
-            this.group= group;
-        }else{
-            throw new Exception("Invalid Group");
-        }
+//TODO        if(Pattern.matches("^[a-zA-Z]{5,20}$",group)) {
+//            this.group= group;
+//        }else{
+//            throw new Exception("Invalid Group");
+//        }
         return this;
     }
 
@@ -90,11 +90,11 @@ public class Ticket {
     }
 
     public Ticket setStatus(Status status) throws Exception {
-        if(Pattern.matches("^[a-zA-Z]{6}$",group)) {
-            this.group = group;
-        }else{
-            throw new Exception("Invalid Status");
-        }
+//TODO        if(Pattern.matches("^[a-zA-Z]{6}$",status)) {
+//            this.group = status;
+//        }else{
+//            throw new Exception("Invalid Status");
+//        }
         return this;
     }
 }

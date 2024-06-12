@@ -113,12 +113,12 @@ public class Person implements Serializable {
     }
 
   public Person setRole(Role role) throws Exception {
-        if(Pattern.matches("^[a-zA-Z]{5}$",Role.valueOf(String.valueOf(role))) {
-            this.role  = Role.valueOf(String.valueOf(role));
-        }else{
-            throw new Exception("Invalid Role");
-        }
-        return this;
+//        if(Pattern.matches("^[a-zA-Z]{5}$",Role.valueOf(String.valueOf(role))) {
+//            this.role  = Role.valueOf(String.valueOf(role));
+//        }else{
+//            throw new Exception("Invalid Role");
+//        }
+      return this;
     }
 
     public boolean isEnabled() {
