@@ -20,7 +20,6 @@ public class ResponseTest {
                         .person(Person.builder().id(1).build())
                         .answer("")
                         .dateTime(LocalDateTime.now())
-                        .status(Status.answer)
                         .build()
         ));
     }

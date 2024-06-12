@@ -18,12 +18,12 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="984.0" prefWidth="1267.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:controller="tck.controller.TicketController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="883.0" prefWidth="1344.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <GridPane layoutY="36.0" prefHeight="796.0" prefWidth="409.0">
+      <GridPane layoutX="11.0" layoutY="50.0" prefHeight="418.0" prefWidth="397.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="187.0" minWidth="10.0" prefWidth="167.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="329.0" minWidth="10.0" prefWidth="230.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints />
@@ -31,58 +31,25 @@
           <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="120.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="140.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Ticket id" GridPane.rowIndex="1" />
             <Label text="Person id" GridPane.rowIndex="2" />
             <Label text="Title" GridPane.rowIndex="3" />
-            <Label text="Ticket date time" GridPane.rowIndex="4" />
-            <Label text="Group" GridPane.rowIndex="5" />
-            <Label text="text" GridPane.rowIndex="7" />
+            <Label text="Group" GridPane.rowIndex="4" />
+            <Label text="text" GridPane.rowIndex="6" />
             <TextField fx:id="ticketIdTxt" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="personIdTxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="titleTxt" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <DatePicker fx:id="ticketDateTime" prefHeight="31.0" prefWidth="336.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <VBox fx:id="groupToggle" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
-               <children>
-                  <HBox prefHeight="123.0" prefWidth="204.0">
-                     <children>
-                        <RadioButton mnemonicParsing="false" selected="true" text="Material">
-                           <padding>
-                              <Insets bottom="3.0" top="10.0" />
-                           </padding>
-                           <toggleGroup>
-                              <ToggleGroup />
-                           </toggleGroup>
-                           <HBox.margin>
-                              <Insets top="30.0" />
-                           </HBox.margin>
-                        </RadioButton>
-                        <RadioButton mnemonicParsing="false" text="Facilities">
-                           <padding>
-                              <Insets bottom="10.0" top="10.0" />
-                           </padding>
-                           <toggleGroup>
-                              <ToggleGroup />
-                           </toggleGroup>
-                           <HBox.margin>
-                              <Insets left="30.0" top="30.0" />
-                           </HBox.margin>
-                        </RadioButton>
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-            <TextField fx:id="textTxt" prefHeight="183.0" prefWidth="202.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+            <TextField fx:id="textTxt" prefHeight="225.0" prefWidth="265.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                <GridPane.margin>
                   <Insets top="10.0" />
                </GridPane.margin>
             </TextField>
-            <Label text="Status" GridPane.rowIndex="6" />
-            <VBox prefHeight="129.0" prefWidth="204.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+            <Label text="Status" GridPane.rowIndex="5" />
+            <VBox prefHeight="129.0" prefWidth="204.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <children>
                   <CheckBox fx:id="seenChk" mnemonicParsing="false" text="Seen">
                      <VBox.margin>
@@ -91,36 +58,88 @@
                   </CheckBox>
                   <CheckBox fx:id="downChk" mnemonicParsing="false" selected="true" text="Down">
                      <VBox.margin>
-                        <Insets top="30.0" />
+                        <Insets top="10.0" />
                      </VBox.margin>
                   </CheckBox>
                   <CheckBox fx:id="answerChk" mnemonicParsing="false" text="Answer">
                      <VBox.margin>
-                        <Insets top="30.0" />
+                        <Insets top="10.0" />
                      </VBox.margin>
                   </CheckBox>
                </children>
             </VBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <children>
+                  <RadioButton mnemonicParsing="false" prefHeight="120.0" selected="true" text="Material">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="groupToggle" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton mnemonicParsing="false" prefHeight="120.0" text="Facilities" toggleGroup="$groupToggle">
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
+                  </RadioButton>
+               </children>
+            </HBox>
          </children>
       </GridPane>
-      <TableView fx:id="ticketTbl" layoutX="439.0" layoutY="67.0" prefHeight="770.0" prefWidth="792.0">
+      <TableView fx:id="ticketTbl" layoutX="446.0" layoutY="55.0" prefHeight="819.0" prefWidth="855.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Id" />
-          <TableColumn prefWidth="77.0" text="findAll" />
-            <TableColumn prefWidth="118.0" text="findByPersonId" />
-            <TableColumn prefWidth="100.0" text="findByGroup" />
-            <TableColumn minWidth="0.0" prefWidth="100.0" text="findByStatus" />
-            <TableColumn minWidth="0.0" prefWidth="104.0" text="findByText" />
-            <TableColumn prefWidth="93.0" text="findByTitle" />
-            <TableColumn prefWidth="124.0" text="fidByDateRange" />
+          <TableColumn fx:id="ticketIdTbl" prefWidth="75.0" text="Id" />
+          <TableColumn fx:id="ticketAllTbl" prefWidth="77.0" text="All" />
+            <TableColumn fx:id="personIdTbl" text="PersonId" />
+            <TableColumn fx:id="groupTbl" prefWidth="94.0" text="Group" />
+            <TableColumn fx:id="statusTbl" minWidth="0.0" prefWidth="89.0" text="Status" />
+            <TableColumn fx:id="textTbl" minWidth="0.0" prefWidth="94.0" text="Text" />
+            <TableColumn fx:id="titleTbl" prefWidth="94.0" text="Title" />
+            <TableColumn fx:id="startDateTbl" prefWidth="122.0" text="Start Date" />
+            <TableColumn fx:id="endDateTbl" prefWidth="126.0" text="End  Date" />
         </columns>
       </TableView>
-      <ToolBar layoutX="17.0" layoutY="843.0" prefHeight="45.0" prefWidth="392.0">
+      <ToolBar layoutY="837.0" prefHeight="45.0" prefWidth="439.0">
         <items>
-          <Button fx:id="saveBtn" mnemonicParsing="false" prefHeight="31.0" prefWidth="119.0" text="save" />
-            <Button fx:id="editBtn" mnemonicParsing="false" prefHeight="31.0" prefWidth="116.0" text="edit" />
-            <Button fx:id="removeBtn" mnemonicParsing="false" prefHeight="31.0" prefWidth="129.0" text="remove" />
+          <Button fx:id="saveBtn" mnemonicParsing="false" prefHeight="31.0" prefWidth="135.0" text="save" />
+            <Button fx:id="editBtn" mnemonicParsing="false" prefHeight="31.0" prefWidth="133.0" text="edit" />
+            <Button fx:id="removeBtn" mnemonicParsing="false" prefHeight="31.0" prefWidth="142.0" text="remove" />
         </items>
       </ToolBar>
+      <GridPane layoutX="15.0" layoutY="480.0" prefHeight="343.0" prefWidth="397.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="262.0" minWidth="10.0" prefWidth="162.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="352.0" minWidth="10.0" prefWidth="235.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="49.0" minHeight="10.0" prefHeight="49.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="49.0" minHeight="10.0" prefHeight="49.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Search by Ticket id" />
+            <Label text="Search by Person id" GridPane.rowIndex="1" />
+            <Label text="Search by Title" GridPane.rowIndex="2" />
+            <Label text="Search by Start Date" GridPane.rowIndex="3" />
+            <Label text="Search by End Date" GridPane.rowIndex="4" />
+            <Label text="Search by Group" GridPane.rowIndex="5" />
+            <Label text="Search by Status" GridPane.rowIndex="6" />
+            <Label text="Search by Text" GridPane.rowIndex="7" />
+            <TextField fx:id="findByIdTxt" GridPane.columnIndex="1" />
+            <TextField fx:id="findByPersonIdTxt" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="findByTitleTxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="findByTextTxt" prefHeight="30.0" prefWidth="266.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <DatePicker fx:id="findByStartDatePick" prefHeight="31.0" prefWidth="365.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="findByGroup" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="findByStatus" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <DatePicker fx:id="findByEndDatePick" prefHeight="31.0" prefWidth="275.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+         </children>
+      </GridPane>
    </children>
 </Pane>

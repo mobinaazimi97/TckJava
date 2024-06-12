@@ -12,7 +12,7 @@ public class MyApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Scene scene = new Scene(
-                FXMLLoader.load(getClass().getResource("view/profile.FXml"))
+                FXMLLoader.load(getClass().getResource("view/person.FXml"))
         );
         primaryStage.setScene(scene);
         primaryStage.setTitle("profile");

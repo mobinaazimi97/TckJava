@@ -2,6 +2,8 @@ package tck.model.entity;
 
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.regex.Pattern;
 
@@ -25,17 +27,27 @@ public class Response {
     public Ticket getTicket() {
         return ticket;
     }
-    public Response setTicket(Ticket ticket) {
-        this.ticket = ticket;
-
+    public Response setTicket(Ticket ticket) throws Exception {
+        Response response=Response.builder().id(Integer.parseInt(ticket.setId())cket(Ticket.builder().id(id).build()).ticket(Ticket.builder().id(id).build()).dateTime(LocalDate.now()).answer(answer).build();
+        if(Pattern.matches("^[0-9]{1,1000}$",ticketId)) {
+            this.ticket=ticket;
+        }else{
+            throw new Exception("Invalid Ticket Id");
+        }
+        return this;
     }
-
     public Person getPerson() {
         return person;
     }
 
-    public Response setPerson(Person person) {
-        this.person = person;
+    public Response setPerson(Person person) throws Exception {
+        Response response=Response.builder().id(id).person(Person.builder().id(id).build()).ticket(Ticket.builder().id(id).build()).dateTime(LocalDate.now()).answer(answer).build();
+        if(Pattern.matches("^[0-9]{1,1000}$",person)) {
+            this.person=person;
+        }else{
+            throw new Exception("Invalid Person id");
+        }
+        return this;
     }
 
     public String getAnswer() {
@@ -57,6 +69,7 @@ public class Response {
 
     public Response setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
+        return this;
     }
 
 }
