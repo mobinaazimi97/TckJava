@@ -9,6 +9,8 @@ import tck.model.entity.Response;
 import tck.model.entity.Ticket;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ResponseController implements Initializable {
@@ -20,6 +22,13 @@ public class ResponseController implements Initializable {
     private Button saveBtn,editBtn,removeBtn;
     @FXML
     private TableView<Response> responseTbl;
+    @FXML
+    private TableColumn<Response,Integer> responseIdCol,personIdCol,ticketIdCol;
+    @FXML
+    private TableColumn <Response,String> answerCol;
+    @FXML
+    private TableColumn<Response, LocalDate>dateCol;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         saveBtn.setOnAction(event -> {
@@ -68,6 +77,9 @@ public class ResponseController implements Initializable {
                 alert.show();
             }
             });
+    }
+    private void showDataOnTable(List<Response>responseList){
+
     }
 
 
