@@ -2,6 +2,7 @@ package tck.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 
@@ -11,6 +12,8 @@ import java.util.ResourceBundle;
 public class PersonController implements Initializable {
     @FXML
     private TextField idTxt,nameTxt,familyTxt,usernameTxt,passwordTxt,phoneTxt,emailTxt,findByIdTxt,findAllTxt,findByFamilyTxt,findByUsernameTxt;
+    @FXML
+    private RadioButton userRdo,adminRdo;
     @FXML
     private ToggleGroup roleToggle;
     @Override

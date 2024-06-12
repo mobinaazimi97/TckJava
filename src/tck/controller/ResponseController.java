@@ -1,8 +1,11 @@
 package tck.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import tck.model.da.ResponseDa;
 import tck.model.entity.Person;
 import tck.model.entity.Response;
@@ -79,12 +82,25 @@ public class ResponseController implements Initializable {
             });
     }
     private void showDataOnTable(List<Response>responseList){
+        ObservableList<Response>observableList = FXCollections.observableList(responseList);
+        responseIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        personIdCol.setCellValueFactory(new PropertyValueFactory<>("person id"));
+        ticketIdCol.setCellValueFactory(new PropertyValueFactory<>("ticket id"));
+        answerCol.setCellValueFactory(new PropertyValueFactory<>("answer"));
+        dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
+        responseTbl.setItems(observableList);
 
     }
-
-
-    public void save (Response response){
-
-
+    private void resetForm() {
+        responseIdTxt.clear();
+        personIdTxt.clear();
+        ticketIdTxt.clear();
+        answerTxt.clear();
+        responseDatePicker.setValue(null);
+        findByIdTxt.clear();
+        findByPersonIdTxt.clear();
+        findByTicketIdTxt.clear();
+        findByAnswerTxt.clear();
+        findByDatePicker.setValue(null);
     }
 }

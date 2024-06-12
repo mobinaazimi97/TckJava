@@ -49,7 +49,7 @@
             <TextField fx:id="passwordTxt" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <VBox prefHeight="21.0" prefWidth="172.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
                <children>
-                  <RadioButton mnemonicParsing="false" selected="true" text="User">
+                  <RadioButton fx:id="userRdo" mnemonicParsing="false" selected="true" text="User">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
@@ -57,7 +57,7 @@
                         <ToggleGroup fx:id="roleToggle" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton mnemonicParsing="false" text="Admin" toggleGroup="$roleToggle">
+                  <RadioButton fx:id="adminRdo" mnemonicParsing="false" text="Admin" toggleGroup="$roleToggle">
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin>
