@@ -2,10 +2,7 @@ package tck.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import tck.model.da.ResponseDa;
 import tck.model.entity.Person;
 import tck.model.entity.Response;
@@ -21,6 +18,8 @@ public class ResponseController implements Initializable {
     private DatePicker responseDatePicker,findByDatePicker;
     @FXML
     private Button saveBtn,editBtn,removeBtn;
+    @FXML
+    private TableView<Response> responseTbl;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         saveBtn.setOnAction(event -> {
@@ -70,6 +69,7 @@ public class ResponseController implements Initializable {
             }
             });
     }
+
 
     public void save (Response response){
 
