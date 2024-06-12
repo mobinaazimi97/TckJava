@@ -18,71 +18,72 @@ import java.util.ResourceBundle;
 
 public class ResponseController implements Initializable {
     @FXML
-    private TextField responseIdTxt,ticketIdTxt,personIdTxt,answerTxt,findByIdTxt,findAllTxt,findByTicketIdTxt,findByPersonIdTxt,findByAnswerTxt;
+    private TextField responseIdTxt, ticketIdTxt, personIdTxt, answerTxt, findByIdTxt, findAllTxt, findByTicketIdTxt, findByPersonIdTxt, findByAnswerTxt;
     @FXML
-    private DatePicker responseDatePicker,findByDatePicker;
+    private DatePicker responseDatePicker, findByDatePicker;
     @FXML
-    private Button saveBtn,editBtn,removeBtn;
+    private Button saveBtn, editBtn, removeBtn;
     @FXML
     private TableView<Response> responseTbl;
     @FXML
-    private TableColumn<Response,Integer> responseIdCol,personIdCol,ticketIdCol;
+    private TableColumn<Response, Integer> responseIdCol, personIdCol, ticketIdCol;
     @FXML
-    private TableColumn <Response,String> answerCol;
+    private TableColumn<Response, String> answerCol;
     @FXML
-    private TableColumn<Response, LocalDate>dateCol;
+    private TableColumn<Response, LocalDate> dateCol;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         saveBtn.setOnAction(event -> {
-            try (ResponseDa responseDa=new ResponseDa()){
+            try (ResponseDa responseDa = new ResponseDa()) {
                 Response response = Response
                         .builder()
-                        .id(Integer.parseInt(responseIdTxt.getText() ))
+                        .id(Integer.parseInt(responseIdTxt.getText()))
                         .person(Person.builder().id(Integer.parseInt(personIdTxt.getText())).build())
                         .ticket(Ticket.builder().id(Integer.parseInt(ticketIdTxt.getText())).build())
                         .dateTime(responseDatePicker.getValue())                                                //TODO :NOT found in UI  !!
                         .answer(answerTxt.getText())
                         .build();
                 responseDa.save(response);
-                Alert alert = new Alert(Alert.AlertType.INFORMATION,"response saved\n" + response.toString());
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "response saved\n" + response.toString());
                 alert.show();
-            }catch (Exception e) {
-             Alert alert = new Alert(Alert.AlertType.ERROR,"response save error\n" + e.getMessage());
-             alert.show();
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "response save error\n" + e.getMessage());
+                alert.show();
             }
-        } );
+        });
         editBtn.setOnAction(event -> {
-            try (ResponseDa responseDa=new ResponseDa()){
+            try (ResponseDa responseDa = new ResponseDa()) {
                 Response response = Response
                         .builder()
-                        .id(Integer.parseInt(responseIdTxt.getText() ))
+                        .id(Integer.parseInt(responseIdTxt.getText()))
                         .person(Person.builder().id(Integer.parseInt(personIdTxt.getText())).build())
                         .ticket(Ticket.builder().id(Integer.parseInt(ticketIdTxt.getText())).build())
                         .dateTime(responseDatePicker.getValue())                                                //TODO :NOT found in UI  !!
                         .answer(answerTxt.getText())
                         .build();
                 responseDa.save(response);
-                Alert alert = new Alert(Alert.AlertType.INFORMATION,"response edited\n" + response.toString());
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "response edited\n" + response.toString());
                 alert.show();
-            }catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR,"response edit error\n" + e.getMessage());
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "response edit error\n" + e.getMessage());
                 alert.show();
             }
-        } );
+        });
         removeBtn.setOnAction(event -> {
-            try (ResponseDa responseDa=new ResponseDa()) {
+            try (ResponseDa responseDa = new ResponseDa()) {
                 responseDa.remove(Integer.parseInt(responseIdTxt.getText()));
-                Alert alert=new Alert(Alert.AlertType.INFORMATION,"response removed\n" + responseIdTxt.getText());
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "response removed\n" + responseIdTxt.getText());
                 alert.show();
-            }catch (Exception e){
-                Alert alert=new Alert(Alert.AlertType.ERROR,"response remove error\n" + e.getMessage());
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "response remove error\n" + e.getMessage());
                 alert.show();
             }
-            });
+        });
     }
-    private void showDataOnTable(List<Response>responseList){
-        ObservableList<Response>observableList = FXCollections.observableList(responseList);
+
+    private void showDataOnTable(List<Response> responseList) {
+        ObservableList<Response> observableList = FXCollections.observableList(responseList);
         responseIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         personIdCol.setCellValueFactory(new PropertyValueFactory<>("person id"));
         ticketIdCol.setCellValueFactory(new PropertyValueFactory<>("ticket id"));
@@ -91,16 +92,20 @@ public class ResponseController implements Initializable {
         responseTbl.setItems(observableList);
 
     }
-    private void resetForm() {
+
+    private void resetForm() throws Exception {
         responseIdTxt.clear();
         personIdTxt.clear();
         ticketIdTxt.clear();
         answerTxt.clear();
         responseDatePicker.setValue(null);
-        findByIdTxt.clear();
-        findByPersonIdTxt.clear();
-        findByTicketIdTxt.clear();
-        findByAnswerTxt.clear();
-        findByDatePicker.setValue(null);
+        try (ResponseDa responseDa = new ResponseDa()) {
+            showDataOnTable(responseDa.findAll());
+        }
+//        findByIdTxt.clear();                              // TODO
+//        findByPersonIdTxt.clear();
+//        findByTicketIdTxt.clear();
+//        findByAnswerTxt.clear();
+//        findByDatePicker.setValue(null);
     }
 }
