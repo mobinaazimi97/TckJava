@@ -135,8 +135,8 @@ public class ResponseDa implements AutoCloseable, CRUD<Response> {
     }
 
     public Response findByAnswer(String answer) throws Exception {
-        preparedStatement = connection.prepareStatement("select * from RESPONSE where answer=?");
-        preparedStatement.setString(1, answer);
+        preparedStatement = connection.prepareStatement("select * from RESPONSE where answer LIKE? ORDER BY ID");
+        preparedStatement.setString(1, answer + "%");
         ResultSet resultSet = preparedStatement.executeQuery();
         Response response = null;
         if (resultSet.next()) {

@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<Pane fx:controller="tck.controller.ResponseController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="885.0" prefWidth="1324.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" >
+<Pane  fx:controller="tck.controller.ResponseController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="885.0" prefWidth="1324.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane layoutX="14.0" layoutY="58.0" prefHeight="417.0" prefWidth="387.0">
         <columnConstraints>
@@ -33,7 +33,7 @@
             <Label text="Person id" GridPane.rowIndex="2" />
             <Label text="Response date" GridPane.rowIndex="3" />
             <Label text="Answer" GridPane.rowIndex="4" />
-            <TextField fx:id="responseIdTxt" prefHeight="18.0" prefWidth="227.0" GridPane.columnIndex="1" />
+            <TextField fx:id="responseIdTxt" editable="false" prefHeight="18.0" prefWidth="227.0" GridPane.columnIndex="1" />
             <TextField fx:id="ticketIdTxt" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="personIdTxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <DatePicker fx:id="responseDatePicker" prefHeight="31.0" prefWidth="315.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />

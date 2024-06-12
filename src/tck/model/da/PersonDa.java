@@ -137,8 +137,8 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
     }
 
     public Person findByUsername(String username) throws Exception {
-        preparedStatement = connection.prepareStatement("SELECT * FROM  PERSON WHERE USER_NAME=?");
-        preparedStatement.setString(1, username);
+        preparedStatement = connection.prepareStatement("SELECT * FROM  PERSON WHERE USER_NAME LIKE? ORDER BY ID");
+        preparedStatement.setString(1, username + "%");
         ResultSet resultSet = preparedStatement.executeQuery();
         Person person = null;
         if (resultSet.next()) {
@@ -159,9 +159,9 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
     }
 
     public Person findByUsernameAndPassword(String username, String password) throws Exception {
-        preparedStatement = connection.prepareStatement("SELECT * FROM  PERSON WHERE USER_NAME=? AND PASSWORD=?");
-        preparedStatement.setString(1, username);
-        preparedStatement.setString(2, password);
+        preparedStatement = connection.prepareStatement("SELECT * FROM  PERSON WHERE USER_NAME LIKE? AND PASSWORD LIKE? ORDER BY ID");
+        preparedStatement.setString(1, username + "%");
+        preparedStatement.setString(2, password + "%");
         ResultSet resultSet = preparedStatement.executeQuery();
         Person person = null;
         if (resultSet.next()) {

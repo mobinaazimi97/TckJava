@@ -34,6 +34,7 @@ public class LogInController implements Initializable {             //TODO : BL 
                 alert.show();
             }
         });
+        //TODO : ResetForm
 
     }
 }

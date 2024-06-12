@@ -34,6 +34,12 @@ public class ResponseController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        try{
+            resetForm();
+        }catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Load Error\n" + e.getMessage());
+            alert.show();
+        }
         saveBtn.setOnAction(event -> {
             try (ResponseDa responseDa = new ResponseDa()) {
                 Response response = Response
@@ -80,6 +86,22 @@ public class ResponseController implements Initializable {
                 alert.show();
             }
         });
+        findByIdTxt.setOnKeyReleased(event -> {
+            try(ResponseDa responseDa = new ResponseDa()){
+            showDataOnTable(responseDa.findById(Integer.parseInt(findByIdTxt.getText())) ;              // TODO : Error : ( ; )
+            }catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "search response Id error\n" + e.getMessage());
+                alert.show();
+            }
+        });
+            responseTbl.setOnMouseClicked(event -> {
+                Response response = responseTbl.getSelectionModel().getSelectedItem();
+                responseIdTxt.setText(String.valueOf(response.getId()));
+                personIdTxt.setText(String.valueOf(response.getPerson().getId()));
+                ticketIdTxt.setText(String.valueOf(response.getTicket().getId()));
+                responseDatePicker.setValue(response.getDateTime().toLocalDate());          // TODO : TRUE ?
+                answerTxt.setText(String.valueOf(response.getAnswer()));
+            });
     }
 
     private void showDataOnTable(List<Response> responseList) {

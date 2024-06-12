@@ -169,8 +169,8 @@ public class TicketDa implements AutoCloseable, CRUD<Ticket> {
     }
 
     public Ticket findByTitle(String title) throws Exception {
-        preparedStatement = connection.prepareStatement("select * from TICKET where title=?");
-        preparedStatement.setString(1, title);
+        preparedStatement = connection.prepareStatement("select * from TICKET where title LIKE? ORDER BY ID");
+        preparedStatement.setString(1, title + "%");
         ResultSet resultSet = preparedStatement.executeQuery();
         Ticket ticket = null;
         if (resultSet.next()) {
@@ -189,8 +189,8 @@ public class TicketDa implements AutoCloseable, CRUD<Ticket> {
     }
 
     public Ticket findByText(String text) throws Exception {
-        preparedStatement = connection.prepareStatement("select * from TICKET where text=?");
-        preparedStatement.setString(1, text);
+        preparedStatement = connection.prepareStatement("select * from TICKET where text LIKE ? ORDER BY ID");
+        preparedStatement.setString(1, text + "%");
         ResultSet resultSet = preparedStatement.executeQuery();
         Ticket ticket = null;
         if (resultSet.next()) {
@@ -229,8 +229,8 @@ public class TicketDa implements AutoCloseable, CRUD<Ticket> {
         return ticket;
     }
     public Ticket findByUsername(String username) throws Exception {
-        preparedStatement = connection.prepareStatement("select * from TICKET where user_name=?");
-        preparedStatement.setString(1, username);
+        preparedStatement = connection.prepareStatement("select * from TICKET where user_name LIKE? ORDER BY id");
+        preparedStatement.setString(1, username + "%");
         ResultSet resultSet = preparedStatement.executeQuery();
         Ticket ticket = null;
         if (resultSet.next()) {
