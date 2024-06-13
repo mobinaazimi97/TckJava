@@ -1,5 +1,6 @@
 package tck.model.da;
 
+import lombok.extern.log4j.Log4j;
 import tck.model.entity.*;
 import tck.model.tool.CRUD;
 import tck.model.tool.ConnectionProvider;
@@ -11,6 +12,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+@Log4j
 
 public class ResponseDa implements AutoCloseable, CRUD<Response> {
     private final Connection connection;
@@ -18,6 +20,7 @@ public class ResponseDa implements AutoCloseable, CRUD<Response> {
 
     public ResponseDa() throws Exception {
         connection = ConnectionProvider.getConnectionProvider().getConnection();
+        log.debug("Connected To The DataBase");
 
     }
 
@@ -174,6 +177,7 @@ public class ResponseDa implements AutoCloseable, CRUD<Response> {
     public void close() throws Exception {
         preparedStatement.close();
         connection.close();
+        log.debug("Disconnected From The DataBase");
     }
 
 }

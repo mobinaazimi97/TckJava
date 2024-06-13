@@ -17,6 +17,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
 
     public PersonDa() throws SQLException {
         connection = ConnectionProvider.getConnectionProvider().getConnection();
+        log.debug("Connected To The DataBase");
     }
 
     @Override
@@ -185,5 +186,6 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
     public void close() throws Exception {
         preparedStatement.close();
         connection.close();
+        log.debug("Disconnected From Database ");
     }
 }

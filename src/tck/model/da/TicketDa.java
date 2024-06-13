@@ -1,5 +1,6 @@
 package tck.model.da;
 
+import lombok.extern.log4j.Log4j;
 import tck.model.entity.Person;
 import tck.model.entity.enums.Group;
 import tck.model.entity.enums.Status;
@@ -11,6 +12,7 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+@Log4j
 
 public class TicketDa implements AutoCloseable, CRUD<Ticket> {
     private final Connection connection;
@@ -18,6 +20,7 @@ public class TicketDa implements AutoCloseable, CRUD<Ticket> {
 
     public TicketDa() throws SQLException {
         connection = ConnectionProvider.getConnectionProvider().getConnection();
+        log.debug("Connected To The DataBase");
     }
 
     @Override
@@ -250,5 +253,6 @@ public class TicketDa implements AutoCloseable, CRUD<Ticket> {
     public void close() throws Exception {
         preparedStatement.close();
         connection.close();
+        log.debug("Disconnected From The DataBase");
     }
 }
