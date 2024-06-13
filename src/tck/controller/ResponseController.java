@@ -44,7 +44,6 @@ public class ResponseController implements Initializable {
             try (ResponseDa responseDa = new ResponseDa()) {
                 Response response = Response
                         .builder()
-                        .id(Integer.parseInt(responseIdTxt.getText()))
                         .person(Person.builder().id(Integer.parseInt(personIdTxt.getText())).build())
                         .ticket(Ticket.builder().id(Integer.parseInt(ticketIdTxt.getText())).build())
                         .dateTime(responseDatePicker.getValue())                                                //TODO :NOT found in UI  !!

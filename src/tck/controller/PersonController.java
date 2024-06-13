@@ -1,10 +1,9 @@
 package tck.controller;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,8 +15,24 @@ public class PersonController implements Initializable {
     private RadioButton userRdo,adminRdo;
     @FXML
     private ToggleGroup roleToggle;
+    @FXML
+    private MenuItem closeMnu , newMnu;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        newMnu.setOnAction(event -> {
+            try {
+               resetForm();
+            }catch (Exception e){
+                Alert alert = new Alert(Alert.AlertType.ERROR, " Load error\n" + e.getMessage());
+                alert.show();
+            }
+        });
+        closeMnu.setOnAction(event -> {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Are You Sure ?");
+            if ( alert.showAndWait().get().equals(ButtonType.OK)) {
+                Platform.exit();
+            }
+        } );
 
     }
 }
