@@ -100,7 +100,7 @@ public class ResponseController implements Initializable {
         });
         findByIdTxt.setOnKeyReleased(event -> {
             try(ResponseDa responseDa = new ResponseDa()){
-            showDataOnTable(responseDa.findById(Integer.parseInt(findByIdTxt.getText()));// TODO : Error : ( ; )
+            showDataOnTable(responseDa.findById(Integer.parseInt(findByIdTxt.getText())));// TODO : Wrong : List for showDataOnTable
                 log.info("find by response id success" + Integer.parseInt(findByIdTxt.getText()));
             }catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "search response Id error\n" + e.getMessage());
@@ -118,6 +118,36 @@ public class ResponseController implements Initializable {
                   log.error("Find By Answer Error" + e.getMessage());
               }
           });
+        findByTicketIdTxt.setOnKeyReleased(event -> {
+            try(ResponseDa responseDa=new ResponseDa()) {
+                showDataOnTable(responseDa.findByTicketId(Integer.parseInt(findByTicketIdTxt.getText()))) ;           //TODO
+                log.info("found ticket id" + findByTicketIdTxt.getText());
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "search ticket id error\n" + e.getMessage());
+                alert.show();
+                log.error("Find By Ticket Id Error" + e.getMessage());
+            }
+        });
+        findByPersonIdTxt.setOnKeyReleased(event -> {
+            try(ResponseDa responseDa=new ResponseDa()) {
+                showDataOnTable(responseDa.findByPersonId(Integer.parseInt(findByPersonIdTxt.getText()))) ;           //TODO
+                log.info("found person id" + findByPersonIdTxt.getText());
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "search person id error\n" + e.getMessage());
+                alert.show();
+                log.error("Find By Person Id Error" + e.getMessage());
+            }
+        });
+        findByDatePicker.setOnKeyReleased(event -> {
+            try(ResponseDa responseDa=new ResponseDa()) {
+                showDataOnTable(responseDa.findByDateTime(findByDatePicker.getValue()));          //TODO
+                log.info("found Date" + findByDatePicker.getValue());
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "search Date error\n" + e.getMessage());
+                alert.show();
+                log.error("Find By Date Error" + e.getMessage());
+            }
+        });
 
             responseTbl.setOnMouseClicked(event -> {
                 Response response = responseTbl.getSelectionModel().getSelectedItem();
