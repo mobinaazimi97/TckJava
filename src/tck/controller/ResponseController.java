@@ -39,7 +39,7 @@ public class ResponseController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        log.info("App Start");
+        log.info("ResponseClass Start");
         try{
             resetForm();
         }catch (Exception e){
@@ -58,7 +58,7 @@ public class ResponseController implements Initializable {
             if(alert.showAndWait().get().equals(ButtonType.OK)){
                 Platform.exit();
             }
-            log.info("App Closed");
+            log.info("ResponseClass Closed");
         });
         saveBtn.setOnAction(event -> {
             try {

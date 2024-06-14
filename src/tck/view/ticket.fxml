@@ -21,38 +21,42 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane fx:controller="tck.controller.TicketController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="883.0" prefWidth="1344.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" >
+<Pane  fx:controller="tck.controller.TicketController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="883.0" prefWidth="1344.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <GridPane layoutX="11.0" layoutY="50.0" prefHeight="418.0" prefWidth="397.0">
+      <GridPane layoutX="11.0" layoutY="50.0" prefHeight="425.0" prefWidth="397.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="187.0" minWidth="10.0" prefWidth="167.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="329.0" minWidth="10.0" prefWidth="230.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints />
-          <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="110.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="140.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Ticket id" GridPane.rowIndex="1" />
-            <Label text="Person id" GridPane.rowIndex="2" />
-            <Label text="Title" GridPane.rowIndex="3" />
-            <Label text="Group" GridPane.rowIndex="4" />
-            <Label text="text" GridPane.rowIndex="6" />
+            <Label text="Person id" GridPane.rowIndex="3" />
+            <Label text="Title" GridPane.rowIndex="4" />
+            <Label text="Group" GridPane.rowIndex="5" />
+            <Label text="text" GridPane.rowIndex="7">
+               <GridPane.margin>
+                  <Insets bottom="70.0" />
+               </GridPane.margin></Label>
             <TextField fx:id="ticketIdTxt" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="personIdTxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="titleTxt" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="textTxt" prefHeight="225.0" prefWidth="265.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+            <TextField fx:id="personIdTxt" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="titleTxt" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="textTxt" prefHeight="225.0" prefWidth="265.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
                <GridPane.margin>
                   <Insets top="10.0" />
                </GridPane.margin>
             </TextField>
-            <Label text="Status" GridPane.rowIndex="5" />
-            <VBox prefHeight="129.0" prefWidth="204.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <Label text="Status" GridPane.rowIndex="6" />
+            <VBox prefHeight="129.0" prefWidth="204.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                <children>
                   <CheckBox fx:id="seenChk" mnemonicParsing="false" text="Seen">
                      <VBox.margin>
@@ -71,7 +75,7 @@
                   </CheckBox>
                </children>
             </VBox>
-            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <children>
                   <RadioButton fx:id="materialRdo" mnemonicParsing="false" prefHeight="120.0" selected="true" text="Material">
                      <HBox.margin>
@@ -88,6 +92,8 @@
                   </RadioButton>
                </children>
             </HBox>
+            <Label text="Ticket Date" GridPane.rowIndex="2" />
+            <DatePicker fx:id="ticketDatePick" prefHeight="31.0" prefWidth="275.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <TableView fx:id="ticketTbl" layoutX="423.0" layoutY="54.0" prefHeight="829.0" prefWidth="921.0">

@@ -1,5 +1,6 @@
 package tck.controller;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -7,9 +8,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lombok.extern.log4j.Log4j;
+import tck.model.bl.ResponseBl;
 import tck.model.bl.TicketBl;
-import tck.model.entity.Response;
+import tck.model.entity.Person;
 import tck.model.entity.Ticket;
+import tck.model.entity.enums.Group;
+import tck.model.entity.enums.Status;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -24,7 +28,7 @@ public class TicketController implements Initializable {
     @FXML
     private CheckBox seenChk,downChk,answerChk;
     @FXML
-    private DatePicker findBystartDatePick,findByEndDatePick;
+    private DatePicker ticketDatePick,findByStartDatePick,findByEndDatePick;
     @FXML
     private ToggleGroup groupToggle;
     @FXML
@@ -44,7 +48,154 @@ public class TicketController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        log.info("TicketClass Start");
+        try {
+            resetForm();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Ticket Load Error\n" + e.getMessage());
+            alert.show();
+        }
+        newMnu.setOnAction(event -> {
+            try {
+                resetForm();
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Ticket Load Error\n" + e.getMessage());
+            }
+        });
+        closeMnu.setOnAction(event -> {
+            Alert alert=new Alert(Alert.AlertType.CONFIRMATION,"Are You Sure ?");
+            if(alert.showAndWait().get().equals(ButtonType.OK)){
+                Platform.exit();
+            }
+            log.info("TicketClass Closed");
+        });
+        saveBtn.setOnAction(event -> {
+            try {
+                RadioButton group= (RadioButton) groupToggle.getSelectedToggle();
+                Ticket ticket = Ticket
+                        .builder()
+                        .id(Integer.parseInt(ticketIdTxt.getText()))
+                        .person(Person.builder().id(Integer.parseInt(personIdTxt.getText())).build())
+                        .title(titleTxt.getText())
+                        .text(textTxt.getText())
+                        .group(Group.valueOf(group.getText()))
+                        .ticketDateTime(ticketDatePick.getValue())              //TODO
+                // TODO    .ticketDateTime(findByEndDatePick.getValue())
+                        .answer(answerChk.isSelected())
+                        .down(downChk.isSelected())
+                        .seen(seenChk.isSelected())
+                        .build();
+                TicketBl.getTicketBl().save(ticket);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "ticket saved\n" + ticket);
+                alert.show();
+                resetForm();
+                log.info("Ticket Saved" + ticket);
+            }catch (Exception e){
+                Alert alert = new Alert(Alert.AlertType.ERROR, "ticket save error\n" + e.getMessage());
+                alert.show();
+                log.error("Ticket Save Error" + e.getMessage());
+            }
+        });
+        editBtn.setOnAction(event -> {
+            try {
+                RadioButton group= (RadioButton) groupToggle.getSelectedToggle();
+                Ticket ticket = Ticket
+                        .builder()
+                        .id(Integer.parseInt(ticketIdTxt.getText()))
+                        .person(Person.builder().id(Integer.parseInt(personIdTxt.getText())).build())
+                        .title(titleTxt.getText())
+                        .text(textTxt.getText())
+                        .group(Group.valueOf(group.getText()))
+                        .ticketDateTime(ticketDatePick.getValue())              //TODO
+                        // TODO    .ticketDateTime(findByEndDatePick.getValue())
+                        .answer(answerChk.isSelected())
+                        .down(downChk.isSelected())
+                        .seen(seenChk.isSelected())
+                        .build();
+                TicketBl.getTicketBl().edit(ticket);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "ticket updated\n" + ticket);
+                alert.show();
+                resetForm();
+                log.info("Ticket Updated" + ticket);
+            }catch (Exception e){
+                Alert alert = new Alert(Alert.AlertType.ERROR, "ticket edit error\n" + e.getMessage());
+                alert.show();
+                log.error("Ticket Edit Error" + e.getMessage());
+            }
+        });
+        removeBtn.setOnAction(event -> {
+            try  {
+                TicketBl.getTicketBl().remove(Integer.parseInt(ticketIdTxt.getText()));
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "ticket removed\n" + ticketIdTxt.getText());
+                alert.show();
+                log.info("Ticket removed" + ticketIdTxt.getText());
+                resetForm();
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "ticket remove error\n" + e.getMessage());
+                alert.show();
+                log.error("Ticket Remove Error" + e.getMessage());
+            }
+        });
+        findByIdTxt.setOnKeyReleased(event -> {
+            try{
+                showDataOnTable(TicketBl.getTicketBl().findById(Integer.parseInt(findByIdTxt.getText())));// TODO : Wrong : List for showDataOnTable
+                log.info("find by ticket id success" + Integer.parseInt(findByIdTxt.getText()));
+            }catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "search ticket id error\n" + e.getMessage());
+                alert.show();
+                log.error("Find By Ticket Id Error" + e.getMessage());
+            }
+        });
+        findByPersonIdTxt.setOnKeyReleased(event -> {
+            try {
+                showDataOnTable(TicketBl.getTicketBl().findByPersonId(Integer.parseInt(findByPersonIdTxt.getText())));           //TODO
+                log.info("found person id" + findByPersonIdTxt.getText());
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "search person id error\n" + e.getMessage());
+                alert.show();
+                log.error("Find By Person Id Error" + e.getMessage());
+            }
+        });
+        findByTitleTxt.setOnKeyReleased(event -> {
+            try{
+                showDataOnTable(TicketBl.getTicketBl().findByTitle(findByTitleTxt.getText()))// TODO : Wrong : List for showDataOnTable
+                log.info("found title" + findByTitleTxt.getText());
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "search title error\n" + e.getMessage());
+                alert.show();
+                log.error("Find By Title Error" + e.getMessage());
+            }
+        });
+        findByTextTxt.setOnKeyReleased(event -> {
+            try{
+                showDataOnTable(TicketBl.getTicketBl().findByText(findByTextTxt.getText()))// TODO : Wrong : List for showDataOnTable
+                log.info("found text" + findByTextTxt.getText());
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "search text error\n" + e.getMessage());
+                alert.show();
+                log.error("Find By Text Error" + e.getMessage());
+            }
+        });
+        findByGroupTxt.setOnKeyReleased(event -> {
+            try{
+                showDataOnTable(TicketBl.getTicketBl().findByGroup(findByGroupTxt.getText()))// TODO : Wrong :  ENUMS | LIST
+                log.info("found group" + findByGroupTxt.getText());
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "search group error\n" + e.getMessage());
+                alert.show();
+                log.error("Find By Group Error" + e.getMessage());
+            }
+        });
+        findByStatusTxt.setOnKeyReleased(event -> {
+            try{
+                showDataOnTable(TicketBl.getTicketBl().findByGroup(findByStatusTxt.getText()))// TODO : Wrong :  ENUMS | LIST
+                log.info("found status" + findByStatusTxt.getText());
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "search status error\n" + e.getMessage());
+                alert.show();
+                log.error("Find By Status Error" + e.getMessage());
+            }
+        });
     }
     private void showDataOnTable(List<Ticket> ticketList) {
         ObservableList<Ticket> observableList = FXCollections.observableList(ticketList);
