@@ -12,37 +12,39 @@ import tck.model.bl.TicketBl;
 import tck.model.entity.Person;
 import tck.model.entity.Ticket;
 import tck.model.entity.enums.Group;
+import tck.model.entity.enums.Status;
 
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
+
 @Log4j
 
 
 public class TicketController implements Initializable {
     @FXML
-    private TextField ticketIdTxt,personIdTxt,titleTxt,textTxt,findByIdTxt,findByPersonIdTxt,findByTitleTxt,findByTextTxt,findByGroupTxt,findByStatusTxt;
+    private TextField ticketIdTxt, personIdTxt, titleTxt, textTxt, findByIdTxt, findByPersonIdTxt, findByTitleTxt, findByTextTxt, findByGroupTxt, findByStatusTxt;
     @FXML
-    private CheckBox seenChk,downChk,answerChk;
+    private CheckBox seenChk, downChk, answerChk;
     @FXML
-    private DatePicker ticketDatePick,findByStartDatePick,findByEndDatePick;
+    private DatePicker ticketDatePick, findByStartDatePick, findByEndDatePick;
     @FXML
     private ToggleGroup groupToggle;
     @FXML
-    private RadioButton materialRdo,facilitiesRdo;
+    private RadioButton materialRdo, facilitiesRdo;
     @FXML
-    private Button saveBtn,editBtn,removeBtn;
+    private Button saveBtn, editBtn, removeBtn;
     @FXML
-    private MenuItem closeMnu,newMnu;
+    private MenuItem closeMnu, newMnu;
     @FXML
-    private TableView <Ticket>ticketTbl;
+    private TableView<Ticket> ticketTbl;
     @FXML
-    private TableColumn<Ticket,Integer>ticketIdCol,personIdCol;
+    private TableColumn<Ticket, Integer> ticketIdCol, personIdCol;
     @FXML
-    private TableColumn<Ticket,String> groupCol,statusCol,textCol,titleCol;
+    private TableColumn<Ticket, String> groupCol, statusCol, textCol, titleCol;
     @FXML
-    private TableColumn<Ticket, LocalDate>startDateCol,endDateCol;
+    private TableColumn<Ticket, LocalDate> startDateCol, endDateCol;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -61,15 +63,15 @@ public class TicketController implements Initializable {
             }
         });
         closeMnu.setOnAction(event -> {
-            Alert alert=new Alert(Alert.AlertType.CONFIRMATION,"Are You Sure ?");
-            if(alert.showAndWait().get().equals(ButtonType.OK)){
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are You Sure ?");
+            if (alert.showAndWait().get().equals(ButtonType.OK)) {
                 Platform.exit();
             }
             log.info("TicketClass Closed");
         });
         saveBtn.setOnAction(event -> {
             try {
-                RadioButton group= (RadioButton) groupToggle.getSelectedToggle();
+                RadioButton group = (RadioButton) groupToggle.getSelectedToggle();
                 Ticket ticket = Ticket
                         .builder()
                         .id(Integer.parseInt(ticketIdTxt.getText()))
@@ -78,7 +80,7 @@ public class TicketController implements Initializable {
                         .text(textTxt.getText())
                         .group(Group.valueOf(group.getText()))
                         .ticketDateTime(ticketDatePick.getValue())              //TODO
-                // TODO    .ticketDateTime(findByEndDatePick.getValue())
+                        // TODO    .ticketDateTime(findByEndDatePick.getValue())
                         .answer(answerChk.isSelected())
                         .down(downChk.isSelected())
                         .seen(seenChk.isSelected())
@@ -88,7 +90,7 @@ public class TicketController implements Initializable {
                 alert.show();
                 resetForm();
                 log.info("Ticket Saved" + ticket);
-            }catch (Exception e){
+            } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "ticket save error\n" + e.getMessage());
                 alert.show();
                 log.error("Ticket Save Error" + e.getMessage());
@@ -96,7 +98,7 @@ public class TicketController implements Initializable {
         });
         editBtn.setOnAction(event -> {
             try {
-                RadioButton group= (RadioButton) groupToggle.getSelectedToggle();
+                RadioButton group = (RadioButton) groupToggle.getSelectedToggle();
                 Ticket ticket = Ticket
                         .builder()
                         .id(Integer.parseInt(ticketIdTxt.getText()))
@@ -115,14 +117,14 @@ public class TicketController implements Initializable {
                 alert.show();
                 resetForm();
                 log.info("Ticket Updated" + ticket);
-            }catch (Exception e){
+            } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "ticket edit error\n" + e.getMessage());
                 alert.show();
                 log.error("Ticket Edit Error" + e.getMessage());
             }
         });
         removeBtn.setOnAction(event -> {
-            try  {
+            try {
                 TicketBl.getTicketBl().remove(Integer.parseInt(ticketIdTxt.getText()));
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "ticket removed\n" + ticketIdTxt.getText());
                 alert.show();
@@ -135,10 +137,10 @@ public class TicketController implements Initializable {
             }
         });
         findByIdTxt.setOnKeyReleased(event -> {
-            try{
+            try {
                 showDataOnTable(TicketBl.getTicketBl().findById(Integer.parseInt(findByIdTxt.getText())));// TODO : Wrong : List for showDataOnTable
                 log.info("find by ticket id success" + Integer.parseInt(findByIdTxt.getText()));
-            }catch (Exception e) {
+            } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "search ticket id error\n" + e.getMessage());
                 alert.show();
                 log.error("Find By Ticket Id Error" + e.getMessage());
@@ -155,7 +157,7 @@ public class TicketController implements Initializable {
             }
         });
         findByTitleTxt.setOnKeyReleased(event -> {
-            try{
+            try {
                 showDataOnTable(TicketBl.getTicketBl().findByTitle(findByTitleTxt.getText()))// TODO : Wrong : List for showDataOnTable
                 log.info("found title" + findByTitleTxt.getText());
             } catch (Exception e) {
@@ -165,7 +167,7 @@ public class TicketController implements Initializable {
             }
         });
         findByTextTxt.setOnKeyReleased(event -> {
-            try{
+            try {
                 showDataOnTable(TicketBl.getTicketBl().findByText(findByTextTxt.getText()))// TODO : Wrong : List for showDataOnTable
                 log.info("found text" + findByTextTxt.getText());
             } catch (Exception e) {
@@ -175,7 +177,7 @@ public class TicketController implements Initializable {
             }
         });
         findByGroupTxt.setOnKeyReleased(event -> {
-            try{
+            try {
                 showDataOnTable(TicketBl.getTicketBl().findByGroup(findByGroupTxt.getText()))// TODO : Wrong :  ENUMS | LIST
                 log.info("found group" + findByGroupTxt.getText());
             } catch (Exception e) {
@@ -185,7 +187,7 @@ public class TicketController implements Initializable {
             }
         });
         findByStatusTxt.setOnKeyReleased(event -> {
-            try{
+            try {
                 showDataOnTable(TicketBl.getTicketBl().findByGroup(findByStatusTxt.getText()))// TODO : Wrong :  ENUMS | LIST
                 log.info("found status" + findByStatusTxt.getText());
             } catch (Exception e) {
@@ -195,7 +197,7 @@ public class TicketController implements Initializable {
             }
         });
         findByStartDatePick.setOnKeyReleased(event -> {
-            try{
+            try {
                 showDataOnTable(TicketBl.getTicketBl().findByDateRange(findByStartDatePick.getValue()));          //TODO
                 log.info("found Start Date" + findByStartDatePick.getValue());
             } catch (Exception e) {
@@ -205,7 +207,7 @@ public class TicketController implements Initializable {
             }
         });
         findByEndDatePick.setOnKeyReleased(event -> {
-            try{
+            try {
                 showDataOnTable(TicketBl.getTicketBl().findByDateRange(findByEndDatePick.getValue()));          //TODO
                 log.info("found End Date" + findByEndDatePick.getValue());
             } catch (Exception e) {
@@ -214,7 +216,24 @@ public class TicketController implements Initializable {
                 log.error("Find By End Date Error" + e.getMessage());
             }
         });
+        ticketTbl.setOnMouseClicked(event -> {
+            Ticket ticket = ticketTbl.getSelectionModel().getSelectedItem();
+            ticketIdTxt.setText(String.valueOf(ticket.getId()));
+            personIdTxt.setText(String.valueOf(ticket.getPerson().getId()));
+            titleTxt.setText(String.valueOf(ticket.getTitle()));
+            textTxt.setText(String.valueOf(ticket.getText()));
+            ticketDatePick.setValue(ticket.getTicketDateTime().toLocalDate());          // TODO : TRUE ?
+            if (ticket.getGroup().equals(Group.Materiel)) {
+                materialRdo.setSelected(true);
+            } else {
+                facilitiesRdo.setSelected(true);
+            }
+            seenChk.setSelected(ticket.equals(Status.seen));                    //TODO : CHECK !
+            downChk.setSelected(ticket.equals(Status.down));
+            answerChk.setSelected(ticket.equals(Status.answer));
+        });
     }
+
     private void showDataOnTable(List<Ticket> ticketList) {
         ObservableList<Ticket> observableList = FXCollections.observableList(ticketList);
         ticketIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -228,6 +247,7 @@ public class TicketController implements Initializable {
         ticketTbl.setItems(observableList);
 
     }
+
     private void resetForm() throws Exception {
         ticketIdTxt.clear();
         personIdTxt.clear();
@@ -235,9 +255,9 @@ public class TicketController implements Initializable {
         textTxt.clear();
         ticketDatePick.setValue(null);
         materialRdo.setSelected(true);
-       seenChk.setSelected(false);
-       downChk.setSelected(false);
-       answerChk.setSelected(false);
+        seenChk.setSelected(false);
+        downChk.setSelected(false);
+        answerChk.setSelected(false);
         showDataOnTable(TicketBl.getTicketBl().findAll());
     }
 }

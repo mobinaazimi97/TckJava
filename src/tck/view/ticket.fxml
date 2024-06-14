@@ -63,7 +63,7 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </CheckBox>
-                  <CheckBox fx:id="downChk" mnemonicParsing="false" selected="true" text="Down">
+                  <CheckBox fx:id="downChk" mnemonicParsing="false" text="Down">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>

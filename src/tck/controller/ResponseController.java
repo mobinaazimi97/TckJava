@@ -17,6 +17,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
+
 @Log4j
 
 public class ResponseController implements Initializable {
@@ -35,27 +36,27 @@ public class ResponseController implements Initializable {
     @FXML
     private TableColumn<Response, LocalDate> dateCol;
     @FXML
-    private MenuItem closeMnu,newMnu;
+    private MenuItem closeMnu, newMnu;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         log.info("ResponseClass Start");
-        try{
+        try {
             resetForm();
-        }catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Load Error\n" + e.getMessage());
             alert.show();
         }
         newMnu.setOnAction(event -> {
             try {
                 resetForm();
-            }catch (Exception e){
-                Alert alert=new Alert(Alert.AlertType.ERROR , "Load Error\n" + e.getMessage());
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Load Error\n" + e.getMessage());
             }
         });
         closeMnu.setOnAction(event -> {
-            Alert alert=new Alert(Alert.AlertType.CONFIRMATION , "Are You Sure ?");
-            if(alert.showAndWait().get().equals(ButtonType.OK)){
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are You Sure ?");
+            if (alert.showAndWait().get().equals(ButtonType.OK)) {
                 Platform.exit();
             }
             log.info("ResponseClass Closed");
@@ -69,7 +70,7 @@ public class ResponseController implements Initializable {
                         .dateTime(responseDatePicker.getValue())                                                //TODO :NOT found in UI  !!
                         .answer(answerTxt.getText())
                         .build();
-               ResponseBl.getResponseBl().save(response);
+                ResponseBl.getResponseBl().save(response);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "response saved\n" + response);
                 alert.show();
                 resetForm();
@@ -81,7 +82,7 @@ public class ResponseController implements Initializable {
             }
         });
         editBtn.setOnAction(event -> {
-            try{
+            try {
                 Response response = Response
                         .builder()
                         .id(Integer.parseInt(responseIdTxt.getText()))
@@ -102,7 +103,7 @@ public class ResponseController implements Initializable {
             }
         });
         removeBtn.setOnAction(event -> {
-            try  {
+            try {
                 ResponseBl.getResponseBl().remove(Integer.parseInt(responseIdTxt.getText()));
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "response removed\n" + responseIdTxt.getText());
                 alert.show();
@@ -115,28 +116,28 @@ public class ResponseController implements Initializable {
             }
         });
         findByIdTxt.setOnKeyReleased(event -> {
-            try{
-            showDataOnTable(ResponseBl.getResponseBl().findById(Integer.parseInt(findByIdTxt.getText())));// TODO : Wrong : List for showDataOnTable
+            try {
+                showDataOnTable(ResponseBl.getResponseBl().findById(Integer.parseInt(findByIdTxt.getText())));// TODO : Wrong : List for showDataOnTable
                 log.info("find by response id success" + Integer.parseInt(findByIdTxt.getText()));
-            }catch (Exception e) {
+            } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "search response Id error\n" + e.getMessage());
                 alert.show();
                 log.error("Find By Response Id Error" + e.getMessage());
             }
         });
-          findByAnswerTxt.setOnKeyReleased(event -> {
-              try{
-                  showDataOnTable(ResponseBl.getResponseBl().findByAnswer(findByAnswerTxt.getText()));              //TODO
-                  log.info("found answer" + findByAnswerTxt.getText());
-              } catch (Exception e) {
-                  Alert alert = new Alert(Alert.AlertType.ERROR, "search answer error\n" + e.getMessage());
-                  alert.show();
-                  log.error("Find By Answer Error" + e.getMessage());
-              }
-          });
+        findByAnswerTxt.setOnKeyReleased(event -> {
+            try {
+                showDataOnTable(ResponseBl.getResponseBl().findByAnswer(findByAnswerTxt.getText()));              //TODO
+                log.info("found answer" + findByAnswerTxt.getText());
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "search answer error\n" + e.getMessage());
+                alert.show();
+                log.error("Find By Answer Error" + e.getMessage());
+            }
+        });
         findByTicketIdTxt.setOnKeyReleased(event -> {
             try {
-                showDataOnTable(ResponseBl.getResponseBl().findByTicketId(Integer.parseInt(findByTicketIdTxt.getText()))) ;           //TODO
+                showDataOnTable(ResponseBl.getResponseBl().findByTicketId(Integer.parseInt(findByTicketIdTxt.getText())));           //TODO
                 log.info("found ticket id" + findByTicketIdTxt.getText());
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "search ticket id error\n" + e.getMessage());
@@ -146,7 +147,7 @@ public class ResponseController implements Initializable {
         });
         findByPersonIdTxt.setOnKeyReleased(event -> {
             try {
-                showDataOnTable(ResponseBl.getResponseBl().findByPersonId(Integer.parseInt(findByPersonIdTxt.getText()))) ;           //TODO
+                showDataOnTable(ResponseBl.getResponseBl().findByPersonId(Integer.parseInt(findByPersonIdTxt.getText())));           //TODO
                 log.info("found person id" + findByPersonIdTxt.getText());
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "search person id error\n" + e.getMessage());
@@ -155,7 +156,7 @@ public class ResponseController implements Initializable {
             }
         });
         findByDatePicker.setOnKeyReleased(event -> {
-            try{
+            try {
                 showDataOnTable(ResponseBl.getResponseBl().findByDateTime(findByDatePicker.getValue()));          //TODO
                 log.info("found Date" + findByDatePicker.getValue());
             } catch (Exception e) {
@@ -165,15 +166,16 @@ public class ResponseController implements Initializable {
             }
         });
 
-            responseTbl.setOnMouseClicked(event -> {
-                Response response = responseTbl.getSelectionModel().getSelectedItem();
-                responseIdTxt.setText(String.valueOf(response.getId()));
-                personIdTxt.setText(String.valueOf(response.getPerson().getId()));
-                ticketIdTxt.setText(String.valueOf(response.getTicket().getId()));
-                responseDatePicker.setValue(response.getDateTime().toLocalDate());          // TODO : TRUE ?
-                answerTxt.setText(String.valueOf(response.getAnswer()));
-            });
+        responseTbl.setOnMouseClicked(event -> {
+            Response response = responseTbl.getSelectionModel().getSelectedItem();
+            responseIdTxt.setText(String.valueOf(response.getId()));
+            personIdTxt.setText(String.valueOf(response.getPerson().getId()));
+            ticketIdTxt.setText(String.valueOf(response.getTicket().getId()));
+            responseDatePicker.setValue(response.getDateTime().toLocalDate());          // TODO : TRUE ?
+            answerTxt.setText(String.valueOf(response.getAnswer()));
+        });
     }
+
     private void showDataOnTable(List<Response> responseList) {
         ObservableList<Response> observableList = FXCollections.observableList(responseList);
         responseIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
