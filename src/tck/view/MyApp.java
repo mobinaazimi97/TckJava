@@ -24,6 +24,6 @@ public class MyApp extends Application {
         });
 //      primaryStage.setTitle("My App");
         primaryStage.show();
-
     }
+    // TODO : other windows !
 }
