@@ -192,7 +192,7 @@ public class ResponseController implements Initializable {
         answerTxt.clear();
         responseDatePicker.setValue(null);
         showDataOnTable(ResponseBl.getResponseBl().findAll());
-//        findByIdTxt.clear();                              // TODO
+//        findByIdTxt.clear();                              // TODO ?
 //        findByPersonIdTxt.clear();
 //        findByTicketIdTxt.clear();
 //        findByAnswerTxt.clear();

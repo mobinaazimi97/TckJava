@@ -8,12 +8,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lombok.extern.log4j.Log4j;
-import tck.model.bl.ResponseBl;
 import tck.model.bl.TicketBl;
 import tck.model.entity.Person;
 import tck.model.entity.Ticket;
 import tck.model.entity.enums.Group;
-import tck.model.entity.enums.Status;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -196,6 +194,26 @@ public class TicketController implements Initializable {
                 log.error("Find By Status Error" + e.getMessage());
             }
         });
+        findByStartDatePick.setOnKeyReleased(event -> {
+            try{
+                showDataOnTable(TicketBl.getTicketBl().findByDateRange(findByStartDatePick.getValue()));          //TODO
+                log.info("found Start Date" + findByStartDatePick.getValue());
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "search by Start Date error\n" + e.getMessage());
+                alert.show();
+                log.error("Find By Start Date Error" + e.getMessage());
+            }
+        });
+        findByEndDatePick.setOnKeyReleased(event -> {
+            try{
+                showDataOnTable(TicketBl.getTicketBl().findByDateRange(findByEndDatePick.getValue()));          //TODO
+                log.info("found End Date" + findByEndDatePick.getValue());
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "search by End Date error\n" + e.getMessage());
+                alert.show();
+                log.error("Find By End Date Error" + e.getMessage());
+            }
+        });
     }
     private void showDataOnTable(List<Ticket> ticketList) {
         ObservableList<Ticket> observableList = FXCollections.observableList(ticketList);
@@ -215,6 +233,11 @@ public class TicketController implements Initializable {
         personIdTxt.clear();
         titleTxt.clear();
         textTxt.clear();
+        ticketDatePick.setValue(null);
+        materialRdo.setSelected(true);
+       seenChk.setSelected(false);
+       downChk.setSelected(false);
+       answerChk.setSelected(false);
         showDataOnTable(TicketBl.getTicketBl().findAll());
     }
 }
