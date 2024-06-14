@@ -1,5 +1,6 @@
 package tck.controller;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -33,6 +34,8 @@ public class ResponseController implements Initializable {
     private TableColumn<Response, String> answerCol;
     @FXML
     private TableColumn<Response, LocalDate> dateCol;
+    @FXML
+    private MenuItem closeMnu,newMnu;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -43,6 +46,20 @@ public class ResponseController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Load Error\n" + e.getMessage());
             alert.show();
         }
+        newMnu.setOnAction(event -> {
+            try {
+                resetForm();
+            }catch (Exception e){
+                Alert alert=new Alert(Alert.AlertType.ERROR , "Load Error\n" + e.getMessage());
+            }
+        });
+        closeMnu.setOnAction(event -> {
+            Alert alert=new Alert(Alert.AlertType.CONFIRMATION , "Are You Sure ?");
+            if(alert.showAndWait().get().equals(ButtonType.OK)){
+                Platform.exit();
+            }
+            log.info("App Closed");
+        });
         saveBtn.setOnAction(event -> {
             try {
                 Response response = Response
@@ -53,7 +70,7 @@ public class ResponseController implements Initializable {
                         .answer(answerTxt.getText())
                         .build();
                ResponseBl.getResponseBl().save(response);
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "response saved\n" + response.toString());
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "response saved\n" + response);
                 alert.show();
                 resetForm();
                 log.info("Response Saved" + response);
@@ -74,7 +91,7 @@ public class ResponseController implements Initializable {
                         .answer(answerTxt.getText())
                         .build();
                 ResponseBl.getResponseBl().save(response);
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "response edited\n" + response.toString());
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "response edited\n" + response);
                 alert.show();
                 resetForm();
                 log.info("Response Updated" + response);

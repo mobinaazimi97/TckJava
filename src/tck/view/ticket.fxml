@@ -5,6 +5,9 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -70,7 +73,7 @@
             </VBox>
             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <children>
-                  <RadioButton mnemonicParsing="false" prefHeight="120.0" selected="true" text="Material">
+                  <RadioButton fx:id="materialRdo" mnemonicParsing="false" prefHeight="120.0" selected="true" text="Material">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -78,7 +81,7 @@
                         <ToggleGroup fx:id="groupToggle" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton mnemonicParsing="false" prefHeight="120.0" text="Facilities" toggleGroup="$groupToggle">
+                  <RadioButton fx:id="facilitiesRdo" mnemonicParsing="false" prefHeight="120.0" text="Facilities" toggleGroup="$groupToggle">
                      <HBox.margin>
                         <Insets left="30.0" />
                      </HBox.margin>
@@ -87,24 +90,23 @@
             </HBox>
          </children>
       </GridPane>
-      <TableView fx:id="ticketTbl" layoutX="446.0" layoutY="55.0" prefHeight="819.0" prefWidth="855.0">
+      <TableView fx:id="ticketTbl" layoutX="423.0" layoutY="54.0" prefHeight="829.0" prefWidth="921.0">
         <columns>
-          <TableColumn fx:id="ticketIdTbl" prefWidth="75.0" text="Id" />
-          <TableColumn fx:id="ticketAllTbl" prefWidth="77.0" text="All" />
-            <TableColumn fx:id="personIdTbl" text="PersonId" />
-            <TableColumn fx:id="groupTbl" prefWidth="94.0" text="Group" />
-            <TableColumn fx:id="statusTbl" minWidth="0.0" prefWidth="89.0" text="Status" />
-            <TableColumn fx:id="textTbl" minWidth="0.0" prefWidth="94.0" text="Text" />
-            <TableColumn fx:id="titleTbl" prefWidth="94.0" text="Title" />
-            <TableColumn fx:id="startDateTbl" prefWidth="122.0" text="Start Date" />
-            <TableColumn fx:id="endDateTbl" prefWidth="126.0" text="End  Date" />
+          <TableColumn fx:id="ticketIdCol" prefWidth="75.0" text="Id" />
+            <TableColumn fx:id="personIdCol" text="PersonId" />
+            <TableColumn fx:id="groupCol" prefWidth="120.0" text="Group" />
+            <TableColumn fx:id="statusCol" minWidth="0.0" prefWidth="120.0" text="Status" />
+            <TableColumn fx:id="textCol" minWidth="0.0" prefWidth="120.0" text="Text" />
+            <TableColumn fx:id="titleCol" prefWidth="120.0" text="Title" />
+            <TableColumn fx:id="startDateCol" prefWidth="140.0" text="Start Date" />
+            <TableColumn fx:id="endDateCol" prefWidth="140.0" text="End  Date" />
         </columns>
       </TableView>
-      <ToolBar layoutY="837.0" prefHeight="45.0" prefWidth="439.0">
+      <ToolBar layoutY="837.0" prefHeight="45.0" prefWidth="417.0">
         <items>
-          <Button fx:id="saveBtn" mnemonicParsing="false" prefHeight="31.0" prefWidth="135.0" text="save" />
-            <Button fx:id="editBtn" mnemonicParsing="false" prefHeight="31.0" prefWidth="133.0" text="edit" />
-            <Button fx:id="removeBtn" mnemonicParsing="false" prefHeight="31.0" prefWidth="142.0" text="remove" />
+          <Button fx:id="saveBtn" mnemonicParsing="false" prefHeight="31.0" prefWidth="130.0" text="save" />
+            <Button fx:id="editBtn" mnemonicParsing="false" prefHeight="31.0" prefWidth="130.0" text="edit" />
+            <Button fx:id="removeBtn" mnemonicParsing="false" prefHeight="31.0" prefWidth="130.0" text="remove" />
         </items>
       </ToolBar>
       <GridPane layoutX="15.0" layoutY="480.0" prefHeight="343.0" prefWidth="397.0">
@@ -136,10 +138,29 @@
             <TextField fx:id="findByTitleTxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="findByTextTxt" prefHeight="30.0" prefWidth="266.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <DatePicker fx:id="findByStartDatePick" prefHeight="31.0" prefWidth="365.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="findByGroup" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField fx:id="findByStatus" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="findByGroupTxt" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="findByStatusTxt" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <DatePicker fx:id="findByEndDatePick" prefHeight="31.0" prefWidth="275.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
+      <MenuBar layoutY="-2.0" prefHeight="32.0" prefWidth="221.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem fx:id="closeMnu" mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Ticket">
+            <items>
+              <MenuItem fx:id="newMnu" mnemonicParsing="false" text="New Ticket" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
    </children>
 </Pane>

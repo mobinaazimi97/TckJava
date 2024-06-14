@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -10,13 +11,14 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane  fx:controller="tck.controller.PersonController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="649.0" prefWidth="1049.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane  fx:controller="tck.controller.PersonController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="703.0" prefWidth="1049.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane layoutX="20.0" layoutY="56.0" prefHeight="409.0" prefWidth="441.0">
         <columnConstraints>
@@ -113,5 +115,12 @@
           </Menu>
         </menus>
       </MenuBar>
+      <ToolBar layoutX="14.0" layoutY="650.0" prefHeight="45.0" prefWidth="303.0">
+        <items>
+          <Button fx:id="saveBtn" mnemonicParsing="false" prefWidth="90.0" text="Save" />
+            <Button fx:id="editBtn" mnemonicParsing="false" prefWidth="90.0" text="Edit" />
+            <Button fx:id="removeBtn" mnemonicParsing="false" prefWidth="90.0" text="Remove" />
+        </items>
+      </ToolBar>
    </children>
 </Pane>

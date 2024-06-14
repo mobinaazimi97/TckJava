@@ -4,6 +4,9 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -13,7 +16,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<Pane  fx:controller="tck.controller.ResponseController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="885.0" prefWidth="1324.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:controller="tck.controller.ResponseController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="885.0" prefWidth="1324.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" >
    <children>
       <GridPane layoutX="14.0" layoutY="58.0" prefHeight="417.0" prefWidth="387.0">
         <columnConstraints>
@@ -53,11 +56,11 @@
             <TableColumn fx:id="dateCol" prefWidth="223.0" text="Date" />
         </columns>
       </TableView>
-      <ToolBar layoutX="11.0" layoutY="834.0" prefHeight="45.0" prefWidth="402.0">
+      <ToolBar layoutX="-1.0" layoutY="834.0" prefHeight="45.0" prefWidth="416.0">
         <items>
-          <Button fx:id="saveBtn" mnemonicParsing="false" prefHeight="31.0" prefWidth="125.0" text="save" />
-            <Button fx:id="editBtn" mnemonicParsing="false" prefHeight="31.0" prefWidth="125.0" text="edit" />
-            <Button fx:id="removeBtn" mnemonicParsing="false" prefHeight="31.0" prefWidth="125.0" text="remove" />
+          <Button fx:id="saveBtn" mnemonicParsing="false" prefHeight="31.0" prefWidth="130.0" text="save" />
+            <Button fx:id="editBtn" mnemonicParsing="false" prefHeight="31.0" prefWidth="130.0" text="edit" />
+            <Button fx:id="removeBtn" mnemonicParsing="false" prefHeight="31.0" prefWidth="130.0" text="remove" />
         </items>
       </ToolBar>
       <GridPane layoutX="18.0" layoutY="489.0" prefHeight="332.0" prefWidth="387.0">
@@ -85,5 +88,24 @@
             <DatePicker fx:id="findByDatePicker" prefHeight="31.0" prefWidth="342.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
+      <MenuBar layoutY="6.0" prefHeight="32.0" prefWidth="225.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem fx:id="closeMnu" mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Response">
+            <items>
+              <MenuItem fx:id="newMnu" mnemonicParsing="false" text="New Response" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
    </children>
 </Pane>
