@@ -101,8 +101,8 @@ public class PersonController implements Initializable {
                         .phoneNumber(phoneTxt.getText())
                         .email(emailTxt.getText())
                         .role(Role.valueOf(role.getText()))
-                        //TODO         .enabled(trueChk.isSelected())
-                        //TODO           .enabled(falseChk.isSelected())
+//                        .enabled(trueChk.isSelected())            //TODO
+//                        .enabled(falseChk.isSelected())
                         .build();
                 PersonBl.getPersonBl().save(person);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "person updated\n" + person);

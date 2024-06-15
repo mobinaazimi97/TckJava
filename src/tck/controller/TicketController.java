@@ -80,6 +80,7 @@ public class TicketController implements Initializable {
                         .text(textTxt.getText())
                         .group(Group.valueOf(group.getText()))
                         .ticketDateTime(ticketDatePick.getValue())              //TODO
+
                         // TODO    .ticketDateTime(findByEndDatePick.getValue())
                         .answer(answerChk.isSelected())
                         .down(downChk.isSelected())
