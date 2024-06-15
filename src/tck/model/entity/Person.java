@@ -74,7 +74,7 @@ public class Person implements Serializable {
         return email;
     }
       public Person setEmail(String email) throws Exception {
-        if(Pattern.matches("^[a-zA-Z0-9]{20,50}$",email)) {
+        if(Pattern.matches("^[a-zA-Z0-9]{20,50}$",email)) {                     //TODO : CHECK !
             this.email = email;
         }else{
             throw new Exception("Invalid Email");
