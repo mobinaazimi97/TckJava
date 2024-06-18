@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
 
 public class PersonController implements Initializable {
     @FXML
-    private TextField idTxt, nameTxt, familyTxt, usernameTxt, passwordTxt, phoneTxt, emailTxt, findByIdTxt, findByFamilyTxt, findByUserPassTxt;
+    private TextField idTxt, nameTxt, familyTxt, usernameTxt, passwordTxt, phoneTxt, emailTxt, findByIdTxt, findByFamilyTxt, findByUserTxt;
     @FXML
     private RadioButton userRdo, adminRdo;
     @FXML
@@ -29,7 +29,7 @@ public class PersonController implements Initializable {
     @FXML
     private MenuItem closeMnu, newMnu;
     @FXML
-    private CheckBox trueChk, falseChk;
+    private CheckBox trueChk;
     @FXML
     private Button saveBtn, editBtn, removeBtn;
     @FXML
@@ -37,10 +37,11 @@ public class PersonController implements Initializable {
     @FXML
     private TableColumn<Person, Integer> idCol;
     @FXML
-    private TableColumn<Response, String> familyCol, userPassCol;
+    private TableColumn<Response, String> familyCol, userCol;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+   //     showDataOnTable(personDa.findAll());
         log.info("Person Windows Start");
         try {
             resetForm();
@@ -75,7 +76,7 @@ public class PersonController implements Initializable {
                         .phoneNumber(phoneTxt.getText())
                         .email(emailTxt.getText())
                         .role(Role.valueOf(role.getText()))
-                        //TODO         .enabled(trueChk.isSelected())
+                        .enabled(trueChk.isSelected())
                         //TODO           .enabled(falseChk.isSelected())
                         .build();
                 PersonBl.getPersonBl().save(person);
@@ -101,7 +102,7 @@ public class PersonController implements Initializable {
                         .phoneNumber(phoneTxt.getText())
                         .email(emailTxt.getText())
                         .role(Role.valueOf(role.getText()))
-//                        .enabled(trueChk.isSelected())            //TODO
+                       .enabled(trueChk.isSelected())            //TODO
 //                        .enabled(falseChk.isSelected())
                         .build();
                 PersonBl.getPersonBl().save(person);
@@ -130,7 +131,7 @@ public class PersonController implements Initializable {
         });
         findByIdTxt.setOnKeyReleased(event -> {
             try {
-                showDataOnTable(PersonBl.getPersonBl().findById(Integer.parseInt(findByIdTxt.getText())));// TODO : Wrong : List for showDataOnTable
+                PersonBl.getPersonBl().findById(Integer.parseInt(findByIdTxt.getText()));                   // TODO : Wrong : List for showDataOnTable
                 log.info("find by person id success" + Integer.parseInt(findByIdTxt.getText()));
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "search person Id error\n" + e.getMessage());
@@ -148,9 +149,9 @@ public class PersonController implements Initializable {
                 log.error("Find By Family Error" + e.getMessage());
             }
         });
-        findByUserPassTxt.setOnKeyReleased(event -> {                        //Todo
+        findByUserTxt.setOnKeyReleased(event -> {                        //Todo
             try {
-                showDataOnTable(PersonBl.getPersonBl().findByUsernameAndPassword(findByUserPassTxt.getText()));              //TODO
+                PersonBl.getPersonBl().findByUsername(findByUserTxt.getText());              //TODO
                 log.info("found family" + findByFamilyTxt.getText());
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "search family error\n" + e.getMessage());
@@ -173,7 +174,6 @@ public class PersonController implements Initializable {
                 adminRdo.setSelected(true);
             }
             trueChk.setSelected(person.isEnabled());
-            falseChk.setSelected(!person.isEnabled());//TODO : Is not.Check !
         });
     }
 
@@ -181,7 +181,8 @@ public class PersonController implements Initializable {
         ObservableList<Person> observableList = FXCollections.observableList(personList);
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         familyCol.setCellValueFactory(new PropertyValueFactory<>("family"));
-        userPassCol.setCellValueFactory(new PropertyValueFactory<>("username,password"));
+        userCol.setCellValueFactory(new PropertyValueFactory<>("username"));
+        personTbl.setItems(observableList);
     }
 
     private void resetForm() throws Exception {
@@ -194,7 +195,6 @@ public class PersonController implements Initializable {
         emailTxt.clear();
         userRdo.setSelected(true);
         trueChk.setSelected(false);                 //TODO
-        falseChk.setSelected(false);
         showDataOnTable(PersonBl.getPersonBl().findAll());
     }
 }

@@ -10,9 +10,9 @@ import javafx.stage.Stage;
 
 public class MyApp extends Application {
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) throws Exception {                                                   // TODO : METHODE START HAS ERROR .
         Scene scene = new Scene(
-                FXMLLoader.load(getClass().getResource("tck/view/person.FXml"))
+                FXMLLoader.load(getClass().getResource("tck/view/person.FXml"))          //TODO : LOGIN??
         );
         primaryStage.setScene(scene);
         primaryStage.setTitle("person");

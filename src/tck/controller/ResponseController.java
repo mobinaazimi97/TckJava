@@ -15,6 +15,7 @@ import tck.model.entity.Ticket;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -67,7 +68,7 @@ public class ResponseController implements Initializable {
                         .builder()
                         .person(Person.builder().id(Integer.parseInt(personIdTxt.getText())).build())
                         .ticket(Ticket.builder().id(Integer.parseInt(ticketIdTxt.getText())).build())
-                        .dateTime(responseDatePicker.getValue())                                                //TODO :NOT found in UI  !!
+                        .dateTime(LocalDateTime.from(responseDatePicker.getValue()))                                                //TODO :NOT found in UI  !!
                         .answer(answerTxt.getText())
                         .build();
                 ResponseBl.getResponseBl().save(response);
@@ -88,7 +89,7 @@ public class ResponseController implements Initializable {
                         .id(Integer.parseInt(responseIdTxt.getText()))
                         .person(Person.builder().id(Integer.parseInt(personIdTxt.getText())).build())
                         .ticket(Ticket.builder().id(Integer.parseInt(ticketIdTxt.getText())).build())
-                        .dateTime(responseDatePicker.getValue())                                                //TODO :NOT found in UI  !!
+                        .dateTime(LocalDateTime.from(responseDatePicker.getValue()))                                                //TODO :NOT found in UI  !!
                         .answer(answerTxt.getText())
                         .build();
                 ResponseBl.getResponseBl().save(response);
@@ -117,7 +118,7 @@ public class ResponseController implements Initializable {
         });
         findByIdTxt.setOnKeyReleased(event -> {
             try {
-                showDataOnTable(ResponseBl.getResponseBl().findById(Integer.parseInt(findByIdTxt.getText())));// TODO : Wrong : List for showDataOnTable
+                ResponseBl.getResponseBl().findById(Integer.parseInt(findByIdTxt.getText()));// TODO : Wrong : List for showDataOnTable
                 log.info("find by response id success" + Integer.parseInt(findByIdTxt.getText()));
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "search response Id error\n" + e.getMessage());
@@ -127,7 +128,7 @@ public class ResponseController implements Initializable {
         });
         findByAnswerTxt.setOnKeyReleased(event -> {
             try {
-                showDataOnTable(ResponseBl.getResponseBl().findByAnswer(findByAnswerTxt.getText()));              //TODO
+                ResponseBl.getResponseBl().findByAnswer(findByAnswerTxt.getText());              //TODO
                 log.info("found answer" + findByAnswerTxt.getText());
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "search answer error\n" + e.getMessage());
@@ -137,7 +138,7 @@ public class ResponseController implements Initializable {
         });
         findByTicketIdTxt.setOnKeyReleased(event -> {
             try {
-                showDataOnTable(ResponseBl.getResponseBl().findByTicketId(Integer.parseInt(findByTicketIdTxt.getText())));           //TODO
+                ResponseBl.getResponseBl().findByTicketId(Integer.parseInt(findByTicketIdTxt.getText()));           //TODO
                 log.info("found ticket id" + findByTicketIdTxt.getText());
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "search ticket id error\n" + e.getMessage());
@@ -147,7 +148,7 @@ public class ResponseController implements Initializable {
         });
         findByPersonIdTxt.setOnKeyReleased(event -> {
             try {
-                showDataOnTable(ResponseBl.getResponseBl().findByPersonId(Integer.parseInt(findByPersonIdTxt.getText())));           //TODO
+                ResponseBl.getResponseBl().findByPersonId(Integer.parseInt(findByPersonIdTxt.getText()));           //TODO
                 log.info("found person id" + findByPersonIdTxt.getText());
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "search person id error\n" + e.getMessage());
@@ -157,7 +158,7 @@ public class ResponseController implements Initializable {
         });
         findByDatePicker.setOnKeyReleased(event -> {
             try {
-                showDataOnTable(ResponseBl.getResponseBl().findByDateTime(findByDatePicker.getValue()));          //TODO
+                ResponseBl.getResponseBl().findByDateTime(LocalDateTime.from(findByDatePicker.getValue()));          //TODO
                 log.info("found Date" + findByDatePicker.getValue());
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "search Date error\n" + e.getMessage());

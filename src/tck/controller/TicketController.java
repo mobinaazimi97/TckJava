@@ -19,6 +19,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
+
 @Log4j
 
 
@@ -81,7 +82,7 @@ public class TicketController implements Initializable {
                         .group(Group.valueOf(group.getText()))
                         .ticketDateTime(ticketDatePick.getValue())              //TODO
 
-                        // TODO    .ticketDateTime(findByEndDatePick.getValue())
+        //            TODO    .ticketDateTime(findByEndDatePick.getValue())
                         .answer(answerChk.isSelected())
                         .down(downChk.isSelected())
                         .seen(seenChk.isSelected())
@@ -108,7 +109,7 @@ public class TicketController implements Initializable {
                         .text(textTxt.getText())
                         .group(Group.valueOf(group.getText()))
                         .ticketDateTime(ticketDatePick.getValue())              //TODO
-                        // TODO    .ticketDateTime(findByEndDatePick.getValue())
+ //                   TODO    .ticketDateTime(findByEndDatePick.getValue())
                         .answer(answerChk.isSelected())
                         .down(downChk.isSelected())
                         .seen(seenChk.isSelected())
@@ -139,7 +140,7 @@ public class TicketController implements Initializable {
         });
         findByIdTxt.setOnKeyReleased(event -> {
             try {
-                showDataOnTable(TicketBl.getTicketBl().findById(Integer.parseInt(findByIdTxt.getText())));// TODO : Wrong : List for showDataOnTable
+                TicketBl.getTicketBl().findById(Integer.parseInt(findByIdTxt.getText()));                           // TODO : Wrong : List for showDataOnTable
                 log.info("find by ticket id success" + Integer.parseInt(findByIdTxt.getText()));
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "search ticket id error\n" + e.getMessage());
@@ -149,7 +150,7 @@ public class TicketController implements Initializable {
         });
         findByPersonIdTxt.setOnKeyReleased(event -> {
             try {
-                showDataOnTable(TicketBl.getTicketBl().findByPersonId(Integer.parseInt(findByPersonIdTxt.getText())));           //TODO
+                TicketBl.getTicketBl().findByPersonId(Integer.parseInt(findByPersonIdTxt.getText()));           //TODO
                 log.info("found person id" + findByPersonIdTxt.getText());
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "search person id error\n" + e.getMessage());
@@ -159,7 +160,7 @@ public class TicketController implements Initializable {
         });
         findByTitleTxt.setOnKeyReleased(event -> {
             try {
-                showDataOnTable(TicketBl.getTicketBl().findByTitle(findByTitleTxt.getText()))// TODO : Wrong : List for showDataOnTable
+                TicketBl.getTicketBl().findByTitle(findByTitleTxt.getText()); // TODO : Wrong : List for showDataOnTable
                 log.info("found title" + findByTitleTxt.getText());
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "search title error\n" + e.getMessage());
@@ -169,7 +170,7 @@ public class TicketController implements Initializable {
         });
         findByTextTxt.setOnKeyReleased(event -> {
             try {
-                showDataOnTable(TicketBl.getTicketBl().findByText(findByTextTxt.getText()))// TODO : Wrong : List for showDataOnTable
+                TicketBl.getTicketBl().findByText(findByTextTxt.getText()); // TODO : Wrong : List for showDataOnTable
                 log.info("found text" + findByTextTxt.getText());
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "search text error\n" + e.getMessage());
@@ -179,7 +180,7 @@ public class TicketController implements Initializable {
         });
         findByGroupTxt.setOnKeyReleased(event -> {
             try {
-                showDataOnTable(TicketBl.getTicketBl().findByGroup(findByGroupTxt.getText()))// TODO : Wrong :  ENUMS | LIST
+                TicketBl.getTicketBl().findByGroup(Group.valueOf(findByGroupTxt.getText())); // TODO : Wrong :  ENUMS | LIST
                 log.info("found group" + findByGroupTxt.getText());
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "search group error\n" + e.getMessage());
@@ -189,7 +190,7 @@ public class TicketController implements Initializable {
         });
         findByStatusTxt.setOnKeyReleased(event -> {
             try {
-                showDataOnTable(TicketBl.getTicketBl().findByGroup(findByStatusTxt.getText()))// TODO : Wrong :  ENUMS | LIST
+                TicketBl.getTicketBl().findByGroup(Group.valueOf(findByStatusTxt.getText()));                 // TODO : Wrong :  ENUMS | LIST
                 log.info("found status" + findByStatusTxt.getText());
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "search status error\n" + e.getMessage());
@@ -199,7 +200,7 @@ public class TicketController implements Initializable {
         });
         findByStartDatePick.setOnKeyReleased(event -> {
             try {
-                showDataOnTable(TicketBl.getTicketBl().findByDateRange(findByStartDatePick.getValue()));          //TODO
+                TicketBl.getTicketBl().findByDateRange(findByStartDatePick.getValue());          //TODO
                 log.info("found Start Date" + findByStartDatePick.getValue());
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "search by Start Date error\n" + e.getMessage());
@@ -209,7 +210,7 @@ public class TicketController implements Initializable {
         });
         findByEndDatePick.setOnKeyReleased(event -> {
             try {
-                showDataOnTable(TicketBl.getTicketBl().findByDateRange(findByEndDatePick.getValue()));          //TODO
+             TicketBl.getTicketBl().findByDateRange(findByEndDatePick.getValue());                          //TODO
                 log.info("found End Date" + findByEndDatePick.getValue());
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "search by End Date error\n" + e.getMessage());
