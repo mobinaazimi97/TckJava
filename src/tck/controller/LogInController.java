@@ -6,6 +6,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import lombok.extern.log4j.Log4j;
+import tck.model.bl.PersonBl;
 import tck.model.da.PersonDa;
 import tck.model.entity.Person;
 
@@ -36,7 +37,8 @@ public class LogInController implements Initializable {             //TODO : BL 
                         .password(passwordTxt.getText())
                         .build();
              //   logInBtn.getScene().getWindow().hide();
-                personDa.save(person);
+          //     PersonBl.getPersonBl().save(person);
+               personDa.save(person);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Logged in\n" + person);
                 alert.show();
             } catch (Exception e) {

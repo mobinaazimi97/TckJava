@@ -12,7 +12,7 @@ public class MyApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {                                                   // TODO : METHODE START HAS ERROR .
         Scene scene = new Scene(
-                FXMLLoader.load(getClass().getResource("desktop/javase/src/tck/view/tckJava.FXml"))          //TODO : START METHODE ERROR
+                FXMLLoader.load(getClass().getResource("../view/person.FXml"))          //TODO : ERROR : ORA.SQL
         );
         primaryStage.setScene(scene);
         primaryStage.setTitle("profile");
