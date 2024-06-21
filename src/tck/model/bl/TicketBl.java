@@ -145,9 +145,9 @@ public class TicketBl implements CRUD<Ticket> {
         }
     }
 
-    public Ticket findByDateRange(LocalDateTime startDateTime, LocalDateTime endDateTime) throws Exception {
+    public Ticket findByDateRange(LocalDate startDate, LocalDate endDate) throws Exception {
         try (TicketDa ticketDa = new TicketDa()) {
-            Ticket ticket = ticketDa.findByDateRange(startDateTime, endDateTime);
+            Ticket ticket = ticketDa.findByDateRange(startDate, endDate);
             if (ticket != null) {
                 return ticket;
             } else {

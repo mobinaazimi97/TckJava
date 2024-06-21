@@ -68,7 +68,7 @@ public class ResponseController implements Initializable {
                         .builder()
                         .person(Person.builder().id(Integer.parseInt(personIdTxt.getText())).build())
                         .ticket(Ticket.builder().id(Integer.parseInt(ticketIdTxt.getText())).build())
-                        .dateTime(LocalDateTime.from(responseDatePicker.getValue()))                                                //TODO :NOT found in UI  !!
+                        .date(responseDatePicker.getValue())                                                //TODO :NOT found in UI  !!
                         .answer(answerTxt.getText())
                         .build();
                 ResponseBl.getResponseBl().save(response);
@@ -89,7 +89,7 @@ public class ResponseController implements Initializable {
                         .id(Integer.parseInt(responseIdTxt.getText()))
                         .person(Person.builder().id(Integer.parseInt(personIdTxt.getText())).build())
                         .ticket(Ticket.builder().id(Integer.parseInt(ticketIdTxt.getText())).build())
-                        .dateTime(LocalDateTime.from(responseDatePicker.getValue()))                                                //TODO :NOT found in UI  !!
+                        .date(responseDatePicker.getValue())                                                //TODO :NOT found in UI  !!
                         .answer(answerTxt.getText())
                         .build();
                 ResponseBl.getResponseBl().save(response);
@@ -158,7 +158,7 @@ public class ResponseController implements Initializable {
         });
         findByDatePicker.setOnKeyReleased(event -> {
             try {
-                ResponseBl.getResponseBl().findByDateTime(LocalDateTime.from(findByDatePicker.getValue()));          //TODO
+                ResponseBl.getResponseBl().findByDate(LocalDate.from(findByDatePicker.getValue()));          //TODO
                 log.info("found Date" + findByDatePicker.getValue());
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "search Date error\n" + e.getMessage());
@@ -172,7 +172,7 @@ public class ResponseController implements Initializable {
             responseIdTxt.setText(String.valueOf(response.getId()));
             personIdTxt.setText(String.valueOf(response.getPerson().getId()));
             ticketIdTxt.setText(String.valueOf(response.getTicket().getId()));
-            responseDatePicker.setValue(response.getDateTime().toLocalDate());          // TODO : TRUE ?
+            responseDatePicker.setValue(response.getDate());          // TODO : TRUE ?
             answerTxt.setText(String.valueOf(response.getAnswer()));
         });
     }

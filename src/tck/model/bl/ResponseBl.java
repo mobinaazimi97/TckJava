@@ -11,6 +11,7 @@ import tck.model.entity.Ticket;
 import tck.model.entity.enums.Status;
 import tck.model.tool.CRUD;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -119,9 +120,9 @@ public class ResponseBl implements CRUD<Response> {
             }
         }
     }
-    public Response findByDateTime(LocalDateTime dateTime) throws Exception {
+    public Response findByDate(LocalDate date) throws Exception {
         try (ResponseDa responseDa = new ResponseDa()) {
-            Response response = responseDa.findByDateTime(dateTime);
+            Response response = responseDa.findByDate(date);
             if (response != null) {                     //      TODO
                 return response;
             } else {

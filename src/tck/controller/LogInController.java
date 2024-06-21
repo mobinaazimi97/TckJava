@@ -35,6 +35,7 @@ public class LogInController implements Initializable {             //TODO : BL 
                         .username(userTxt.getText())
                         .password(passwordTxt.getText())
                         .build();
+             //   logInBtn.getScene().getWindow().hide();
                 personDa.save(person);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Logged in\n" + person);
                 alert.show();

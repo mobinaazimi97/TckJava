@@ -62,7 +62,7 @@ public class Person implements Serializable {
         return phoneNumber;
     }
     public Person setPhoneNumber(String phoneNumber) throws Exception {
-      if(Pattern.matches("^[0-9]{10,13}$",phoneNumber)) {                                                    //TODO : CHECK!!!
+      if(Pattern.matches("09\\d{10}|\\+98\\d{10}$",phoneNumber)) {                                                    //TODO : CHECK!!!
   //      if(Pattern.matches("^[\\d]{10} | [\\d]{3}-[\\d]{6}- [\\d]$",phoneNumber)){                            //TODO : [ ]
             this.phoneNumber  = phoneNumber;
         }else{
@@ -74,7 +74,7 @@ public class Person implements Serializable {
         return email;
     }
       public Person setEmail(String email) throws Exception {
-        if(Pattern.matches("^[a-zA-Z0-9]{20,50}$",email)) {                     //TODO : CHECK !
+        if(Pattern.matches("\\w\\@(email|gmail).com{20,50}$",email)) {                     //TODO : CHECK !
             this.email = email;
         }else{
             throw new Exception("Invalid Email");

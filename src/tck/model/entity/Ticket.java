@@ -5,6 +5,7 @@ import lombok.experimental.SuperBuilder;
 import tck.model.entity.enums.Group;
 import tck.model.entity.enums.Status;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.regex.Pattern;
 
@@ -17,7 +18,7 @@ public class Ticket {
     private Person person;
     private String title;
     private String text;
-    private LocalDateTime ticketDateTime;
+    private LocalDate ticketDate;
     private Status status;
 
 
@@ -77,12 +78,12 @@ public class Ticket {
         return this;
     }
 
-    public LocalDateTime getTicketDateTime() {
-        return ticketDateTime;
+    public LocalDate getTicketDate() {
+        return ticketDate;
     }
 
-    public Ticket setTicketDateTime(LocalDateTime ticketDateTime) {
-        this.ticketDateTime = ticketDateTime;
+    public Ticket setTicketDate(LocalDate ticketDate) {
+        this.ticketDate = ticketDate;
         return this;
     }
     public Status getStatus() {

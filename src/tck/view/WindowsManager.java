@@ -7,12 +7,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class WindowsManager {
-    public static void showLogInForm() throws IOException {
+    public static void showProfileForm() throws IOException {
         Stage stage = new Stage();
         Scene scene = new Scene(
-                FXMLLoader.load(WindowsManager.class.getResource("tck/view/logIn.FXml")));
+                FXMLLoader.load(WindowsManager.class.getResource("view/logIn.FXml")));
         stage.setScene(scene);
-        stage.setTitle("logIn");
+        stage.setTitle("profile");
         stage.show();
     }
 

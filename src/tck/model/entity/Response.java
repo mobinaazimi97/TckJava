@@ -15,7 +15,7 @@ public class Response {
     private Ticket ticket;
     private Person person;
     private String answer;
-    private LocalDateTime dateTime;
+    private LocalDate date;
 
     public int getId() {
         return id;
@@ -73,12 +73,12 @@ public class Response {
         return this;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public Response setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+    public Response setDate(LocalDate date) {
+        this.date = date;
         return this;
     }
 

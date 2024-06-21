@@ -14,8 +14,8 @@ create sequence person_seq start with 1 increment by 1;
 
 CREATE TABLE TICKET
 (
-    ticket_id                       number primary key,
-    ticket_date_time        timestamp,
+    ticket_id                     number primary key,
+    ticket_date                 timestamp,
     title                             nvarchar2(20),
     text                            nvarchar2(255),
     group_name              nvarchar2(20),
@@ -27,9 +27,9 @@ create sequence ticket_seq start with 1 increment by 1;
 create table RESPONSE
 (
     response_id                         number primary key,
-    response_date_time           timestamp,
+    response_date                     timestamp,
     answer                                 nvarchar2(255),
-    ticket_id                             references ticket,
+    ticket_id                             references t,
     person_id                           references person
 );
 create sequence response_seq start with 1 increment by 1;

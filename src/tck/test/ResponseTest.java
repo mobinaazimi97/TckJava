@@ -19,7 +19,7 @@ public class ResponseTest {
                         .ticket(Ticket.builder().id(1).build())
                         .person(Person.builder().id(1).build())
                         .answer("")
-                        .dateTime(LocalDateTime.now())
+                        .date(LocalDate.now())
                         .build()
         ));
     }

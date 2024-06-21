@@ -8,6 +8,7 @@ import tck.model.entity.enums.Group;
 import tck.model.entity.enums.Role;
 import tck.model.entity.enums.Status;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class TicketTest {
@@ -28,7 +29,7 @@ public class TicketTest {
               Ticket.builder()
                       .id(1)
                       .group(Group.Materiel)
-                      .ticketDateTime(LocalDateTime.now())
+                      .ticketDate(LocalDate.now())
                       .text("answered")
                       .title("requiery")
                       .person(person)
