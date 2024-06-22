@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 public class MyApp extends Application {
     @Override
-    public void start(Stage primaryStage) throws Exception {                                                   // TODO : METHODE START HAS ERROR .
+    public void start(Stage primaryStage) throws Exception {                                                   // TODO
         Scene scene = new Scene(
                 FXMLLoader.load(getClass().getResource("../view/person.FXml"))          //TODO : ERROR : ORA.SQL
         );
