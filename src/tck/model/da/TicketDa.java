@@ -28,7 +28,7 @@ public class TicketDa implements AutoCloseable, CRUD<Ticket> {
     public Ticket save(Ticket ticket) throws Exception {
         ticket.setId(ConnectionProvider.getConnectionProvider().getNextId("TICKET_seq"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO TICKET(TICKET_ID,TICKET_DATE,PERSON_ID,TITLE,TEXT,GROUP_NAME,STATUS) VALUES (PERSON_SEQ.NEXTVAL,?,?,?,?,?,?,?)"
+                "INSERT INTO TICKET(TICKET_ID,TICKET_DATE,PERSON_ID,TITLE,TEXT,GROUP_NAME,STATUS) VALUES (TICKET_SEQ.NEXTVAL,?,?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, ticket.getId());
         preparedStatement.setDate(2, Date.valueOf(ticket.getTicketDate()));

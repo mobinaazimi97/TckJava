@@ -8,7 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ConnectionProvider {
+
+public class ConnectionProvider {                                   //TODO : Error 00900 SQL
     @Getter
     private static ConnectionProvider connectionProvider = new ConnectionProvider();
     private static BasicDataSource basicDataSource = new BasicDataSource();
@@ -21,8 +22,8 @@ public class ConnectionProvider {
         basicDataSource.setUrl("jdbc:oracle:thin:@localhost:1521:xe");
         basicDataSource.setUsername("javase");
         basicDataSource.setPassword("java123");
-        basicDataSource.setMinIdle(5);
-        basicDataSource.setMaxTotal(20);
+        basicDataSource.setMinIdle(10);
+        basicDataSource.setMaxTotal(30);
         return basicDataSource.getConnection();
     }
 

@@ -22,9 +22,10 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
 
     @Override
     public Person save(Person person) throws Exception {
-        person.setId(ConnectionProvider.getConnectionProvider().getNextId("ticket_seq"));
+        person.setId(ConnectionProvider.getConnectionProvider().getNextId("person_seq"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO PERSON(PERSON_ID,PERSON_NAME,PERSON_FAMILY,Email,Phone_Number,USER_NAME,PASSWORD,ROLE,ENABLED) VALUES (PERSON_SEQ.NEXTVAL,?,?,?,?,?,?,?,?,?)"
+                "INSERT INTO PERSON(PERSON_ID,PERSON_NAME,PERSON_FAMILY,Email,Phone_Number,USER_NAME,PASSWORD,ROLE,ENABLED) VALUES (?,?,?,?,?,?,?,?,?)"
+                                                                                                                                                                                                                                                     //RESPONSE_SEQ.NEXTVAL,?..TODO
         );
         preparedStatement.setInt(1, person.getId());
         preparedStatement.setString(2, person.getName());
