@@ -13,6 +13,7 @@ import tck.model.entity.Person;
 import tck.model.entity.Response;
 import tck.model.entity.enums.Role;
 
+import javax.xml.validation.Validator;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -65,7 +66,7 @@ public class PersonController implements Initializable {
             log.info("App Closed");
         });
         saveBtn.setOnAction(event -> {
-            RadioButton role = (RadioButton) roleToggle.getSelectedToggle();
+            RadioButton role = (RadioButton) roleToggle.getSelectedToggle();  // .name(Validator.nameValidator(nameTxt.getText(), "Invalid Name"))
             try {
                 Person person = Person
                         .builder()
@@ -95,6 +96,7 @@ public class PersonController implements Initializable {
             try {
                 Person person = Person
                         .builder()
+                        .id(Integer.parseInt(idTxt.getText()))
                         .name(nameTxt.getText())
                         .family(familyTxt.getText())
                         .username(usernameTxt.getText())

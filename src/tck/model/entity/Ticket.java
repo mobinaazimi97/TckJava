@@ -6,7 +6,6 @@ import tck.model.entity.enums.Group;
 import tck.model.entity.enums.Status;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.regex.Pattern;
 
 @NoArgsConstructor

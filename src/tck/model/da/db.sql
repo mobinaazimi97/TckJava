@@ -20,6 +20,7 @@ CREATE TABLE TICKET
     text                            nvarchar2(255),
     group_name              nvarchar2(20),
     status                         varchar2(6),
+    person_username     references person,
     person_id                   references person
 );
 create sequence ticket_seq start with 1 increment by 1;

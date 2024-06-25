@@ -1,19 +1,15 @@
 package tck.model.bl;
 
 import lombok.Getter;
-import tck.controller.exceptions.NoResponseFoundException;
 import tck.controller.exceptions.NoTicketFoundException;
-import tck.model.da.ResponseDa;
 import tck.model.da.TicketDa;
 import tck.model.entity.Person;
-import tck.model.entity.Response;
 import tck.model.entity.Ticket;
 import tck.model.entity.enums.Group;
 import tck.model.entity.enums.Status;
 import tck.model.tool.CRUD;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class TicketBl implements CRUD<Ticket> {
@@ -158,8 +154,8 @@ public class TicketBl implements CRUD<Ticket> {
     public Ticket findByUsername(String username) throws Exception {
         try (TicketDa ticketDa = new TicketDa()) {
             Person person = PersonBl.getPersonBl().findByUsername(username);
-            Ticket ticket = ticketDa.findByPersonId(person.getId());
-            ticket.setPerson(PersonBl.getPersonBl().findById(ticket.getPerson().getId()));
+            Ticket ticket = ticketDa.findByUsername(person.getUsername());
+            ticket.setPerson(PersonBl.getPersonBl().findByUsername(ticket.getPerson().getUsername()));
             return ticket;
         }
     }

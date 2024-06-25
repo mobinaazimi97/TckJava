@@ -28,7 +28,7 @@ public class TicketDa implements AutoCloseable, CRUD<Ticket> {
     public Ticket save(Ticket ticket) throws Exception {
         ticket.setId(ConnectionProvider.getConnectionProvider().getNextId("TICKET_seq"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO TICKET(TICKET_ID,TICKET_DATE,PERSON_ID,TITLE,TEXT,GROUP_NAME,STATUS) VALUES (TICKET_SEQ.NEXTVAL,?,?,?,?,?,?,?)"
+                "INSERT INTO TICKET(TICKET_ID,TICKET_DATE,PERSON_ID,TITLE,TEXT,GROUP_NAME,STATUS,PERSON_USERNAME) VALUES (TICKET_SEQ.NEXTVAL,?,?,?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, ticket.getId());
         preparedStatement.setDate(2, Date.valueOf(ticket.getTicketDate()));
@@ -36,7 +36,8 @@ public class TicketDa implements AutoCloseable, CRUD<Ticket> {
         preparedStatement.setString(4, ticket.getTitle());
         preparedStatement.setString(5, ticket.getText());
         preparedStatement.setString(6, String.valueOf(ticket.getGroup()));
-      preparedStatement.setString(7, String.valueOf(ticket.getStatus()));
+        preparedStatement.setString(7, String.valueOf(ticket.getStatus()));
+        preparedStatement.setString(8, ticket.getPerson().getUsername());
         preparedStatement.execute();
         return ticket;
     }
@@ -44,7 +45,7 @@ public class TicketDa implements AutoCloseable, CRUD<Ticket> {
     @Override
     public Ticket edit(Ticket ticket) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE TICKET SET TICKET_ID=?,PERSON_ID=?,TITLE=?,TEXT=?,GROUP_NAME=? , STATUS=?,TICKET_DATE=? WHERE TICKET_ID=?");
+                "UPDATE TICKET SET TICKET_ID=?,PERSON_ID=?,TITLE=?,TEXT=?,GROUP_NAME=? , STATUS=?,TICKET_DATE=? , PERSON_USERNAME, WHERE TICKET_ID=?");
 
         preparedStatement.setInt(1, ticket.getId());
         preparedStatement.setInt(2, ticket.getPerson().getId());
@@ -53,6 +54,7 @@ public class TicketDa implements AutoCloseable, CRUD<Ticket> {
         preparedStatement.setString(5, String.valueOf(ticket.getGroup()));
         preparedStatement.setString(6, String.valueOf(ticket.getStatus()));                                      //TODO
         preparedStatement.setDate(7, Date.valueOf(ticket.getTicketDate()));
+        preparedStatement.setString(8, ticket.getPerson().getUsername());
         preparedStatement.execute();
         return ticket;
     }
@@ -241,7 +243,7 @@ public class TicketDa implements AutoCloseable, CRUD<Ticket> {
             ticket = Ticket
                     .builder()
                     .id(resultSet.getInt("ticket_id"))
-                    .person(Person.builder().username(resultSet.getString("user_name")).build())
+                    .person(Person.builder().username(resultSet.getString("person_username")).build())
                     .ticketDate(resultSet.getDate("TicketDate").toLocalDate())
                     .group(Group.valueOf(resultSet.getString("group_name")))
                     .title(resultSet.getString("title"))

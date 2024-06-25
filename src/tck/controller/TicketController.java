@@ -26,9 +26,9 @@ import java.util.ResourceBundle;
 
 public class TicketController implements Initializable {
     @FXML
-    private TextField ticketIdTxt, personIdTxt, titleTxt, textTxt, findByIdTxt, findByPersonIdTxt, findByTitleTxt, findByTextTxt, findByGroupTxt, findByStatusTxt;
+    private TextField ticketIdTxt, personIdTxt, personUserTxt , titleTxt, textTxt, findByIdTxt, findByPersonIdTxt, findByTitleTxt, findByTextTxt, findByGroupTxt, findByStatusTxt,findByPersonUserTxt;
     @FXML
-    private ComboBox<String>statusCmb;
+    private ComboBox<String> statusCmb;
     @FXML
     private DatePicker ticketDatePick, findByStartDatePick, findByEndDatePick;
     @FXML
@@ -51,7 +51,7 @@ public class TicketController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         log.info("TicketClass Start");
-        for(Status value : Status.values()){
+        for (Status value : Status.values()) {
             statusCmb.getItems().add(value.name());
         }
         try {
@@ -81,6 +81,7 @@ public class TicketController implements Initializable {
                         .builder()
                         .id(Integer.parseInt(ticketIdTxt.getText()))
                         .person(Person.builder().id(Integer.parseInt(personIdTxt.getText())).build())
+                        .person(Person.builder().username(personUserTxt.getText()).build())
                         .title(titleTxt.getText())
                         .text(textTxt.getText())
                         .group(Group.valueOf(group.getText()))
@@ -109,11 +110,12 @@ public class TicketController implements Initializable {
                         .builder()
                         .id(Integer.parseInt(ticketIdTxt.getText()))
                         .person(Person.builder().id(Integer.parseInt(personIdTxt.getText())).build())
+                        .person(Person.builder().username(personUserTxt.getText()).build())
                         .title(titleTxt.getText())
                         .text(textTxt.getText())
                         .group(Group.valueOf(group.getText()))
                         .ticketDate(ticketDatePick.getValue())              //TODO
- //                   TODO    .ticketDateTime(findByEndDatePick.getValue())
+                        //                   TODO    .ticketDateTime(findByEndDatePick.getValue())
                         .status(Status.valueOf(statusCmb.getSelectionModel().getSelectedItem()))
                         .build();
                 TicketBl.getTicketBl().edit(ticket);
@@ -160,6 +162,16 @@ public class TicketController implements Initializable {
                 log.error("Find By Person Id Error" + e.getMessage());
             }
         });
+        findByPersonUserTxt.setOnKeyReleased(event -> {
+            try {
+                TicketBl.getTicketBl().findByUsername(findByPersonUserTxt.getText());           //TODO
+                log.info("found person username" + findByPersonUserTxt.getText());
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "search person username error\n" + e.getMessage());
+                alert.show();
+                log.error("Find By Person Username Error" + e.getMessage());
+            }
+        });
         findByTitleTxt.setOnKeyReleased(event -> {
             try {
                 TicketBl.getTicketBl().findByTitle(findByTitleTxt.getText()); // TODO : Wrong : List for showDataOnTable
@@ -202,8 +214,8 @@ public class TicketController implements Initializable {
         });
         findByStartDatePick.setOnKeyReleased(event -> {
             try {
-                TicketBl.getTicketBl().findByDateRange(findByStartDatePick.getValue(),findByEndDatePick.getValue());          //TODO : CHECK .
-                log.info("found Date" + findByStartDatePick.getValue()+findByEndDatePick.getValue());                                   //TODO : CHECK
+                TicketBl.getTicketBl().findByDateRange(findByStartDatePick.getValue(), findByEndDatePick.getValue());          //TODO : CHECK .
+                log.info("found Date" + findByStartDatePick.getValue() + findByEndDatePick.getValue());                                   //TODO : CHECK
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Search By Range Of Date Error\n" + e.getMessage());
                 alert.show();
@@ -232,11 +244,11 @@ public class TicketController implements Initializable {
             } else {
                 facilitiesRdo.setSelected(true);
             }
-         statusCmb.getSelectionModel().select(ticket.getStatus().ordinal());
+            statusCmb.getSelectionModel().select(ticket.getStatus().ordinal());
         });
     }
 
-    private void showDataOnTable(List<Ticket> ticketList) throws Exception{
+    private void showDataOnTable(List<Ticket> ticketList) throws Exception {
         ObservableList<Ticket> observableList = FXCollections.observableList(ticketList);
         ticketIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         personIdCol.setCellValueFactory(new PropertyValueFactory<>("personId"));
@@ -256,7 +268,7 @@ public class TicketController implements Initializable {
         textTxt.clear();
         ticketDatePick.setValue(null);
         materialRdo.setSelected(true);
-       statusCmb.getSelectionModel().select(0);
+        statusCmb.getSelectionModel().select(0);
         showDataOnTable(TicketBl.getTicketBl().findAll());
     }
 }

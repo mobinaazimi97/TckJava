@@ -149,7 +149,7 @@ public class ResponseController implements Initializable {
         findByPersonIdTxt.setOnKeyReleased(event -> {
             try {
                 ResponseBl.getResponseBl().findByPersonId(Integer.parseInt(findByPersonIdTxt.getText()));           //TODO
-                log.info("found person id" + findByPersonIdTxt.getText());
+                log.info("found person id" + Integer.parseInt(findByPersonIdTxt.getText()));                        //todo : Check
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "search person id error\n" + e.getMessage());
                 alert.show();

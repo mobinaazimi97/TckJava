@@ -24,10 +24,10 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
     public Person save(Person person) throws Exception {
         person.setId(ConnectionProvider.getConnectionProvider().getNextId("person_seq"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO PERSON(PERSON_ID,PERSON_NAME,PERSON_FAMILY,Email,Phone_Number,USER_NAME,PASSWORD,ROLE,ENABLED) VALUES (?,?,?,?,?,?,?,?,?)"
+                "INSERT INTO PERSON(PERSON_NAME,PERSON_FAMILY,Email,Phone_Number,USER_NAME,PASSWORD,ROLE,ENABLED) VALUES (?,?,?,?,?,?,?,?,?)"
                                                                                                                                                                                                                                                      //RESPONSE_SEQ.NEXTVAL,?..TODO
         );
-        preparedStatement.setInt(1, person.getId());
+   //     preparedStatement.setInt(1, person.getId());
         preparedStatement.setString(2, person.getName());
         preparedStatement.setString(3, person.getFamily());
         preparedStatement.setString(4, person.getEmail());

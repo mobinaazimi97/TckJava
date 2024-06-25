@@ -12,7 +12,7 @@ public class MyApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {                                                   // TODO
         Scene scene = new Scene(
-                FXMLLoader.load(getClass().getResource("../view/person.FXml"))          //TODO : ERROR : ORA.SQL
+                FXMLLoader.load(getClass().getResource("../view/person.FXml"))          //TODO : ERROR : ORA.SQL.PERSON
         );
         primaryStage.setScene(scene);
         primaryStage.setTitle("profile");
@@ -24,5 +24,6 @@ public class MyApp extends Application {
         });
         primaryStage.show();
     }
-    // TODO : other windows !
 }
+//TODO : ticket.fxml : Error : for input string for title & text
+//TODO : PERSON.FXML & RESPONSE.FXML : ERROR For Save---->00900 SQL
