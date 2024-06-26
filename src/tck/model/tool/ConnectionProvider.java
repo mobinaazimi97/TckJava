@@ -29,7 +29,7 @@ public class ConnectionProvider {                                   //TODO : Err
 
     public int getNextId(String sequenceName) throws SQLException {
         Connection connection= getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement("SELECT" + sequenceName + "NEXTVAL AS NEXT_ID FROM DUAL");
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT " + sequenceName + ".NEXTVAL AS NEXT_ID FROM DUAL");
         ResultSet resultSet = preparedStatement.executeQuery();
         resultSet.next();
         return resultSet.getInt("NEXT_ID");

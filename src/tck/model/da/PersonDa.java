@@ -25,7 +25,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
         person.setId(ConnectionProvider.getConnectionProvider().getNextId("person_seq"));
         preparedStatement = connection.prepareStatement(
                 "INSERT INTO PERSON(PERSON_NAME,PERSON_FAMILY,Email,Phone_Number,USER_NAME,PASSWORD,ROLE,ENABLED) VALUES (?,?,?,?,?,?,?,?,?)"
-                                                                                                                                                                                                                                                     //RESPONSE_SEQ.NEXTVAL,?..TODO
+                                                                                                                                                                                                                                                     //PERSON_SEQ.NEXTVAL,?..TODO
         );
    //     preparedStatement.setInt(1, person.getId());
         preparedStatement.setString(2, person.getName());
@@ -36,7 +36,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
         preparedStatement.setString(7, person.getPassword());
         preparedStatement.setString(8, String.valueOf(person.getRole()));
         preparedStatement.setBoolean(9, person.isEnabled());
-        preparedStatement.execute();
+    //    preparedStatement.execute();
         return person;
     }
 

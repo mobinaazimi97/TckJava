@@ -12,7 +12,7 @@ public class MyApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {                                                   // TODO
         Scene scene = new Scene(
-                FXMLLoader.load(getClass().getResource("../view/person.FXml"))          //TODO : ERROR : ORA.SQL.PERSON
+                FXMLLoader.load(getClass().getResource("../view/response.FXml"))          //TODO : ERROR : Can Not Search !
         );
         primaryStage.setScene(scene);
         primaryStage.setTitle("profile");
@@ -26,4 +26,5 @@ public class MyApp extends Application {
     }
 }
 //TODO : ticket.fxml : Error : for input string for title & text
-//TODO : PERSON.FXML & RESPONSE.FXML : ERROR For Save---->00900 SQL
+//TODO : PERSON.FXML  : ERROR For Save
+//TODO : RESPONSE.FXML : ERROR---> TOO MANY VALUE
