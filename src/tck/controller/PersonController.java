@@ -42,7 +42,6 @@ public class PersonController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-   //     showDataOnTable(personDa.findAll());
         log.info("Person Windows Start");
         try {
             resetForm();
