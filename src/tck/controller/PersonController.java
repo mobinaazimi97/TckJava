@@ -133,7 +133,7 @@ public class PersonController implements Initializable {
         findByIdTxt.setOnKeyReleased(event -> {
             if (roleToggle.getSelectedToggle().equals(adminRdo)) {                                                            //TODO
                 try {
-                    PersonBl.getPersonBl().findById(Integer.parseInt(findByIdTxt.getText()));                   // TODO : Wrong : List for showDataOnTable
+                 showDataOnTable(PersonBl.getPersonBl().findById(Integer.parseInt(findByIdTxt.getText())));                   // TODO : Wrong : List for showDataOnTable
                     log.info("find by person id success" + Integer.parseInt(findByIdTxt.getText()));
                 } catch (Exception e) {
                     Alert alert = new Alert(Alert.AlertType.ERROR, "search person Id error\n" + e.getMessage());
@@ -155,7 +155,7 @@ public class PersonController implements Initializable {
         });
         findByUserTxt.setOnKeyReleased(event -> {                        //Todo
             try {
-                PersonBl.getPersonBl().findByUsername(findByUserTxt.getText());              //TODO
+              showDataOnTable(PersonBl.getPersonBl().findByUsername(findByUserTxt.getText()));              //TODO
                 log.info("found family" + findByFamilyTxt.getText());
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "search family error\n" + e.getMessage());
@@ -171,7 +171,7 @@ public class PersonController implements Initializable {
             usernameTxt.setText(String.valueOf(person.getUsername()));
             passwordTxt.setText(String.valueOf(person.getPassword()));
             phoneTxt.setText(String.valueOf(person.getPhoneNumber()));
-            emailTxt.setText(String.valueOf(person.getEmail()));
+           emailTxt.setText(String.valueOf(person.getEmail()));
             if (person.getRole().equals(Role.User)) {
                 userRdo.setSelected(true);
             } else {
@@ -183,10 +183,15 @@ public class PersonController implements Initializable {
 
     private void showDataOnTable(List<Person> personList) {
         ObservableList<Person> observableList = FXCollections.observableList(personList);
-        idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+     //   idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         familyCol.setCellValueFactory(new PropertyValueFactory<>("family"));
-        userCol.setCellValueFactory(new PropertyValueFactory<>("username"));
+     //   userCol.setCellValueFactory(new PropertyValueFactory<>("username"));
         personTbl.setItems(observableList);
+    }
+    private void showDataOnTable(Person person){                            //TODO
+        idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        userCol.setCellValueFactory(new PropertyValueFactory<>("username"));
+        personTbl.setItems(personTbl.getItems());
     }
 
     private void resetForm() throws Exception {
