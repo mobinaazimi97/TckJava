@@ -108,7 +108,7 @@ public class PersonController implements Initializable {
 //                        .enabled(falseChk.isSelected())
                         .build();
                 PersonBl.getPersonBl().save(person);
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "person updated\n" + person);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "person updated\n" + person.toString());
                 alert.show();
                 resetForm();
                 log.info("Person Updated" + person);
@@ -132,15 +132,18 @@ public class PersonController implements Initializable {
             }
         });
         findByIdTxt.setOnKeyReleased(event -> {
-            try {
-                PersonBl.getPersonBl().findById(Integer.parseInt(findByIdTxt.getText()));                   // TODO : Wrong : List for showDataOnTable
-                log.info("find by person id success" + Integer.parseInt(findByIdTxt.getText()));
-            } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "search person Id error\n" + e.getMessage());
-                alert.show();
-                log.error("Find By Person Id Error" + e.getMessage());
+            if (roleToggle.getSelectedToggle().equals(adminRdo)) {                                                            //TODO
+                try {
+                    PersonBl.getPersonBl().findById(Integer.parseInt(findByIdTxt.getText()));                   // TODO : Wrong : List for showDataOnTable
+                    log.info("find by person id success" + Integer.parseInt(findByIdTxt.getText()));
+                } catch (Exception e) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "search person Id error\n" + e.getMessage());
+                    alert.show();
+                    log.error("Find By Person Id Error" + e.getMessage());
+                }
             }
         });
+
         findByFamilyTxt.setOnKeyReleased(event -> {
             try {
                 showDataOnTable(PersonBl.getPersonBl().findByFamily(findByFamilyTxt.getText()));              //TODO
