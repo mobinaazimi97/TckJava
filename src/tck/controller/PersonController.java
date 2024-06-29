@@ -38,7 +38,7 @@ public class PersonController implements Initializable {
     @FXML
     private TableColumn<Person, Integer> idCol;
     @FXML
-    private TableColumn<Response, String> familyCol, userCol;
+    private TableColumn<Person, String> familyCol, userCol;                         //TODO : AnythingElse?.......User & Pass Field not found In Txt.
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
