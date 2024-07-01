@@ -72,7 +72,7 @@ public class ResponseController implements Initializable {
                         .answer(answerTxt.getText())
                         .build();
                 ResponseBl.getResponseBl().save(response);
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "response saved\n" + response);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "response saved\n" + response.toString());
                 alert.show();
                 resetForm();
                 log.info("Response Saved" + response);
@@ -93,7 +93,7 @@ public class ResponseController implements Initializable {
                         .answer(answerTxt.getText())
                         .build();
                 ResponseBl.getResponseBl().save(response);
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "response edited\n" + response);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "response edited\n" + response.toString());
                 alert.show();
                 resetForm();
                 log.info("Response Updated" + response);

@@ -93,7 +93,7 @@ public class TicketController implements Initializable {
 //                        .seen(seenChk.isSelected())
                         .build();
                 TicketBl.getTicketBl().save(ticket);
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "ticket saved\n" + ticket);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "ticket saved\n" + ticket.toString());
                 alert.show();
                 resetForm();
                 log.info("Ticket Saved" + ticket);
@@ -119,7 +119,7 @@ public class TicketController implements Initializable {
                         .status(Status.valueOf(statusCmb.getSelectionModel().getSelectedItem()))
                         .build();
                 TicketBl.getTicketBl().edit(ticket);
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "ticket updated\n" + ticket);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "ticket updated\n" + ticket.toString());
                 alert.show();
                 resetForm();
                 log.info("Ticket Updated" + ticket);

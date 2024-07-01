@@ -39,7 +39,7 @@ public class ResponseDa implements AutoCloseable, CRUD<Response> {
     @Override
     public Response edit(Response response) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE RESPONSE SET RESPONSE_ID=?,TICKET_ID=?,PERSON_ID=?,RESPONSE_DATE=?,ANSWER=? WHERE id=?");
+                "UPDATE RESPONSE SET TICKET_ID=?,PERSON_ID=?,RESPONSE_DATE=?,ANSWER=? WHERE id=?");
         preparedStatement.setInt(1, response.getId());
         preparedStatement.setInt(2, response.getTicket().getId());
         preparedStatement.setInt(3, response.getPerson().getId());

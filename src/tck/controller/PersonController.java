@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lombok.extern.log4j.Log4j;
 import tck.model.bl.PersonBl;
+import tck.model.da.PersonDa;
 import tck.model.entity.Person;
 import tck.model.entity.Response;
 import tck.model.entity.enums.Role;
@@ -79,8 +80,8 @@ public class PersonController implements Initializable {
                         .enabled(trueChk.isSelected())
                         //TODO           .enabled(falseChk.isSelected())
                         .build();
-                PersonBl.getPersonBl().save(person);
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "person saved\n" + person);
+              PersonBl.getPersonBl().save(person);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "person saved\n" + person.toString());
                 alert.show();
                 resetForm();
                 log.info("Person Saved" + person);

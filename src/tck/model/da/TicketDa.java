@@ -44,7 +44,7 @@ public class TicketDa implements AutoCloseable, CRUD<Ticket> {
     @Override
     public Ticket edit(Ticket ticket) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE TICKET SET TICKET_ID=?,PERSON_ID=?,TITLE=?,TEXT=?,GROUP_NAME=? , STATUS=?,TICKET_DATE=? , PERSON_USERNAME=? WHERE TICKET_ID=?");
+                "UPDATE TICKET SET PERSON_ID=?,TITLE=?,TEXT=?,GROUP_NAME=? , STATUS=?,TICKET_DATE=? , PERSON_USERNAME=? WHERE TICKET_ID=?");
 
         preparedStatement.setInt(1, ticket.getId());
         preparedStatement.setInt(2, ticket.getPerson().getId());
