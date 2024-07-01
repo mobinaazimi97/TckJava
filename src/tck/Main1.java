@@ -6,7 +6,7 @@ import tck.model.entity.enums.Role;
 
 public class Main1 {
     public static void main(String[] args) throws Exception {
-        PersonBl.getPersonBl().save(Person
+        Person person=Person
                 .builder()
                 .id(1)
                 .name("mobina")
@@ -17,9 +17,8 @@ public class Main1 {
                 .password("123456")
                 .role(Role.Admin)
                 .enabled(true)
-                .build()
-        );
-        System.out.println("person saved");
-
+                .build();
+        PersonBl.getPersonBl().save(person);
+        System.out.println("person saved"+person.toString());
     }
 }

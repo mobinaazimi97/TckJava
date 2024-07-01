@@ -89,7 +89,7 @@ public class ResponseBl implements CRUD<Response> {
             Response response = responseDa.findByTicketId(id);
             if (response != null) {
                 int ticketId = response.getTicket().getId();
-                Ticket ticket = TicketBl.getTicketBl().findById(ticketId);              //TODO
+                Ticket ticket = TicketBl.getTicketBl().findById(ticketId);
                 response.setTicket(ticket);
                 return response;
             } else {
@@ -113,7 +113,7 @@ public class ResponseBl implements CRUD<Response> {
     public Response findByAnswer(String answer) throws Exception {
         try (ResponseDa responseDa = new ResponseDa()) {
             Response response = responseDa.findByAnswer(answer);
-            if (response != null) {                     //      TODO    :       answer | response ?
+            if (response != null) {
                 return response;
             } else {
                 throw new NoResponseFoundException();
@@ -123,7 +123,7 @@ public class ResponseBl implements CRUD<Response> {
     public Response findByDate(LocalDate date) throws Exception {
         try (ResponseDa responseDa = new ResponseDa()) {
             Response response = responseDa.findByDate(date);
-            if (response != null) {                     //      TODO
+            if (response != null) {
                 return response;
             } else {
                 throw new NoResponseFoundException();

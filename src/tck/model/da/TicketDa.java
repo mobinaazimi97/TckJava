@@ -34,8 +34,8 @@ public class TicketDa implements AutoCloseable, CRUD<Ticket> {
         preparedStatement.setInt(3, ticket.getPerson().getId());
         preparedStatement.setString(4, ticket.getTitle());
         preparedStatement.setString(5, ticket.getText());
-        preparedStatement.setString(6, String.valueOf(ticket.getGroup()));
-        preparedStatement.setString(7, String.valueOf(ticket.getStatus()));
+        preparedStatement.setString(6, ticket.getGroup().name());
+        preparedStatement.setString(7, ticket.getStatus().name());
         preparedStatement.setString(8, ticket.getPerson().getUsername());
     //    preparedStatement.execute();
         return ticket;
@@ -50,8 +50,8 @@ public class TicketDa implements AutoCloseable, CRUD<Ticket> {
         preparedStatement.setInt(2, ticket.getPerson().getId());
         preparedStatement.setString(3, ticket.getTitle());
         preparedStatement.setString(4, ticket.getText());
-        preparedStatement.setString(5, String.valueOf(ticket.getGroup()));
-        preparedStatement.setString(6, String.valueOf(ticket.getStatus()));                                      //TODO
+        preparedStatement.setString(5, ticket.getGroup().name());
+        preparedStatement.setString(6, ticket.getStatus().name());
         preparedStatement.setDate(7, Date.valueOf(ticket.getTicketDate()));
         preparedStatement.setString(8, ticket.getPerson().getUsername());
         preparedStatement.execute();
@@ -213,7 +213,7 @@ public class TicketDa implements AutoCloseable, CRUD<Ticket> {
         return ticket;
     }
 
-    public Ticket findByDateRange(LocalDate startDate, LocalDate endDate) throws Exception {
+    public Ticket findByDateRange(LocalDate startDate, LocalDate endDate) throws Exception {            //TODO : Not Found DateTime
         preparedStatement = connection.prepareStatement("select * from TICKET where ticket_date between ? and ? ");
     preparedStatement.setDate(1, Date.valueOf(startDate));
     preparedStatement.setDate(2, Date.valueOf(endDate));
@@ -233,7 +233,7 @@ public class TicketDa implements AutoCloseable, CRUD<Ticket> {
         }
         return ticket;
     }
-    public Ticket findByUsername(String username) throws Exception {
+    public Ticket findByUsername(String username) throws Exception {                        //TODO : Not Found Field For User&Pass
         preparedStatement = connection.prepareStatement("select * from TICKET where user_name LIKE? ORDER BY id");
         preparedStatement.setString(1, username + "%");
         ResultSet resultSet = preparedStatement.executeQuery();
