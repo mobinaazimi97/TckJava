@@ -4,6 +4,9 @@ import lombok.Getter;
 import tck.controller.exceptions.NoPersonFoundException;
 import tck.model.da.PersonDa;
 import tck.model.entity.Person;
+import tck.model.entity.Ticket;
+import tck.model.entity.enums.Role;
+import tck.model.entity.enums.Status;
 import tck.model.tool.CRUD;
 
 import java.util.List;

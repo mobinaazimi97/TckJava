@@ -182,7 +182,6 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
         }
         return person;
     }
-
     @Override
     public void close() throws Exception {
         preparedStatement.close();

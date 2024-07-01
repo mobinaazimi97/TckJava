@@ -173,7 +173,7 @@ public class PersonController implements Initializable {
             passwordTxt.setText(String.valueOf(person.getPassword()));
             phoneTxt.setText(String.valueOf(person.getPhoneNumber()));
            emailTxt.setText(String.valueOf(person.getEmail()));
-            if (person.getRole().equals(Role.User)) {
+            if (person.getRole().equals(Role.USER)) {
                 userRdo.setSelected(true);
             } else {
                 adminRdo.setSelected(true);
