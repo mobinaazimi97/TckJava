@@ -32,27 +32,27 @@ public class ResponseDa implements AutoCloseable, CRUD<Response> {
         preparedStatement.setInt(3, response.getPerson().getId());
         preparedStatement.setDate(4, Date.valueOf(response.getDate()));
         preparedStatement.setString(5, response.getAnswer());
-        preparedStatement.execute();
+  //      preparedStatement.execute();
         return response;
     }
 
     @Override
     public Response edit(Response response) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE RESPONSE SET TICKET_ID=?,PERSON_ID=?,RESPONSE_DATE=?,ANSWER=? WHERE id=?");
+                "UPDATE RESPONSE SET TICKET_ID=?,PERSON_ID=?,RESPONSE_DATE=?,ANSWER=? WHERE response_id=?");
         preparedStatement.setInt(1, response.getId());
         preparedStatement.setInt(2, response.getTicket().getId());
         preparedStatement.setInt(3, response.getPerson().getId());
         preparedStatement.setDate(4, Date.valueOf(response.getDate()));
         preparedStatement.setString(5, response.getAnswer());
-        preparedStatement.execute();
+  //      preparedStatement.execute();
         return response;
     }
 
     @Override
     public Response remove(int id) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "DELETE FROM RESPONES WHERE ID = ?"
+                "DELETE FROM RESPONES WHERE response_id = ?"
         );
         preparedStatement.setInt(1, id);
         preparedStatement.execute();
@@ -62,12 +62,12 @@ public class ResponseDa implements AutoCloseable, CRUD<Response> {
     @Override
     public List<Response> findAll() throws Exception {
         List<Response> responesList = new ArrayList<>();
-        preparedStatement = connection.prepareStatement("select * from RESPONSE order by id");
+        preparedStatement = connection.prepareStatement("select * from RESPONSE order by response_id");
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             Response respones = Response
                     .builder()
-                    .id(resultSet.getInt("id"))
+                    .id(resultSet.getInt("response_id"))
                     .person(Person.builder().id(resultSet.getInt("PERSON_ID")).build())
                     .ticket(Ticket.builder().id(resultSet.getInt("TICKET_ID")).build())
                     .date(resultSet.getDate("response_date").toLocalDate())
@@ -81,16 +81,16 @@ public class ResponseDa implements AutoCloseable, CRUD<Response> {
 
     @Override
     public Response findById(int id) throws Exception {
-        preparedStatement = connection.prepareStatement("select * from RESPONSE where id=?");
+        preparedStatement = connection.prepareStatement("select * from RESPONSE where response_id=?");
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         Response response = null;
         if (resultSet.next()) {
             response = Response
                     .builder()
-                    .id(resultSet.getInt("id"))
-                    .person(Person.builder().id(resultSet.getInt("personId")).build())
-                    .ticket(Ticket.builder().id(resultSet.getInt("ticketId")).build())
+                    .id(resultSet.getInt("response_id"))
+                    .person(Person.builder().id(resultSet.getInt("person_Id")).build())
+                    .ticket(Ticket.builder().id(resultSet.getInt("ticket_Id")).build())
                     .date(resultSet.getDate("response_date").toLocalDate())
                     .answer(resultSet.getString("answer"))
                     .build();
@@ -106,7 +106,7 @@ public class ResponseDa implements AutoCloseable, CRUD<Response> {
         if (resultSet.next()) {
             response = Response
                     .builder()
-                    .id(resultSet.getInt("id"))
+                    .id(resultSet.getInt("response_id"))
                     .person(Person.builder().id(resultSet.getInt("PERSON_ID")).build())
                     .ticket(Ticket.builder().id(resultSet.getInt("TICKET_ID")).build())
                     .answer(resultSet.getString("answer"))
@@ -124,7 +124,7 @@ public class ResponseDa implements AutoCloseable, CRUD<Response> {
         if (resultSet.next()) {
             response = Response
                     .builder()
-                    .id(resultSet.getInt("id"))
+                    .id(resultSet.getInt("response_id"))
                     .person(Person.builder().id(resultSet.getInt("PERSON_ID")).build())
                     .ticket(Ticket.builder().id(resultSet.getInt("TICKET_ID")).build())
                     .answer(resultSet.getString("answer"))
@@ -135,16 +135,16 @@ public class ResponseDa implements AutoCloseable, CRUD<Response> {
     }
 
     public Response findByAnswer(String answer) throws Exception {
-        preparedStatement = connection.prepareStatement("select * from RESPONSE where answer LIKE? ORDER BY ID");
+        preparedStatement = connection.prepareStatement("select * from RESPONSE where answer LIKE? ORDER BY response_id");
         preparedStatement.setString(1, answer + "%");
         ResultSet resultSet = preparedStatement.executeQuery();
         Response response = null;
         if (resultSet.next()) {
             response = Response
                     .builder()
-                    .id(resultSet.getInt("id"))
-                    .person(Person.builder().id(resultSet.getInt("personId")).build())
-                    .ticket(Ticket.builder().id(resultSet.getInt("ticketId")).build())
+                    .id(resultSet.getInt("response_id"))
+                    .person(Person.builder().id(resultSet.getInt("person_Id")).build())
+                    .ticket(Ticket.builder().id(resultSet.getInt("ticket_Id")).build())
                     .date(resultSet.getDate("response_Date").toLocalDate())
                     .answer(resultSet.getString("answer"))
                     .build();
@@ -154,13 +154,13 @@ public class ResponseDa implements AutoCloseable, CRUD<Response> {
 
     public Response findByDate(LocalDate date) throws Exception {
         preparedStatement = connection.prepareStatement("select * from response where response_date =?");
-        preparedStatement.setTimestamp(1, Timestamp.valueOf(String.valueOf(date)));
+        preparedStatement.setDate(1, Date.valueOf(String.valueOf(date)));
         ResultSet resultSet = preparedStatement.executeQuery();
         Response response = null;
         if (resultSet.next()) {
             response = Response
                     .builder()
-                    .id(resultSet.getInt("id"))
+                    .id(resultSet.getInt("response_id"))
                     .person(Person.builder().id(resultSet.getInt("PERSON_ID")).build())
                     .ticket(Ticket.builder().id(resultSet.getInt("TICKET_ID")).build())
                     .answer(resultSet.getString("answer"))

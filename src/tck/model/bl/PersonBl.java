@@ -20,8 +20,9 @@ public class PersonBl implements CRUD<Person> {
         try (PersonDa personDa = new PersonDa()) {
             personDa.save(person);
             return person;
-            }
         }
+    }
+
 
     @Override
     public Person edit(Person person) throws Exception {

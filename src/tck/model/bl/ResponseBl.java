@@ -75,7 +75,7 @@ public class ResponseBl implements CRUD<Response> {
             Response response = responseDa.findById(id);
             if (response != null) {
                 int personId = response.getPerson().getId();
-                Person person = PersonBl.getPersonBl().findById(personId);
+                Person person = PersonBl.getPersonBl().findById(id);
                 response.setPerson(person);
                 return response;
             } else {
@@ -86,11 +86,12 @@ public class ResponseBl implements CRUD<Response> {
 
     public Response findByTicketId(int id) throws Exception {
         try (ResponseDa responseDa = new ResponseDa()) {
-            Response response = responseDa.findByTicketId(id);
+            Ticket ticket=TicketBl.getTicketBl().findById(id);
+            Response response = responseDa.findByTicketId(ticket.getId());
             if (response != null) {
                 int ticketId = response.getTicket().getId();
-                Ticket ticket = TicketBl.getTicketBl().findById(ticketId);
-                response.setTicket(ticket);
+ //               Ticket ticket = TicketBl.getTicketBl().findById(ticketId);
+                response.setTicket(TicketBl.getTicketBl().findById(response.getTicket().getId()));
                 return response;
             } else {
                 throw new NoResponseFoundException();
@@ -99,11 +100,12 @@ public class ResponseBl implements CRUD<Response> {
     }
     public Response findByPersonId(int id) throws Exception {
         try (ResponseDa responseDa = new ResponseDa()) {
-            Response response = responseDa.findByPersonId(id);
+            Person person=PersonBl.getPersonBl().findById(id);
+            Response response = responseDa.findByPersonId(person.getId());
             if (response != null) {
                 int personId = response.getPerson().getId();
-                Person person = PersonBl.getPersonBl().findById(id);
-                response.setPerson(person);
+     //           Person person = PersonBl.getPersonBl().findById(id);
+                response.setPerson(PersonBl.getPersonBl().findById(response.getPerson().getId()));
                 return response;
             } else {
                 throw new NoResponseFoundException();

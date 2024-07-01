@@ -73,7 +73,7 @@ public class TicketBl implements CRUD<Ticket> {
             Ticket ticket = ticketDa.findById(id);
             if (ticket != null) {
                 int personId = ticket.getPerson().getId();
-                Person person = PersonBl.getPersonBl().findById(personId);
+                Person person = PersonBl.getPersonBl().findById(id);
                 //   ticket.setPerson(PersonBl.getPersonBl().findById(ticket.getPerson().getId()));
                 ticket.setPerson(person);
                 return ticket;
@@ -85,11 +85,12 @@ public class TicketBl implements CRUD<Ticket> {
 
     public Ticket findByPersonId(int id) throws Exception {
         try (TicketDa ticketDa = new TicketDa()) {
-            Ticket ticket= ticketDa.findByPersonId(id);
+            Person person=PersonBl.getPersonBl().findById(id);
+            Ticket ticket= ticketDa.findByPersonId(person.getId());
             if (ticket != null) {
                 int personId= ticket.getPerson().getId();
-                Person person = PersonBl.getPersonBl().findById(id);
-                ticket.setPerson(person);
+  //              Person person = PersonBl.getPersonBl().findById(personId);
+                ticket.setPerson(PersonBl.getPersonBl().findById(ticket.getPerson().getId()));
                 return ticket;
             } else {
                 throw new NoTicketFoundException();
@@ -154,8 +155,8 @@ public class TicketBl implements CRUD<Ticket> {
     public Ticket findByUsername(String username) throws Exception {
         try (TicketDa ticketDa = new TicketDa()) {
             Person person = PersonBl.getPersonBl().findByUsername(username);
-            Ticket ticket = ticketDa.findByUsername(person.getUsername());
-            ticket.setPerson(PersonBl.getPersonBl().findByUsername(ticket.getPerson().getUsername()));
+            Ticket ticket = ticketDa.findByPersonId(person.getId());
+            ticket.setPerson(PersonBl.getPersonBl().findById(ticket.getPerson().getId()));
             return ticket;
         }
     }

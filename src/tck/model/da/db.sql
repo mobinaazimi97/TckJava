@@ -30,7 +30,7 @@ create table RESPONSE
     response_id                         number primary key,
     response_date                     timestamp,
     answer                                 nvarchar2(255),
-    ticket_id                             references t,
+    ticket_id                             references TICKET,
     person_id                           references person
 );
 create sequence response_seq start with 1 increment by 1;

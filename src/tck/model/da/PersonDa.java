@@ -36,7 +36,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
         preparedStatement.setString(7, person.getPassword());
         preparedStatement.setString(8, person.getRole().name());
         preparedStatement.setBoolean(9, person.isEnabled());
-    //    preparedStatement.execute();
+        preparedStatement.execute();
         return person;
     }
 
@@ -72,7 +72,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
     public List<Person> findAll() throws Exception {
         List<Person> personList = new ArrayList<>();
         preparedStatement = connection.prepareStatement("select * from person order by person_id");
-        ResultSet resultSet = preparedStatement.executeQuery();
+       ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             Person person = Person
                     .builder()
@@ -119,7 +119,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
     public Person findById(int id) throws Exception {
         preparedStatement = connection.prepareStatement("select * from person where person_id=?");
         preparedStatement.setInt(1, id);
-        ResultSet resultSet = preparedStatement.executeQuery();
+       ResultSet resultSet = preparedStatement.executeQuery();
         Person person = null;
         if (resultSet.next()) {
             person = Person
@@ -141,7 +141,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
     public Person findByUsername(String username) throws Exception {
         preparedStatement = connection.prepareStatement("SELECT * FROM  PERSON WHERE USER_NAME LIKE? ORDER BY ID");
         preparedStatement.setString(1, username + "%");
-        ResultSet resultSet = preparedStatement.executeQuery();
+       ResultSet resultSet = preparedStatement.executeQuery();
         Person person = null;
         if (resultSet.next()) {
             person = Person
