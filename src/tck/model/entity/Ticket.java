@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 
-public class Ticket {
+public  class Ticket {
     private int id;
     private Group group;
     private Person person;

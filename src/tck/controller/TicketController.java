@@ -26,11 +26,11 @@ import java.util.ResourceBundle;
 
 public class TicketController implements Initializable {
     @FXML
-    private TextField ticketIdTxt, personIdTxt, personUserTxt , titleTxt, textTxt, findByIdTxt, findByPersonIdTxt, findByTitleTxt, findByTextTxt, findByGroupTxt, findByStatusTxt,findByPersonUserTxt;
+    private TextField ticketIdTxt, personIdTxt, personUserTxt , titleTxt, textTxt;
     @FXML
     private ComboBox<String> statusCmb;
     @FXML
-    private DatePicker ticketDatePick, findByStartDatePick, findByEndDatePick;
+    private DatePicker ticketDatePick;
     @FXML
     private ToggleGroup groupToggle;
     @FXML
@@ -45,8 +45,6 @@ public class TicketController implements Initializable {
     private TableColumn<Ticket, Integer> ticketIdCol, personIdCol;
     @FXML
     private TableColumn<Ticket, String> groupCol, statusCol, textCol, titleCol;
-    @FXML
-    private TableColumn<Ticket, LocalDate> startDateCol, endDateCol;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -142,86 +140,29 @@ public class TicketController implements Initializable {
                 log.error("Ticket Remove Error" + e.getMessage());
             }
         });
-        findByIdTxt.setOnKeyReleased(event -> {
-            try {
-                TicketBl.getTicketBl().findById(Integer.parseInt(findByIdTxt.getText()));                           // TODO : Wrong : List for showDataOnTable
-                log.info("find by ticket id success" + Integer.parseInt(findByIdTxt.getText()));
-            } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "search ticket id error\n" + e.getMessage());
-                alert.show();
-                log.error("Find By Ticket Id Error" + e.getMessage());
-            }
-        });
-        findByPersonIdTxt.setOnKeyReleased(event -> {
-            try {
-                TicketBl.getTicketBl().findByPersonId(Integer.parseInt(findByPersonIdTxt.getText()));           //TODO
-                log.info("found person id" + findByPersonIdTxt.getText());
-            } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "search person id error\n" + e.getMessage());
-                alert.show();
-                log.error("Find By Person Id Error" + e.getMessage());
-            }
-        });
-        findByPersonUserTxt.setOnKeyReleased(event -> {
-            try {
-                TicketBl.getTicketBl().findByUsername(findByPersonUserTxt.getText());           //TODO
-                log.info("found person username" + findByPersonUserTxt.getText());
-            } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "search person username error\n" + e.getMessage());
-                alert.show();
-                log.error("Find By Person Username Error" + e.getMessage());
-            }
-        });
-        findByTitleTxt.setOnKeyReleased(event -> {
-            try {
-                TicketBl.getTicketBl().findByTitle(findByTitleTxt.getText()); // TODO : Wrong : List for showDataOnTable
-                log.info("found title" + findByTitleTxt.getText());
-            } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "search title error\n" + e.getMessage());
-                alert.show();
-                log.error("Find By Title Error" + e.getMessage());
-            }
-        });
-        findByTextTxt.setOnKeyReleased(event -> {
-            try {
-                TicketBl.getTicketBl().findByText(findByTextTxt.getText()); // TODO : Wrong : List for showDataOnTable
-                log.info("found text" + findByTextTxt.getText());
-            } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "search text error\n" + e.getMessage());
-                alert.show();
-                log.error("Find By Text Error" + e.getMessage());
-            }
-        });
-        findByGroupTxt.setOnKeyReleased(event -> {
-            try {
-                TicketBl.getTicketBl().findByGroup(Group.valueOf(findByGroupTxt.getText())); // TODO : Wrong :  ENUMS | LIST
-                log.info("found group" + findByGroupTxt.getText());
-            } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "search group error\n" + e.getMessage());
-                alert.show();
-                log.error("Find By Group Error" + e.getMessage());
-            }
-        });
-        findByStatusTxt.setOnKeyReleased(event -> {
-            try {
-                TicketBl.getTicketBl().findByStatus(Status.valueOf(findByStatusTxt.getText()));                 // TODO : Wrong :  ENUMS | LIST
-                log.info("found status" + findByStatusTxt.getText());
-            } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "search status error\n" + e.getMessage());
-                alert.show();
-                log.error("Find By Status Error" + e.getMessage());
-            }
-        });
-        findByStartDatePick.setOnKeyReleased(event -> {
-            try {
-                TicketBl.getTicketBl().findByDateRange(findByStartDatePick.getValue(), findByEndDatePick.getValue());          //TODO : CHECK .
-                log.info("found Date" + findByStartDatePick.getValue() + findByEndDatePick.getValue());                                   //TODO : CHECK
-            } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Search By Range Of Date Error\n" + e.getMessage());
-                alert.show();
-                log.error("Find By Start Date Error" + e.getMessage());
-            }
-        });
+
+//        findByTitleTxt.setOnKeyReleased(event -> {                        //TODO !
+//            try {
+//                TicketBl.getTicketBl().findByTitle(findByTitleTxt.getText()); // TODO : Wrong : List for showDataOnTable
+//                log.info("found title" + findByTitleTxt.getText());
+//            } catch (Exception e) {
+//                Alert alert = new Alert(Alert.AlertType.ERROR, "search title error\n" + e.getMessage());
+//                alert.show();
+//                log.error("Find By Title Error" + e.getMessage());
+//            }
+//        });
+
+//        findByTextTxt.setOnKeyReleased(event -> {                     //TODO !
+//        try {
+//                TicketBl.getTicketBl().findByText(findByTextTxt.getText()); // TODO : Wrong : List for showDataOnTable
+//                log.info("found text" + findByTextTxt.getText());
+//            } catch (Exception e) {
+//                Alert alert = new Alert(Alert.AlertType.ERROR, "search text error\n" + e.getMessage());
+//                alert.show();
+//                log.error("Find By Text Error" + e.getMessage());
+//            }
+//        });
+
 //        findByEndDatePick.setOnKeyReleased(event -> {
 //            try {
 //             TicketBl.getTicketBl().findByDateRange(findByEndDatePick.getValue());                          //TODO
@@ -256,8 +197,6 @@ public class TicketController implements Initializable {
         statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
         textCol.setCellValueFactory(new PropertyValueFactory<>("text"));
         titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
-        startDateCol.setCellValueFactory(new PropertyValueFactory<>("start date"));
-        endDateCol.setCellValueFactory(new PropertyValueFactory<>("end date"));
         ticketTbl.setItems(observableList);
     }
 

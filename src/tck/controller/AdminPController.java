@@ -74,7 +74,7 @@ public class AdminPController implements Initializable {
         });
         findByUserTxt.setOnKeyReleased(event -> {                        //Todo
             try {
-                AdminBl.getAdminBl().findByPersonUser(findByUserTxt.getText());              //TODO
+            AdminBl.getAdminBl().findByPersonUser(findByUserTxt.getText());              //TODO
                 log.info("found person username" + findByUserTxt.getText());
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "search person username error\n" + e.getMessage());
