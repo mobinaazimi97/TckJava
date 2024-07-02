@@ -62,4 +62,22 @@ public class WindowsManager {
         stage.setTitle("Ticket Report");
         stage.show();
     }
+    public static void showAdminRForm() throws IOException {
+        Stage stage = new Stage();
+        Scene scene = new Scene(
+                FXMLLoader.load(WindowsManager.class.getResource("tck/view/admin.response.fxml"))
+        );
+        stage.setScene(scene);
+        stage.setTitle("Response Report");
+        stage.show();
+    }
+    public static void showSignInForm() throws IOException {
+        Stage stage = new Stage();
+        Scene scene = new Scene(
+                FXMLLoader.load(WindowsManager.class.getResource("tck/view/signIn.fxml"))
+        );
+        stage.setScene(scene);
+        stage.setTitle("Sign In Page");
+        stage.show();
+    }
 }

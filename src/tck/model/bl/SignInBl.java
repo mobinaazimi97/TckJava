@@ -107,7 +107,7 @@ public class SignInBl implements CRUD<SignIn> {
     public SignIn findByPersonUsername(String username) throws Exception {
         try (SignInDa signInDa = new SignInDa()) {
             Person person = PersonBl.getPersonBl().findByUsername(username);
-            SignIn signIn = signInDa.findByPersonId(person.getId());
+            SignIn signIn = signInDa.findByPersonUsername(person.getUsername());
             signIn.setPerson(PersonBl.getPersonBl().findById(signIn.getPerson().getId()));
             return signIn;
         }
@@ -115,7 +115,7 @@ public class SignInBl implements CRUD<SignIn> {
     public SignIn findByPersonPassword(String password) throws Exception {
         try (SignInDa signInDa = new SignInDa()) {
             Person person = PersonBl.getPersonBl().findByPassword(password);
-            SignIn signIn = signInDa.findByPersonId(person.getId());
+            SignIn signIn = signInDa.findByPersonPassword(person.getPassword());
             signIn.setPerson(PersonBl.getPersonBl().findById(signIn.getPerson().getId()));
             return signIn;
         }
@@ -123,7 +123,7 @@ public class SignInBl implements CRUD<SignIn> {
     public SignIn findByPersonEmail(String email) throws Exception {
         try (SignInDa signInDa = new SignInDa()) {
             Person person = PersonBl.getPersonBl().findByEmail(email);
-            SignIn signIn = signInDa.findByPersonId(person.getId());
+            SignIn signIn = signInDa.findByPersonEmail(person.getEmail());
             signIn.setPerson(PersonBl.getPersonBl().findById(signIn.getPerson().getId()));
             return signIn;
         }
@@ -131,7 +131,7 @@ public class SignInBl implements CRUD<SignIn> {
     public SignIn findByPersonPhoneNumber(String phoneNumber) throws Exception {
         try (SignInDa signInDa = new SignInDa()) {
             Person person = PersonBl.getPersonBl().findByPhoneNumber(phoneNumber);
-            SignIn signIn = signInDa.findByPersonId(person.getId());
+            SignIn signIn = signInDa.findByPersonPhoneNumber(person.getPhoneNumber());
             signIn.setPerson(PersonBl.getPersonBl().findById(signIn.getPerson().getId()));
             return signIn;
         }

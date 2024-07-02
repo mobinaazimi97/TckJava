@@ -27,7 +27,7 @@ public class SignInDa implements AutoCloseable, CRUD<SignIn> {
     public SignIn save(SignIn signIn) throws Exception {
         signIn.setId(ConnectionProvider.getConnectionProvider().getNextId("SignIn_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO SIGNIN(sign_id,person_id,person_username,person_password,person_email,person_phone,admin_id) VALUES (signIn_seq.NextVal,?,?,?,?,?,?,?)"
+                "INSERT INTO SIGNIN(sign_id,person_id,user_name,password,email,phone_number,admin_id) VALUES (signIn_seq.NextVal,?,?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1,signIn.getId());
         preparedStatement.setInt(2,signIn.getPerson().getId());
@@ -43,7 +43,7 @@ public class SignInDa implements AutoCloseable, CRUD<SignIn> {
     @Override
     public SignIn edit(SignIn signIn) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE SIGNIN SET sign_id=?,person_id=?,person_username=?,person_password=?,person_email=?,person_phone=?,admin_id WHERE Sign_Id=?");
+                "UPDATE SIGNIN SET sign_id=?,person_id=?,user_name=?,password=?,email=?,phone_number=?,admin_id WHERE Sign_Id=?");
         preparedStatement.setInt(1,signIn.getId());
         preparedStatement.setInt(2,signIn.getPerson().getId());
         preparedStatement.setString(3,signIn.getPerson().getUsername());
@@ -73,10 +73,10 @@ public class SignInDa implements AutoCloseable, CRUD<SignIn> {
                     .builder()
                     .id(resultSet.getInt("sign_id"))
                     .person(Person.builder().id(resultSet.getInt("person_id")).build())
-                    .person(Person.builder().username(resultSet.getString("person_username")).build())
-                    .person(Person.builder().password(resultSet.getString("person_password")).build())
-                    .person(Person.builder().email(resultSet.getString("person_email")).build())
-                    .person(Person.builder().phoneNumber(resultSet.getString("person_phone")).build())
+                    .person(Person.builder().username(resultSet.getString("user_name")).build())
+                    .person(Person.builder().password(resultSet.getString("password")).build())
+                    .person(Person.builder().email(resultSet.getString("email")).build())
+                    .person(Person.builder().phoneNumber(resultSet.getString("phone_number")).build())
                     .admin(Admin.builder().id(resultSet.getInt("admin_id")).build())
                     .build();
             signInList.add(signIn);
@@ -95,10 +95,10 @@ public class SignInDa implements AutoCloseable, CRUD<SignIn> {
                     .builder()
                     .id(resultSet.getInt("sign_id"))
                     .person(Person.builder().id(resultSet.getInt("person_id")).build())
-                    .person(Person.builder().username(resultSet.getString("person_username")).build())
-                    .person(Person.builder().password(resultSet.getString("person_password")).build())
-                    .person(Person.builder().email(resultSet.getString("person_email")).build())
-                    .person(Person.builder().phoneNumber(resultSet.getString("person_phone")).build())
+                    .person(Person.builder().username(resultSet.getString("user_name")).build())
+                    .person(Person.builder().password(resultSet.getString("password")).build())
+                    .person(Person.builder().email(resultSet.getString("email")).build())
+                    .person(Person.builder().phoneNumber(resultSet.getString("phone_number")).build())
                     .admin(Admin.builder().id(resultSet.getInt("admin_id")).build())
                     .build();
         }
@@ -114,10 +114,10 @@ public class SignInDa implements AutoCloseable, CRUD<SignIn> {
                     .builder()
                     .id(resultSet.getInt("sign_id"))
                     .person(Person.builder().id(resultSet.getInt("person_id")).build())
-//                    .person(Person.builder().username(resultSet.getString("person_username")).build())
-//                    .person(Person.builder().password(resultSet.getString("person_password")).build())
-//                    .person(Person.builder().email(resultSet.getString("person_email")).build())
-//                    .person(Person.builder().phoneNumber(resultSet.getString("person_phone")).build())
+                    .person(Person.builder().username(resultSet.getString("user_name")).build())
+                    .person(Person.builder().password(resultSet.getString("password")).build())
+                    .person(Person.builder().email(resultSet.getString("email")).build())
+                    .person(Person.builder().phoneNumber(resultSet.getString("phone_number")).build())
                     .admin(Admin.builder().id(resultSet.getInt("admin_id")).build())
                     .build();
         }
@@ -132,11 +132,11 @@ public class SignInDa implements AutoCloseable, CRUD<SignIn> {
             signIn = SignIn
                     .builder()
                     .id(resultSet.getInt("sign_id"))
- //                  .person(Person.builder().id(resultSet.getInt("person_id")).build())
-                    .person(Person.builder().username(resultSet.getString("person_username")).build())
-//                    .person(Person.builder().password(resultSet.getString("person_password")).build())
-//                    .person(Person.builder().email(resultSet.getString("person_email")).build())
-//                    .person(Person.builder().phoneNumber(resultSet.getString("person_phone")).build())
+                   .person(Person.builder().id(resultSet.getInt("person_id")).build())
+                    .person(Person.builder().username(resultSet.getString("user_name")).build())
+                    .person(Person.builder().password(resultSet.getString("password")).build())
+                    .person(Person.builder().email(resultSet.getString("email")).build())
+                    .person(Person.builder().phoneNumber(resultSet.getString("phone_number")).build())
                     .admin(Admin.builder().id(resultSet.getInt("admin_id")).build())
                     .build();
         }
@@ -151,11 +151,11 @@ public class SignInDa implements AutoCloseable, CRUD<SignIn> {
             signIn = SignIn
                     .builder()
                     .id(resultSet.getInt("sign_id"))
-//                    .person(Person.builder().id(resultSet.getInt("person_id")).build())
-//                    .person(Person.builder().username(resultSet.getString("person_username")).build())
-                    .person(Person.builder().password(resultSet.getString("person_password")).build())
-//                    .person(Person.builder().email(resultSet.getString("person_email")).build())
-//                    .person(Person.builder().phoneNumber(resultSet.getString("person_phone")).build())
+                    .person(Person.builder().id(resultSet.getInt("person_id")).build())
+                    .person(Person.builder().username(resultSet.getString("user_name")).build())
+                    .person(Person.builder().password(resultSet.getString("password")).build())
+                    .person(Person.builder().email(resultSet.getString("email")).build())
+                   .person(Person.builder().phoneNumber(resultSet.getString("phone_number")).build())
                     .admin(Admin.builder().id(resultSet.getInt("admin_id")).build())
                     .build();
         }
@@ -170,11 +170,11 @@ public class SignInDa implements AutoCloseable, CRUD<SignIn> {
             signIn = SignIn
                     .builder()
                     .id(resultSet.getInt("sign_id"))
-                    //                   .person(Person.builder().id(resultSet.getInt("person_id")).build())
-//                    .person(Person.builder().username(resultSet.getString("person_username")).build())
-//                    .person(Person.builder().password(resultSet.getString("person_password")).build())
-                    .person(Person.builder().email(resultSet.getString("person_email")).build())
-//                    .person(Person.builder().phoneNumber(resultSet.getString("person_phone")).build())
+                    .person(Person.builder().id(resultSet.getInt("person_id")).build())
+                    .person(Person.builder().username(resultSet.getString("user_name")).build())
+                   .person(Person.builder().password(resultSet.getString("password")).build())
+                    .person(Person.builder().email(resultSet.getString("email")).build())
+                   .person(Person.builder().phoneNumber(resultSet.getString("phone_number")).build())
                     .admin(Admin.builder().id(resultSet.getInt("admin_id")).build())
                     .build();
         }
@@ -189,11 +189,11 @@ public class SignInDa implements AutoCloseable, CRUD<SignIn> {
             signIn = SignIn
                     .builder()
                     .id(resultSet.getInt("sign_id"))
- //                   .person(Person.builder().id(resultSet.getInt("person_id")).build())
-//                    .person(Person.builder().username(resultSet.getString("person_username")).build())
-//                    .person(Person.builder().password(resultSet.getString("person_password")).build())
-//                    .person(Person.builder().email(resultSet.getString("person_email")).build())
-                    .person(Person.builder().phoneNumber(resultSet.getString("person_phone")).build())
+                    .person(Person.builder().id(resultSet.getInt("person_id")).build())
+                    .person(Person.builder().username(resultSet.getString("user_name")).build())
+                    .person(Person.builder().password(resultSet.getString("password")).build())
+                    .person(Person.builder().email(resultSet.getString("email")).build())
+                    .person(Person.builder().phoneNumber(resultSet.getString("phone_number")).build())
                     .admin(Admin.builder().id(resultSet.getInt("admin_id")).build())
                     .build();
         }
@@ -209,10 +209,10 @@ public class SignInDa implements AutoCloseable, CRUD<SignIn> {
                     .builder()
                     .id(resultSet.getInt("sign_id"))
                     .person(Person.builder().id(resultSet.getInt("person_id")).build())
-//                    .person(Person.builder().username(resultSet.getString("person_username")).build())
-//                    .person(Person.builder().password(resultSet.getString("person_password")).build())
-//                    .person(Person.builder().email(resultSet.getString("person_email")).build())
-//                    .person(Person.builder().phoneNumber(resultSet.getString("person_phone")).build())
+                    .person(Person.builder().username(resultSet.getString("user_name")).build())
+                    .person(Person.builder().password(resultSet.getString("password")).build())
+                    .person(Person.builder().email(resultSet.getString("email")).build())
+                    .person(Person.builder().phoneNumber(resultSet.getString("phone_number")).build())
                     .admin(Admin.builder().id(resultSet.getInt("admin_id")).build())
                     .build();
         }

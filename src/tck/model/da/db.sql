@@ -41,19 +41,19 @@ username                            nvarchar2(20)unique ,
 pass                                     nvarchar2(10),
 person_id                            references PERSON,
 person_family                     references PERSON,
-person_user                        references PERSON,
-person_pass                         references PERSON,
+user_name                          references PERSON,
+password                         references PERSON,
 ticket_id                              references TICKET,
 response_id                         references RESPONSE);
 create  sequence admin_seq start with 1 increment by 1;
 
 create table SignIn(
-sign_id                       number primary key ,
-person_id                   references PERSON,
-person_username     references PERSON,
-person_password      references PERSON,
-person_email             references PERSON,
-person_phone            references PERSON,
-admin_id                     references a
+sign_id                      number primary key ,
+person_id                 references PERSON,
+user_name               references PERSON,
+password                 references PERSON,
+email                        references PERSON,
+phone_number       references PERSON,
+admin_id                 references PERSON
 );
 create  sequence signIn_seq start with 1 increment by 1;
