@@ -139,7 +139,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
     }
 
     public Person findByUsername(String username) throws Exception {
-        preparedStatement = connection.prepareStatement("SELECT * FROM  PERSON WHERE USER_NAME LIKE? ORDER BY ID");
+        preparedStatement = connection.prepareStatement("SELECT * FROM  PERSON WHERE USER_NAME LIKE? ORDER BY PERSON_ID");
         preparedStatement.setString(1, username + "%");
        ResultSet resultSet = preparedStatement.executeQuery();
         Person person = null;
@@ -160,10 +160,52 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
         return person;
     }
 
-    public Person findByUsernameAndPassword(String username, String password) throws Exception {
-        preparedStatement = connection.prepareStatement("SELECT * FROM  PERSON WHERE USER_NAME LIKE? AND PASSWORD LIKE? ORDER BY ID");
-        preparedStatement.setString(1, username + "%");
-        preparedStatement.setString(2, password + "%");
+    public Person findByPassword(String password) throws Exception {
+        preparedStatement = connection.prepareStatement("SELECT * FROM  PERSON WHERE  PASSWORD LIKE? ORDER BY Person_Id");
+      //  preparedStatement.setString(1, username + "%");
+        preparedStatement.setString(1, password + "%");
+        ResultSet resultSet = preparedStatement.executeQuery();
+        Person person = null;
+        if (resultSet.next()) {
+            person = Person
+                    .builder()
+                    .id(resultSet.getInt("PERSON_ID"))
+                    .name(resultSet.getString("PERSON_NAME"))
+                    .family(resultSet.getString("PERSON_FAMILY"))
+                    .phoneNumber(resultSet.getString("Phone_Number"))
+                    .email(resultSet.getString("email"))
+                    .username(resultSet.getString("User_Name"))
+                    .password(resultSet.getString("Password"))
+                    .role(Role.valueOf(resultSet.getString("Role")))
+                    .enabled(resultSet.getBoolean("ENABLED"))
+                    .build();
+        }
+        return person;
+    }
+    public Person findByPhoneNumber(String phoneNumber) throws Exception {
+        preparedStatement = connection.prepareStatement("SELECT * FROM  PERSON WHERE PHONE_NUMBER LIKE? ORDER BY PERSON_ID");
+        preparedStatement.setString(1, phoneNumber + "%");
+        ResultSet resultSet = preparedStatement.executeQuery();
+        Person person = null;
+        if (resultSet.next()) {
+            person = Person
+                    .builder()
+                    .id(resultSet.getInt("PERSON_ID"))
+                    .name(resultSet.getString("PERSON_NAME"))
+                    .family(resultSet.getString("PERSON_FAMILY"))
+                    .phoneNumber(resultSet.getString("Phone_Number"))
+                    .email(resultSet.getString("email"))
+                    .username(resultSet.getString("User_Name"))
+                    .password(resultSet.getString("Password"))
+                    .role(Role.valueOf(resultSet.getString("Role")))
+                    .enabled(resultSet.getBoolean("ENABLED"))
+                    .build();
+        }
+        return person;
+    }
+    public Person findByEmail(String email) throws Exception {
+        preparedStatement = connection.prepareStatement("SELECT * FROM  PERSON WHERE EMAIL LIKE? ORDER BY PERSON_ID");
+        preparedStatement.setString(1, email + "%");
         ResultSet resultSet = preparedStatement.executeQuery();
         Person person = null;
         if (resultSet.next()) {

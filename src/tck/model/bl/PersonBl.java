@@ -98,9 +98,29 @@ public class PersonBl implements CRUD<Person> {
         }
     }
 
-    public Person findByUsernameAndPassword(String username, String password) throws Exception {
+    public Person findByPassword(String password) throws Exception {
         try (PersonDa personDa = new PersonDa()) {
-            Person person = personDa.findByUsernameAndPassword(username, password);
+            Person person = personDa.findByPassword(password);
+            if (person != null) {
+                return person;
+            } else {
+                throw new NoPersonFoundException();
+            }
+        }
+    }
+    public Person findByPhoneNumber(String phoneNumber) throws Exception {
+        try (PersonDa personDa = new PersonDa()) {
+            Person person = personDa.findByPhoneNumber(phoneNumber);
+            if (person != null) {
+                return person;
+            } else {
+                throw new NoPersonFoundException();
+            }
+        }
+    }
+    public Person findByEmail(String email) throws Exception {
+        try (PersonDa personDa = new PersonDa()) {
+            Person person = personDa.findByEmail(email);
             if (person != null) {
                 return person;
             } else {

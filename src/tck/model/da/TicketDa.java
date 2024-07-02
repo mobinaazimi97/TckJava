@@ -234,7 +234,7 @@ public class TicketDa implements AutoCloseable, CRUD<Ticket> {
         return ticket;
     }
     public Ticket findByUsername(String username) throws Exception {                        //TODO : Not Found Field For User&Pass
-        preparedStatement = connection.prepareStatement("select * from TICKET where user_name LIKE? ORDER BY id");
+        preparedStatement = connection.prepareStatement("select * from TICKET where Person_Username LIKE? ORDER BY Ticket_Id");
         preparedStatement.setString(1, username + "%");
         ResultSet resultSet = preparedStatement.executeQuery();
         Ticket ticket = null;
