@@ -62,7 +62,7 @@ public class ResponseDa implements AutoCloseable, CRUD<Response> {
     @Override
     public List<Response> findAll() throws Exception {
         List<Response> responesList = new ArrayList<>();
-        preparedStatement = connection.prepareStatement("select * from RESPONSE order by response_id");
+        preparedStatement = connection.prepareStatement("select * from RESPONSE order by PERSON_ID");
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             Response respones = Response

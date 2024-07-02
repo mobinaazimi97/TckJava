@@ -66,7 +66,7 @@ public class SignInDa implements AutoCloseable, CRUD<SignIn> {
     @Override
     public List<SignIn> findAll() throws Exception {
         List<SignIn> signInList = new ArrayList<>();
-        preparedStatement = connection.prepareStatement("select * from SIGNIN order by SIGN_ID");
+        preparedStatement = connection.prepareStatement("select * from SIGNIN order by PERSON_ID");
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             SignIn signIn=SignIn

@@ -53,6 +53,9 @@ public class SignInBl implements CRUD<SignIn> {
         try (SignInDa signInDa=new SignInDa()) {
             List<SignIn> signInList =signInDa.findAll();
             if (!signInList.isEmpty()) {
+                for (SignIn signIn : signInList) {
+                    signIn.setPerson(PersonBl.getPersonBl().findById(signIn.getPerson().getId()));
+                }
                 return signInList;
             } else {
                 throw new FailedSignInException() ;

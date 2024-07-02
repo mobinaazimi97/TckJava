@@ -5,6 +5,7 @@ import tck.controller.exceptions.NoResponseFoundException;
 import tck.controller.exceptions.NoTicketFoundException;
 import tck.model.da.ResponseDa;
 import tck.model.da.TicketDa;
+import tck.model.entity.Admin;
 import tck.model.entity.Person;
 import tck.model.entity.Response;
 import tck.model.entity.Ticket;
@@ -62,6 +63,9 @@ public class ResponseBl implements CRUD<Response> {
         try (ResponseDa responseDa = new ResponseDa()) {
             List<Response> responseList = responseDa.findAll();
             if (!responseList.isEmpty()) {
+                for (Response response : responseList) {
+                    response.setPerson(PersonBl.getPersonBl().findById(response.getPerson().getId()));
+                }
                 return responseList;
             } else {
                 throw new NoResponseFoundException();
