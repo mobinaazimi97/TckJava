@@ -1,10 +1,7 @@
 package tck.model.da;
 
 import lombok.extern.log4j.Log4j;
-import tck.model.entity.Admin;
-import tck.model.entity.Person;
-import tck.model.entity.Response;
-import tck.model.entity.Ticket;
+import tck.model.entity.*;
 import tck.model.tool.CRUD;
 import tck.model.tool.ConnectionProvider;
 
@@ -30,7 +27,7 @@ public class AdminDa implements AutoCloseable, CRUD<Admin> {
     public Admin save(Admin admin) throws Exception {
         admin.setId(ConnectionProvider.getConnectionProvider().getNextId("admin_seq"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO Admin(Admin_Id,Username,Pass,Person_Id,Person_Family,Ticket_Id,Response_Id) VALUES (?,?,?,?,?,?,?)"
+                "INSERT INTO Admin(Admin_Id,Username,Pass,Person_Id,Person_Family,Ticket_Id,Response_Id,Person_User,Person_Pass) VALUES (?,?,?,?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, admin.getId());
         preparedStatement.setString(2, admin.getUser());
@@ -39,13 +36,15 @@ public class AdminDa implements AutoCloseable, CRUD<Admin> {
         preparedStatement.setString(5, admin.getPerson().getFamily());
         preparedStatement.setInt(6, admin.getTicket().getId());
         preparedStatement.setInt(7, admin.getResponse().getId());
+        preparedStatement.setString(8,admin.getPerson().getUsername());
+        preparedStatement.setString(9,admin.getPerson().getPassword());
         return admin;
     }
 
     @Override
     public Admin edit(Admin admin) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE ADMIN SET USERNAME=?,PASS=?,PERSON_ID=?,PERSON_FAMILY=?, TICKET_ID=?,RESPONSE_ID=? WHERE ADMIN_ID=?");
+                "UPDATE ADMIN SET USERNAME=?,PASS=?,PERSON_ID=?,PERSON_FAMILY=?, TICKET_ID=?,RESPONSE_ID=? ,Person_User=?,Person_Pass=? WHERE ADMIN_ID=?");
         preparedStatement.setInt(1, admin.getId());
         preparedStatement.setString(2, admin.getUser());
         preparedStatement.setString(3, admin.getPass());
@@ -53,6 +52,8 @@ public class AdminDa implements AutoCloseable, CRUD<Admin> {
         preparedStatement.setString(5, admin.getPerson().getFamily());
         preparedStatement.setInt(6, admin.getTicket().getId());
         preparedStatement.setInt(7, admin.getResponse().getId());
+        preparedStatement.setString(8,admin.getPerson().getUsername());
+        preparedStatement.setString(9,admin.getPerson().getPassword());
         return admin;
     }
 
@@ -69,7 +70,7 @@ public class AdminDa implements AutoCloseable, CRUD<Admin> {
     @Override
     public List<Admin> findAll() throws Exception {
         List<Admin> adminList = new ArrayList<>();
-        preparedStatement = connection.prepareStatement("select * from admin order by admin_id");
+        preparedStatement = connection.prepareStatement("select * from admin order by person_id");
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             Admin admin = Admin
@@ -78,6 +79,9 @@ public class AdminDa implements AutoCloseable, CRUD<Admin> {
                     .user(resultSet.getString("Username"))
                     .pass(resultSet.getString("Pass"))
                     .person(Person.builder().id(resultSet.getInt("person_id")).build())
+                    .person(Person.builder().username(resultSet.getString("person_user")).build())
+                   .person(Person.builder().password(resultSet.getString("person_pass")).build())
+                    .person(Person.builder().family(resultSet.getString("person_family")).build())
                     .ticket(Ticket.builder().id(resultSet.getInt("ticket_id")).build())
                     .response(Response.builder().id(resultSet.getInt("response_id")).build())
                     .build();
@@ -182,8 +186,46 @@ public class AdminDa implements AutoCloseable, CRUD<Admin> {
         }
         return adminList;
     }
+    public Admin findByPersonUser(String username) throws Exception {
+        preparedStatement = connection.prepareStatement("select * from Admin where Person_User LIKE? ORDER BY PERSON_ID");
+        preparedStatement.setString(1, username + " % ");
+        ResultSet resultSet = preparedStatement.executeQuery();
+      Admin admin = null;
+        if (resultSet.next()) {
+            admin=Admin
+                    .builder()
+                    .id(resultSet.getInt("Admin_Id"))
+                    .person(Person.builder().id(resultSet.getInt("person_id")).build())
+                    .person(Person.builder().username(resultSet.getString("person_user")).build())
+                    .user(resultSet.getString("Username"))
+                    .pass(resultSet.getString("Pass"))
+                    .ticket(Ticket.builder().id(resultSet.getInt("ticket_id")).build())
+                    .response(Response.builder().id(resultSet.getInt("response_id")).build())
+                    .build();
+        }
+        return admin;
+        }
+    public Admin findByPersonPass(String password) throws Exception {
+        preparedStatement = connection.prepareStatement("select * from Admin where Person_Pass LIKE? ORDER BY PERSON_ID");
+        preparedStatement.setString(1, password + " % ");
+        ResultSet resultSet = preparedStatement.executeQuery();
+        Admin admin = null;
+        if (resultSet.next()) {
+            admin=Admin
+                    .builder()
+                    .id(resultSet.getInt("Admin_Id"))
+                    .person(Person.builder().id(resultSet.getInt("person_id")).build())
+                    .person(Person.builder().password(resultSet.getString("person_pass")).build())
+                    .user(resultSet.getString("Username"))
+                    .pass(resultSet.getString("Pass"))
+                    .ticket(Ticket.builder().id(resultSet.getInt("ticket_id")).build())
+                    .response(Response.builder().id(resultSet.getInt("response_id")).build())
+                    .build();
+        }
+        return admin;
+    }
 
-    public Admin findByTicketId(int id) throws Exception {
+        public Admin findByTicketId(int id) throws Exception {
         preparedStatement = connection.prepareStatement("select * from Admin where Ticket_Id=?");
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();

@@ -131,39 +131,6 @@ public class PersonController implements Initializable {
                 log.error("Person Remove Error" + e.getMessage());
             }
         });
-        findByIdTxt.setOnKeyReleased(event -> {
-            if (roleToggle.getSelectedToggle().equals(adminRdo)) {                                                            //TODO
-                try {
-                 showDataOnTable(PersonBl.getPersonBl().findById(Integer.parseInt(findByIdTxt.getText())));                   // TODO : Wrong : List for showDataOnTable
-                    log.info("find by person id success" + Integer.parseInt(findByIdTxt.getText()));
-                } catch (Exception e) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR, "search person Id error\n" + e.getMessage());
-                    alert.show();
-                    log.error("Find By Person Id Error" + e.getMessage());
-                }
-            }
-        });
-
-        findByFamilyTxt.setOnKeyReleased(event -> {
-            try {
-                showDataOnTable(PersonBl.getPersonBl().findByFamily(findByFamilyTxt.getText()));              //TODO
-                log.info("found family" + findByFamilyTxt.getText());
-            } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "search family error\n" + e.getMessage());
-                alert.show();
-                log.error("Find By Family Error" + e.getMessage());
-            }
-        });
-        findByUserTxt.setOnKeyReleased(event -> {                        //Todo
-            try {
-              showDataOnTable(PersonBl.getPersonBl().findByUsername(findByUserTxt.getText()));              //TODO
-                log.info("found family" + findByFamilyTxt.getText());
-            } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "search family error\n" + e.getMessage());
-                alert.show();
-                log.error("Find By Family Error" + e.getMessage());
-            }
-        });
         personTbl.setOnMouseClicked(event -> {
             Person person = personTbl.getSelectionModel().getSelectedItem();
             idTxt.setText(String.valueOf(person.getId()));

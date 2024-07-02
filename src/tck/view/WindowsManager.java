@@ -44,4 +44,13 @@ public class WindowsManager {
         stage.setTitle("ticket");
         stage.show();
     }
+    public static void showAdminForm() throws IOException {
+        Stage stage = new Stage();
+        Scene scene = new Scene(
+                FXMLLoader.load(WindowsManager.class.getResource("tck/view/admin.person.fxml"))
+        );
+        stage.setScene(scene);
+        stage.setTitle("Admin.Person");
+        stage.show();
+    }
 }

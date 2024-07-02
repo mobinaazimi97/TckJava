@@ -4,10 +4,8 @@ import lombok.Getter;
 import tck.controller.exceptions.AaccesssDeniedException;
 import tck.controller.exceptions.NoAdminFoundException;
 import tck.model.da.AdminDa;
-import tck.model.entity.Admin;
-import tck.model.entity.Person;
-import tck.model.entity.Response;
-import tck.model.entity.Ticket;
+import tck.model.da.SignInDa;
+import tck.model.entity.*;
 import tck.model.tool.CRUD;
 
 import java.util.List;
@@ -107,6 +105,22 @@ public class AdminBl implements CRUD<Admin> {
             } else {
                 throw new NoAdminFoundException();
             }
+        }
+    }
+    public Admin findByPersonUser(String username) throws Exception {
+        try (AdminDa adminDa=new AdminDa()) {
+            Person person = PersonBl.getPersonBl().findByUsername(username);
+        Admin admin = adminDa.findByPersonId(person.getId());
+            admin.setPerson(PersonBl.getPersonBl().findById(admin.getPerson().getId()));
+            return admin;
+        }
+    }
+    public Admin findByPersonPass(String password) throws Exception {
+        try (AdminDa adminDa=new AdminDa()) {
+            Person person = PersonBl.getPersonBl().findByPassword(password);
+            Admin admin = adminDa.findByPersonId(person.getId());
+            admin.setPerson(PersonBl.getPersonBl().findById(admin.getPerson().getId()));
+            return admin;
         }
     }
     public List<Admin> findByPersonFamily(String family) throws Exception {
