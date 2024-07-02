@@ -15,7 +15,6 @@ import tck.model.entity.Ticket;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -23,9 +22,9 @@ import java.util.ResourceBundle;
 
 public class ResponseController implements Initializable {
     @FXML
-    private TextField responseIdTxt, ticketIdTxt, personIdTxt, answerTxt, findByIdTxt, findByTicketIdTxt, findByPersonIdTxt, findByAnswerTxt;
+    private TextField responseIdTxt, ticketIdTxt, personIdTxt, answerTxt;
     @FXML
-    private DatePicker responseDatePicker, findByDatePicker;
+    private DatePicker responseDatePicker;
     @FXML
     private Button saveBtn, editBtn, removeBtn;
     @FXML
@@ -114,56 +113,6 @@ public class ResponseController implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "response remove error\n" + e.getMessage());
                 alert.show();
                 log.error("Response Remove Error" + e.getMessage());
-            }
-        });
-        findByIdTxt.setOnKeyReleased(event -> {
-            try {
-                ResponseBl.getResponseBl().findById(Integer.parseInt(findByIdTxt.getText()));// TODO : Wrong : List for showDataOnTable
-                log.info("find by response id success" + Integer.parseInt(findByIdTxt.getText()));
-            } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "search response Id error\n" + e.getMessage());
-                alert.show();
-                log.error("Find By Response Id Error" + e.getMessage());
-            }
-        });
-        findByAnswerTxt.setOnKeyReleased(event -> {
-            try {
-                ResponseBl.getResponseBl().findByAnswer(findByAnswerTxt.getText());              //TODO
-                log.info("found answer" + findByAnswerTxt.getText());
-            } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "search answer error\n" + e.getMessage());
-                alert.show();
-                log.error("Find By Answer Error" + e.getMessage());
-            }
-        });
-        findByTicketIdTxt.setOnKeyReleased(event -> {
-            try {
-                ResponseBl.getResponseBl().findByTicketId(Integer.parseInt(findByTicketIdTxt.getText()));           //TODO
-                log.info("found ticket id" + findByTicketIdTxt.getText());
-            } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "search ticket id error\n" + e.getMessage());
-                alert.show();
-                log.error("Find By Ticket Id Error" + e.getMessage());
-            }
-        });
-        findByPersonIdTxt.setOnKeyReleased(event -> {
-            try {
-                ResponseBl.getResponseBl().findByPersonId(Integer.parseInt(findByPersonIdTxt.getText()));           //TODO
-                log.info("found person id" + Integer.parseInt(findByPersonIdTxt.getText()));                        //todo : Check
-            } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "search person id error\n" + e.getMessage());
-                alert.show();
-                log.error("Find By Person Id Error" + e.getMessage());
-            }
-        });
-        findByDatePicker.setOnKeyReleased(event -> {
-            try {
-                ResponseBl.getResponseBl().findByDate(LocalDate.from(findByDatePicker.getValue()));          //TODO
-                log.info("found Date" + findByDatePicker.getValue());
-            } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "search Date error\n" + e.getMessage());
-                alert.show();
-                log.error("Find By Date Error" + e.getMessage());
             }
         });
 

@@ -12,10 +12,10 @@ public class MyApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {                                                   // TODO
         Scene scene = new Scene(
-                FXMLLoader.load(getClass().getResource("../view/admin.person.FXml"))          //TODO : ERROR : Can Not Search !
+                FXMLLoader.load(getClass().getResource("../view/admin.ticket.FXml"))          //TODO : ERROR : Can Not Search !
         );
         primaryStage.setScene(scene);
-        primaryStage.setTitle("profile");
+        primaryStage.setTitle("Report");
         primaryStage.setOnCloseRequest((event) -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "are you sure to exit?");
             if (alert.showAndWait().get().equals(ButtonType.OK)) {

@@ -10,7 +10,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import lombok.extern.log4j.Log4j;
 import tck.model.bl.AdminBl;
 import tck.model.bl.TicketBl;
+import tck.model.da.AdminDa;
 import tck.model.entity.Admin;
+import tck.model.entity.Ticket;
 import tck.model.entity.enums.Group;
 import tck.model.entity.enums.Status;
 
