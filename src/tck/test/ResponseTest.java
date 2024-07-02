@@ -10,14 +10,15 @@ import java.time.LocalDate;
 
 public class ResponseTest {
     public static void main(String[] args) throws Exception {
-        System.out.println(ResponseBl.getResponseBl().edit(
-                Response.builder()
-                        .id(1)
-                        .ticket(Ticket.builder().id(1).build())
-                        .person(Person.builder().id(1).build())
-                        .answer("hello")
-                        .date(LocalDate.now())
-                        .build()
-        ));
-   }
+        System.out.println(ResponseBl.getResponseBl().findAll());
+    }
 }
+//                Response.builder()
+//                        .id(1)
+//                        .ticket(Ticket.builder().id(1).build())
+//                        .person(Person.builder().id(1).build())
+//                        .answer("hello")
+//                        .date(LocalDate.now())
+//                        .build()
+//        ));
+

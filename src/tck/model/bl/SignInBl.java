@@ -83,7 +83,6 @@ public class SignInBl implements CRUD<SignIn> {
             SignIn signIn = signInDa.findByPersonId(person.getId());
             if (signIn != null) {
                 int personId = signIn.getPerson().getId();
-                //           Person person = PersonBl.getPersonBl().findById(id);
                 signIn.setPerson(PersonBl.getPersonBl().findById(signIn.getPerson().getId()));
                 return signIn;
             } else {

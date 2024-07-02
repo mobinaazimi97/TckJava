@@ -30,27 +30,29 @@ public class AdminDa implements AutoCloseable, CRUD<Admin> {
     public Admin save(Admin admin) throws Exception {
         admin.setId(ConnectionProvider.getConnectionProvider().getNextId("admin_seq"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO Admin(Admin_Id,Username,Pass,Person_Id,Ticket_Id,Response_Id) VALUES (?,?,?,?,?,?)"
+                "INSERT INTO Admin(Admin_Id,Username,Pass,Person_Id,Person_Family,Ticket_Id,Response_Id) VALUES (?,?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, admin.getId());
         preparedStatement.setString(2, admin.getUser());
         preparedStatement.setString(3, admin.getPass());
         preparedStatement.setInt(4, admin.getPerson().getId());
-        preparedStatement.setInt(5, admin.getTicket().getId());
-        preparedStatement.setInt(6, admin.getResponse().getId());
+        preparedStatement.setString(5, admin.getPerson().getFamily());
+        preparedStatement.setInt(6, admin.getTicket().getId());
+        preparedStatement.setInt(7, admin.getResponse().getId());
         return admin;
     }
 
     @Override
     public Admin edit(Admin admin) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE ADMIN SET USERNAME=?,PASS=?,PERSON_ID=? TICKET_ID=?,RESPONSE_ID=? WHERE ADMIN_ID=?");
+                "UPDATE ADMIN SET USERNAME=?,PASS=?,PERSON_ID=?,PERSON_FAMILY=?, TICKET_ID=?,RESPONSE_ID=? WHERE ADMIN_ID=?");
         preparedStatement.setInt(1, admin.getId());
         preparedStatement.setString(2, admin.getUser());
         preparedStatement.setString(3, admin.getPass());
         preparedStatement.setInt(4, admin.getPerson().getId());
-        preparedStatement.setInt(5, admin.getTicket().getId());
-        preparedStatement.setInt(6, admin.getResponse().getId());
+        preparedStatement.setString(5, admin.getPerson().getFamily());
+        preparedStatement.setInt(6, admin.getTicket().getId());
+        preparedStatement.setInt(7, admin.getResponse().getId());
         return admin;
     }
 
@@ -123,6 +125,24 @@ public class AdminDa implements AutoCloseable, CRUD<Admin> {
         }
         return admin;
     }
+    public Admin findByPass(String pass) throws Exception {
+        preparedStatement = connection.prepareStatement("select * from Admin where Pass=?");
+        preparedStatement.setString(1, pass);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        Admin admin = null;
+        if (resultSet.next()) {
+            admin = Admin
+                    .builder()
+                    .id(resultSet.getInt("Admin_Id"))
+                    .user(resultSet.getString("Username"))
+                    .pass(resultSet.getString("Pass"))
+                    .person(Person.builder().id(resultSet.getInt("person_id")).build())
+                    .ticket(Ticket.builder().id(resultSet.getInt("ticket_id")).build())
+                    .response(Response.builder().id(resultSet.getInt("response_id")).build())
+                    .build();
+        }
+        return admin;
+    }
 
     public Admin findByPersonId(int id) throws Exception {
         preparedStatement = connection.prepareStatement("select * from Admin where Person_Id=?");
@@ -141,6 +161,26 @@ public class AdminDa implements AutoCloseable, CRUD<Admin> {
                     .build();
         }
         return admin;
+    }
+    public List<Admin> findByPersonFamily(String family) throws Exception {
+        List<Admin> adminList = new ArrayList<>();
+        preparedStatement = connection.prepareStatement("select * from admin  person_family LIKE ? order by person_id");
+        preparedStatement.setString(1, family + "%");
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            Admin admin = Admin
+                    .builder()
+                    .id(resultSet.getInt("Admin_Id"))
+                    .user(resultSet.getString("Username"))
+                    .pass(resultSet.getString("Pass"))
+                    .person(Person.builder().id(resultSet.getInt("person_id")).build())
+                    .person(Person.builder().family(resultSet.getString("person_family")).build())
+                    .ticket(Ticket.builder().id(resultSet.getInt("ticket_id")).build())
+                    .response(Response.builder().id(resultSet.getInt("response_id")).build())
+                    .build();
+            adminList.add(admin);
+        }
+        return adminList;
     }
 
     public Admin findByTicketId(int id) throws Exception {

@@ -1,9 +1,13 @@
 package tck.model.bl;
 
 import lombok.Getter;
+import tck.controller.exceptions.AaccesssDeniedException;
 import tck.controller.exceptions.NoAdminFoundException;
 import tck.model.da.AdminDa;
 import tck.model.entity.Admin;
+import tck.model.entity.Person;
+import tck.model.entity.Response;
+import tck.model.entity.Ticket;
 import tck.model.tool.CRUD;
 
 import java.util.List;
@@ -61,6 +65,87 @@ public class AdminBl implements CRUD<Admin> {
 
     @Override
     public Admin findById(int id) throws Exception {
-        return null;
+        try (AdminDa adminDa=new AdminDa()) {
+            Admin admin = adminDa.findById(id);
+            if (admin != null) {
+                admin.setId(id);                            //TODO : TRUE ?
+                return admin;
+            } else {
+                throw new NoAdminFoundException();
+            }
+        }
+    }
+    public Admin findByUser(String user) throws Exception {
+        try (AdminDa adminDa=new AdminDa()) {
+            Admin admin = adminDa.findByUser(user);
+            if (admin != null) {
+                return admin;
+            } else {
+                throw new NoAdminFoundException();
+            }
+        }
+    }
+    public Admin findByPass(String pass) throws Exception {
+        try (AdminDa adminDa = new AdminDa()) {
+            Admin admin = adminDa.findByPass(pass);
+            if (admin != null) {
+                return admin;
+            } else {
+                throw new NoAdminFoundException();
+            }
+        }
+    }
+    public Admin findByPersonId(int id) throws Exception {
+        try (AdminDa adminDa=new AdminDa()) {
+            Person person = PersonBl.getPersonBl().findById(id);
+            Admin admin= adminDa.findByPersonId(person.getId());
+            if (admin != null) {
+                int personId =admin.getPerson().getId();
+ //               Person person = PersonBl.getPersonBl().findById(id);
+               admin.setPerson(PersonBl.getPersonBl().findById(admin.getPerson().getId()));
+                return admin;
+            } else {
+                throw new NoAdminFoundException();
+            }
+        }
+    }
+    public List<Admin> findByPersonFamily(String family) throws Exception {
+        try (AdminDa adminDa=new AdminDa()) {
+            List<Person>personList=PersonBl.getPersonBl().findByFamily(family);
+            List<Admin> adminList = adminDa.findByPersonFamily(family);
+            if (!personList.isEmpty()) {
+                return adminList;
+            } else {
+                throw new AaccesssDeniedException();
+            }
+        }
+    }
+    public Admin findByTicketId(int id) throws Exception {
+        try (AdminDa adminDa=new AdminDa()) {
+            Ticket ticket=TicketBl.getTicketBl().findById(id);
+            Admin admin = adminDa.findByTicketId(ticket.getId());
+            if (admin != null) {
+                int ticketId =admin.getTicket().getId();
+                //               Ticket ticket = TicketBl.getTicketBl().findById(ticketId);
+               admin.setTicket(TicketBl.getTicketBl().findById(admin.getTicket().getId()));
+                return admin;
+            } else {
+                throw new NoAdminFoundException();
+            }
+        }
+    }
+    public Admin findByResponseId(int id) throws Exception {
+        try (AdminDa adminDa = new AdminDa()) {
+           Response response =ResponseBl.getResponseBl().findById(id);
+            Admin admin = adminDa.findByResponseId(response.getId());
+            if (admin != null) {
+                int responseId = admin.getResponse().getId();
+                //               Ticket ticket = TicketBl.getTicketBl().findById(ticketId);
+                admin.setResponse(ResponseBl.getResponseBl().findById(admin.getResponse().getId()));
+                return admin;
+            } else {
+                throw new NoAdminFoundException();
+            }
+        }
     }
 }

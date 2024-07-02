@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
 
 public class PersonController implements Initializable {
     @FXML
-    private TextField idTxt, nameTxt, familyTxt, usernameTxt, passwordTxt, phoneTxt, emailTxt, findByIdTxt, findByFamilyTxt, findByUserTxt;
+    private TextField idTxt, nameTxt, familyTxt, usernameTxt, passwordTxt, phoneTxt, emailTxt;
     @FXML
     private RadioButton userRdo, adminRdo;
     @FXML

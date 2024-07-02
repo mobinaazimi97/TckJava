@@ -10,7 +10,7 @@ import java.time.LocalDate;
 
 public class TicketTest {
     public static void main(String[] args) throws Exception {
-        System.out.println(TicketBl.getTicketBl().findByPersonId(1));
+        System.out.println(TicketBl.getTicketBl().findAll());
 //      Person person=
 //               Person.builder()
 //                .id(1)
