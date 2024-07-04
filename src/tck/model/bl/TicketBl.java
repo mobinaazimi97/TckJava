@@ -155,7 +155,7 @@ public class TicketBl implements CRUD<Ticket> {
     public Ticket findByUsername(String username) throws Exception {
         try (TicketDa ticketDa = new TicketDa()) {
             Person person = PersonBl.getPersonBl().findByUsername(username);
-            Ticket ticket = ticketDa.findByPersonId(person.getId());
+            Ticket ticket = ticketDa.findByUsername(person.getUsername());
             ticket.setPerson(PersonBl.getPersonBl().findById(ticket.getPerson().getId()));
             return ticket;
         }

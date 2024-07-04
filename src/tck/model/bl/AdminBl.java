@@ -110,7 +110,7 @@ public class AdminBl implements CRUD<Admin> {
     public Admin findByPersonUser(String username) throws Exception {
         try (AdminDa adminDa=new AdminDa()) {
             Person person = PersonBl.getPersonBl().findByUsername(username);
-        Admin admin = adminDa.findByPersonId(person.getId());
+        Admin admin = adminDa.findByPersonUser(person.getUsername());
             admin.setPerson(PersonBl.getPersonBl().findById(admin.getPerson().getId()));
             return admin;
         }
@@ -118,7 +118,7 @@ public class AdminBl implements CRUD<Admin> {
     public Admin findByPersonPass(String password) throws Exception {
         try (AdminDa adminDa=new AdminDa()) {
             Person person = PersonBl.getPersonBl().findByPassword(password);
-            Admin admin = adminDa.findByPersonId(person.getId());
+            Admin admin = adminDa.findByPersonPass(person.getPassword());
             admin.setPerson(PersonBl.getPersonBl().findById(admin.getPerson().getId()));
             return admin;
         }

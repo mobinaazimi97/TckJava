@@ -36,7 +36,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
         preparedStatement.setString(7, person.getPassword());
         preparedStatement.setString(8, person.getRole().name());
         preparedStatement.setBoolean(9, person.isEnabled());
-        preparedStatement.execute();
+//        preparedStatement.execute();
         return person;
     }
 

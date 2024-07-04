@@ -27,7 +27,7 @@ public class AdminDa implements AutoCloseable, CRUD<Admin> {
     public Admin save(Admin admin) throws Exception {
         admin.setId(ConnectionProvider.getConnectionProvider().getNextId("admin_seq"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO Admin(Admin_Id,Username,Pass,Person_Id,Person_Family,Ticket_Id,Response_Id,Person_User,Person_Pass) VALUES (?,?,?,?,?,?,?,?,?)"
+                "INSERT INTO Admin(Admin_Id,Username,Pass,Person_Id,Person_Family,Ticket_Id,Response_Id,User_name,Password) VALUES (?,?,?,?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, admin.getId());
         preparedStatement.setString(2, admin.getUser());
@@ -44,7 +44,7 @@ public class AdminDa implements AutoCloseable, CRUD<Admin> {
     @Override
     public Admin edit(Admin admin) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE ADMIN SET USERNAME=?,PASS=?,PERSON_ID=?,PERSON_FAMILY=?, TICKET_ID=?,RESPONSE_ID=? ,Person_User=?,Person_Pass=? WHERE ADMIN_ID=?");
+                "UPDATE ADMIN SET USERNAME=?,PASS=?,PERSON_ID=?,PERSON_FAMILY=?, TICKET_ID=?,RESPONSE_ID=? ,User_name=?,Password=? WHERE ADMIN_ID=?");
         preparedStatement.setInt(1, admin.getId());
         preparedStatement.setString(2, admin.getUser());
         preparedStatement.setString(3, admin.getPass());
@@ -79,8 +79,8 @@ public class AdminDa implements AutoCloseable, CRUD<Admin> {
                     .user(resultSet.getString("Username"))
                     .pass(resultSet.getString("Pass"))
                     .person(Person.builder().id(resultSet.getInt("person_id")).build())
-                    .person(Person.builder().username(resultSet.getString("person_user")).build())
-                   .person(Person.builder().password(resultSet.getString("person_pass")).build())
+                    .person(Person.builder().username(resultSet.getString("user_name")).build())
+                   .person(Person.builder().password(resultSet.getString("password")).build())
                     .person(Person.builder().family(resultSet.getString("person_family")).build())
                     .ticket(Ticket.builder().id(resultSet.getInt("ticket_id")).build())
                     .response(Response.builder().id(resultSet.getInt("response_id")).build())
@@ -187,7 +187,7 @@ public class AdminDa implements AutoCloseable, CRUD<Admin> {
         return adminList;
     }
     public Admin findByPersonUser(String username) throws Exception {
-        preparedStatement = connection.prepareStatement("select * from Admin where Person_User LIKE? ORDER BY PERSON_ID");
+        preparedStatement = connection.prepareStatement("select * from Admin where User_name LIKE? ORDER BY PERSON_ID");
         preparedStatement.setString(1, username + " % ");
         ResultSet resultSet = preparedStatement.executeQuery();
       Admin admin = null;
@@ -196,7 +196,7 @@ public class AdminDa implements AutoCloseable, CRUD<Admin> {
                     .builder()
                     .id(resultSet.getInt("Admin_Id"))
                     .person(Person.builder().id(resultSet.getInt("person_id")).build())
-                    .person(Person.builder().username(resultSet.getString("person_user")).build())
+                    .person(Person.builder().username(resultSet.getString("user_name")).build())
                     .user(resultSet.getString("Username"))
                     .pass(resultSet.getString("Pass"))
                     .ticket(Ticket.builder().id(resultSet.getInt("ticket_id")).build())
@@ -206,7 +206,7 @@ public class AdminDa implements AutoCloseable, CRUD<Admin> {
         return admin;
         }
     public Admin findByPersonPass(String password) throws Exception {
-        preparedStatement = connection.prepareStatement("select * from Admin where Person_Pass LIKE? ORDER BY PERSON_ID");
+        preparedStatement = connection.prepareStatement("select * from Admin where Password LIKE? ORDER BY PERSON_ID");
         preparedStatement.setString(1, password + " % ");
         ResultSet resultSet = preparedStatement.executeQuery();
         Admin admin = null;
@@ -215,7 +215,7 @@ public class AdminDa implements AutoCloseable, CRUD<Admin> {
                     .builder()
                     .id(resultSet.getInt("Admin_Id"))
                     .person(Person.builder().id(resultSet.getInt("person_id")).build())
-                    .person(Person.builder().password(resultSet.getString("person_pass")).build())
+                    .person(Person.builder().password(resultSet.getString("password")).build())
                     .user(resultSet.getString("Username"))
                     .pass(resultSet.getString("Pass"))
                     .ticket(Ticket.builder().id(resultSet.getInt("ticket_id")).build())

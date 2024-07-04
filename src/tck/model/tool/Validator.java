@@ -10,6 +10,13 @@ public class Validator {
             throw new Exception(message);
         }
     }
+    public static String usernameValidator(String username ,String message) throws Exception {
+        if(Pattern.matches("^[a-zA-Z\\s]{3,20}$" , username)){
+            return  username;
+        }else{
+            throw new Exception(message);
+        }
+    }
     public static String validator(String family,String message) throws Exception {
         if(Pattern.matches("^[a-zA-Z\\s]{3,30}$" , family)){
             return  family;

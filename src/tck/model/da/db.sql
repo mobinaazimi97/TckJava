@@ -20,7 +20,7 @@ CREATE TABLE TICKET
     text                            nvarchar2(255),
     group_name              nvarchar2(20),
     status                         varchar2(6),
-    person_username     references person,
+    user_name                references person,
     person_id                   references person
 );
 create sequence ticket_seq start with 1 increment by 1;
@@ -42,7 +42,7 @@ pass                                     nvarchar2(10),
 person_id                            references PERSON,
 person_family                     references PERSON,
 user_name                          references PERSON,
-password                         references PERSON,
+password                            references PERSON,
 ticket_id                              references TICKET,
 response_id                         references RESPONSE);
 create  sequence admin_seq start with 1 increment by 1;

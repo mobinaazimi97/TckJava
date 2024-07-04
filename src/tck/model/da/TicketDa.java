@@ -27,7 +27,7 @@ public class TicketDa implements AutoCloseable, CRUD<Ticket> {
     public Ticket save(Ticket ticket) throws Exception {
         ticket.setId(ConnectionProvider.getConnectionProvider().getNextId("TICKET_seq"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO TICKET(TICKET_ID,TICKET_DATE,PERSON_ID,TITLE,TEXT,GROUP_NAME,STATUS,PERSON_USERNAME) VALUES (TICKET_SEQ.NEXTVAL,?,?,?,?,?,?,?,?)"
+                "INSERT INTO TICKET(TICKET_ID,TICKET_DATE,PERSON_ID,TITLE,TEXT,GROUP_NAME,STATUS,USER_NAME) VALUES (TICKET_SEQ.NEXTVAL,?,?,?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, ticket.getId());
         preparedStatement.setDate(2, Date.valueOf(ticket.getTicketDate()));
@@ -44,7 +44,7 @@ public class TicketDa implements AutoCloseable, CRUD<Ticket> {
     @Override
     public Ticket edit(Ticket ticket) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE TICKET SET PERSON_ID=?,TITLE=?,TEXT=?,GROUP_NAME=? , STATUS=?,TICKET_DATE=? , PERSON_USERNAME=? WHERE TICKET_ID=?");
+                "UPDATE TICKET SET PERSON_ID=?,TITLE=?,TEXT=?,GROUP_NAME=? , STATUS=?,TICKET_DATE=? ,USER_NAME=? WHERE TICKET_ID=?");
 
         preparedStatement.setInt(1, ticket.getId());
         preparedStatement.setInt(2, ticket.getPerson().getId());
@@ -234,7 +234,7 @@ public class TicketDa implements AutoCloseable, CRUD<Ticket> {
         return ticket;
     }
     public Ticket findByUsername(String username) throws Exception {                        //TODO : Not Found Field For User&Pass
-        preparedStatement = connection.prepareStatement("select * from TICKET where Person_Username LIKE? ORDER BY Ticket_Id");
+        preparedStatement = connection.prepareStatement("select * from TICKET where User_name LIKE? ORDER BY Ticket_Id");
         preparedStatement.setString(1, username + "%");
         ResultSet resultSet = preparedStatement.executeQuery();
         Ticket ticket = null;
@@ -242,7 +242,7 @@ public class TicketDa implements AutoCloseable, CRUD<Ticket> {
             ticket = Ticket
                     .builder()
                     .id(resultSet.getInt("ticket_id"))
-                    .person(Person.builder().username(resultSet.getString("person_username")).build())
+                    .person(Person.builder().username(resultSet.getString("user_name")).build())
                     .ticketDate(resultSet.getDate("TicketDate").toLocalDate())
                     .group(Group.valueOf(resultSet.getString("group_name")))
                     .title(resultSet.getString("title"))
