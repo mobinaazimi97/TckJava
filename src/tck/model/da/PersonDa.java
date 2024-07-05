@@ -153,7 +153,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
                     .email(resultSet.getString("email"))
                     .username(resultSet.getString("User_Name"))
                     .password(resultSet.getString("Password"))
-                    .role(Role.valueOf(resultSet.getString("Role")))
+                   .role(Role.valueOf(resultSet.getString("role")))
                     .enabled(resultSet.getBoolean("ENABLED"))
                     .build();
         }
@@ -162,7 +162,6 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
 
     public Person findByPassword(String password) throws Exception {
         preparedStatement = connection.prepareStatement("SELECT * FROM  PERSON WHERE  PASSWORD LIKE? ORDER BY Person_Id");
-      //  preparedStatement.setString(1, username + "%");
         preparedStatement.setString(1, password + "%");
         ResultSet resultSet = preparedStatement.executeQuery();
         Person person = null;

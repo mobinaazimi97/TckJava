@@ -15,7 +15,7 @@ public class Main1 {
                 .email("www.azimi.ir")
                 .username("mobi123")
                 .password("123456")
-                .role(Role.ADMIN)
+                .role(Role.Admin)
                 .enabled(true)
                 .build();
         PersonBl.getPersonBl().save(person);

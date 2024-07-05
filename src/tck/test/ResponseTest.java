@@ -23,7 +23,7 @@ public class ResponseTest {
                         .email("www.mobina.com")
                         .username("mobi123")
                         .password("1234")
-                        .role(Role.ADMIN)
+                        .role(Role.User)
                         .enabled(true)
                         .build();
         Ticket ticket=
@@ -50,7 +50,7 @@ public class ResponseTest {
         System.out.println(ticket);
         ResponseBl.getResponseBl().save(response);
         System.out.println(response);
-  //           System.out.println(TicketBl.getTicketBl().findById(1));
+        System.out.println(TicketBl.getTicketBl().findById(1));
     }
     }
 

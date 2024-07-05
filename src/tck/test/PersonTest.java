@@ -1,9 +1,24 @@
 package tck.test;
 
 import tck.model.bl.PersonBl;
+import tck.model.entity.Person;
+import tck.model.entity.enums.Role;
 
 public class PersonTest {
     public static void main(String[] args) throws Exception {
-        System.out.println(PersonBl.getPersonBl().findById(1));
+        Person person =
+                Person.builder()
+                        .id(1)
+                        .name("mobina")
+                        .family("azimi")
+                        .phoneNumber("091943346556")
+                        .email("www.mobina.com")
+                        .username("mobi123")
+                        .password("1234")
+                        .role(Role.Admin)
+                        .enabled(true)
+                        .build();
+        PersonBl.getPersonBl().save(person);
+        System.out.println(person);
     }
 }

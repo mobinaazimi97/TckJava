@@ -4,6 +4,4 @@ public enum Status {
     seen,
     answer,
     down
-
-
 }
