@@ -37,27 +37,27 @@ create sequence response_seq start with 1 increment by 1;
 
 create table Admin
 (
-    Admin_Id number primary key,
-    username nvarchar2(20) unique,
-    pass     nvarchar2(10),
-    person_id references PERSON,
-    person_family references PERSON,
-    user_name references PERSON,
-    password references PERSON,
-    ticket_id references TICKET,
-    response_id references RESPONSE
+    Admin_Id                       number primary key,
+    username                     nvarchar2(20) unique,
+    pass                               nvarchar2(10),
+    person_id                     references PERSON,
+    person_family               references PERSON,
+    user_name                    references PERSON,
+    password                      references PERSON,
+    ticket_id                       references TICKET,
+    response_id                 references RESPONSE
 );
 create sequence admin_seq start with 1 increment by 1;
 
 create table SignIn
 (
-    sign_id number primary key,
-    person_id references PERSON,
-    user_name references PERSON,
-    password references PERSON,
-    email references PERSON,
-    phone_number references PERSON,
-    admin_id references PERSON
+    sign_id                         number primary key,
+    person_id                    references PERSON,
+    user_name                   references PERSON,
+    password                     references PERSON,
+    email                            references PERSON,
+    phone_number            references PERSON,
+    admin_id                      references PERSON
 );
 create sequence signIn_seq start with 1 increment by 1;
 
@@ -73,6 +73,6 @@ create table Operator
     sign_id                           references SignIn,
     username                      references Admin,
     pass                               references Admin,
-    admin_id                       references Admin
+    admin_id                       references SignIn
 );
 create sequence operator_seq start with 1 increment by 1;

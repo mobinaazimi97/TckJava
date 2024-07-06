@@ -55,5 +55,7 @@ public class SignTest {
                 .person(person)
                 .admin(admin)
                 .build();
+        SignInBl.getSignInBl().save(signIn);
+        System.out.println(signIn);
     }
 }

@@ -12,7 +12,7 @@ import lombok.experimental.SuperBuilder;
 public class Operator {
     private int id;
     private String operateNumber;
-    private SignIn person;
+ //   private SignIn person;
     private Admin admin;
     private SignIn signIn;
 

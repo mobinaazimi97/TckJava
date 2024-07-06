@@ -20,8 +20,11 @@ public class AdminBl implements CRUD<Admin> {
     @Override
     public Admin save(Admin admin) throws Exception {
         try (AdminDa adminDa = new AdminDa()) {
-           adminDa.save(admin);
-            return admin;
+     //       if (adminDa.findByPersonId(admin.getPerson().getId()) != null) {            //TODO
+                adminDa.save(admin);
+                return admin;
+//            }else {
+//                throw new AaccesssDeniedException();
         }
     }
 

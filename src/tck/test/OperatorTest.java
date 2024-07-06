@@ -1,14 +1,10 @@
 package tck.test;
 
 import tck.model.bl.*;
-import tck.model.da.OperateDa;
-import tck.model.da.SignInDa;
 import tck.model.entity.*;
 import tck.model.entity.enums.Group;
 import tck.model.entity.enums.Role;
 import tck.model.entity.enums.Status;
-
-import java.sql.SQLException;
 import java.time.LocalDate;
 
 public class OperatorTest {
@@ -64,7 +60,7 @@ public class OperatorTest {
                 .operateNumber("123456")
                 .signIn(signIn)
                 .admin(admin)
-                .person(signIn)
+                .signIn(signIn)
                 .build();
         PersonBl.getPersonBl().save(person);
 //        System.out.println(person);
@@ -76,7 +72,10 @@ public class OperatorTest {
  //       System.out.println(admin);
         SignInBl.getSignInBl().save(signIn);
 //        System.out.println(signIn);
+
         OperateBl.getOperateBl().save(operator);
         System.out.println(operator);
+        System.out.println("find all: "+ OperateBl.getOperateBl().findAll());
+
     }
 }

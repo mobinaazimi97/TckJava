@@ -43,7 +43,7 @@ public class SignInDa implements AutoCloseable, CRUD<SignIn> {
     @Override
     public SignIn edit(SignIn signIn) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE SIGNIN SET sign_id=?,person_id=?,user_name=?,password=?,email=?,phone_number=?,admin_id WHERE Sign_Id=?");
+                "UPDATE SIGNIN SET sign_id=?,person_id=?,user_name=?,password=?,email=?,phone_number=?,admin_id=? WHERE Sign_Id=?");
         preparedStatement.setInt(1,signIn.getId());
         preparedStatement.setInt(2,signIn.getPerson().getId());
         preparedStatement.setString(3,signIn.getPerson().getUsername());
@@ -124,7 +124,7 @@ public class SignInDa implements AutoCloseable, CRUD<SignIn> {
         return signIn;
     }
     public SignIn findByPersonUsername(String username) throws Exception {
-        preparedStatement = connection.prepareStatement("select * from SignIn where Person_Username LIKE? ORDER BY SIGN_ID");
+        preparedStatement = connection.prepareStatement("select * from SignIn where User_name LIKE? ORDER BY SIGN_ID");
         preparedStatement.setString(1, username + " % ");
         ResultSet resultSet = preparedStatement.executeQuery();
         SignIn signIn = null;
@@ -134,16 +134,16 @@ public class SignInDa implements AutoCloseable, CRUD<SignIn> {
                     .id(resultSet.getInt("sign_id"))
                    .person(Person.builder().id(resultSet.getInt("person_id")).build())
                     .person(Person.builder().username(resultSet.getString("user_name")).build())
-                    .person(Person.builder().password(resultSet.getString("password")).build())
-                    .person(Person.builder().email(resultSet.getString("email")).build())
-                    .person(Person.builder().phoneNumber(resultSet.getString("phone_number")).build())
+//                    .person(Person.builder().password(resultSet.getString("password")).build())
+//                    .person(Person.builder().email(resultSet.getString("email")).build())
+//                    .person(Person.builder().phoneNumber(resultSet.getString("phone_number")).build())
                     .admin(Admin.builder().id(resultSet.getInt("admin_id")).build())
                     .build();
         }
         return signIn;
     }
     public SignIn findByPersonPassword(String password) throws Exception {
-        preparedStatement = connection.prepareStatement("select * from SignIn where Person_Password LIKE? ORDER BY SIGN_ID");
+        preparedStatement = connection.prepareStatement("select * from SignIn where Password LIKE? ORDER BY SIGN_ID");
         preparedStatement.setString(1, password + " % ");
         ResultSet resultSet = preparedStatement.executeQuery();
         SignIn signIn = null;
@@ -162,7 +162,7 @@ public class SignInDa implements AutoCloseable, CRUD<SignIn> {
         return signIn;
     }
     public SignIn findByPersonEmail(String email) throws Exception {
-        preparedStatement = connection.prepareStatement("select * from SignIn where Person_Email LIKE? ORDER BY SIGN_ID");
+        preparedStatement = connection.prepareStatement("select * from SignIn where Email LIKE? ORDER BY SIGN_ID");
         preparedStatement.setString(1, email + " % ");
         ResultSet resultSet = preparedStatement.executeQuery();
         SignIn signIn = null;
@@ -181,7 +181,7 @@ public class SignInDa implements AutoCloseable, CRUD<SignIn> {
         return signIn;
     }
     public SignIn findByPersonPhoneNumber(String phoneNumber) throws Exception {
-        preparedStatement = connection.prepareStatement("select * from SignIn where Person_Phone LIKE? ORDER BY SIGN_ID");
+        preparedStatement = connection.prepareStatement("select * from SignIn where Phone_Number LIKE? ORDER BY SIGN_ID");
         preparedStatement.setString(1, phoneNumber + " % ");
         ResultSet resultSet = preparedStatement.executeQuery();
         SignIn signIn = null;
