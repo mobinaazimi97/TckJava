@@ -7,11 +7,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import lombok.extern.log4j.Log4j;
 import tck.model.bl.PersonBl;
-import tck.model.bl.SignInBl;
 import tck.model.da.PersonDa;
 import tck.model.da.SignInDa;
 import tck.model.entity.Person;
-import tck.model.entity.SignIn;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -35,29 +33,19 @@ public class SignInController implements Initializable {
         }
         signInBtn.setOnAction(event -> {
             try (SignInDa signInDa = new SignInDa()) {
-                SignIn signIn = SignIn
+                Person person = Person
                         .builder()
-                        .person(Person.builder().username(userTxt.getText()).build())
-                        .person(Person.builder().password(passTxt.getText()).build())
-                        .person(Person.builder().phoneNumber(phoneTxt.getText()).build())
-                        .person(Person.builder().email(emailTxt.getText()).build())
+                        .username(userTxt.getText())
+                        .password(passTxt.getText())
+                        .email(emailTxt.getText())
+                        .phoneNumber(phoneTxt.getText())
                         .build();
-                signInDa.save(signIn);
-            //      PersonBl.getPersonBl().save(person);
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Signed In\n" + signIn);
+                  PersonBl.getPersonBl().save(person);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Signed In\n" + person);
                 alert.show();
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid Information\n" + e.getMessage());
                 alert.show();
-//                try (PersonDa personDa = new PersonDa()) {
-//                    Person person = Person
-//                            .builder()
-//                            .username(userTxt.getText())
-//                            .password(passTxt.getText())
-//                            .email(emailTxt.getText())
-//                            .phoneNumber(phoneTxt.getText())
-//                            .build();
-//                    PersonBl.getPersonBl().save(person);
             }
         });
     }
