@@ -73,7 +73,6 @@ public class ResponseDa implements AutoCloseable, CRUD<Response> {
                     .date(resultSet.getDate("response_date").toLocalDate())
                     .answer(resultSet.getString("answer"))
                     .build();
-
             responesList.add(respones);
         }
         return responesList;

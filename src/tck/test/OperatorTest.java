@@ -1,14 +1,17 @@
 package tck.test;
 
-import tck.model.bl.SignInBl;
+import tck.model.bl.*;
+import tck.model.da.OperateDa;
+import tck.model.da.SignInDa;
 import tck.model.entity.*;
 import tck.model.entity.enums.Group;
 import tck.model.entity.enums.Role;
 import tck.model.entity.enums.Status;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 
-public class SignTest {
+public class OperatorTest {
     public static void main(String[] args) throws Exception {
         Person person =
                 Person.builder()
@@ -19,7 +22,7 @@ public class SignTest {
                         .email("www.mobina.com")
                         .username("mobi123")
                         .password("1234")
-                        .role(Role.valueOf(Role.Admin.name()))
+                        .role(Role.Admin)
                         .enabled(true)
                         .build();
         Response response=
@@ -55,5 +58,25 @@ public class SignTest {
                 .person(person)
                 .admin(admin)
                 .build();
+        Operator operator=Operator
+                .builder()
+                .id(1)
+                .operateNumber("123456")
+                .signIn(signIn)
+                .admin(admin)
+                .person(signIn)
+                .build();
+        PersonBl.getPersonBl().save(person);
+//        System.out.println(person);
+        TicketBl.getTicketBl().save(ticket);
+  //      System.out.println(ticket);
+        ResponseBl.getResponseBl().save(response);
+  //      System.out.println(response);
+        AdminBl.getAdminBl().save(admin);
+ //       System.out.println(admin);
+        SignInBl.getSignInBl().save(signIn);
+//        System.out.println(signIn);
+        OperateBl.getOperateBl().save(operator);
+        System.out.println(operator);
     }
 }

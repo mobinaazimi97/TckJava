@@ -85,18 +85,18 @@ public class TicketBl implements CRUD<Ticket> {
 
     public Ticket findByPersonId(int id) throws Exception {
         try (TicketDa ticketDa = new TicketDa()) {
-            Person person=PersonBl.getPersonBl().findById(id);
-            Ticket ticket= ticketDa.findByPersonId(person.getId());
+            Person person = PersonBl.getPersonBl().findById(id);
+            Ticket ticket = ticketDa.findByPersonId(person.getId());
             if (ticket != null) {
-                int personId= ticket.getPerson().getId();
-  //              Person person = PersonBl.getPersonBl().findById(personId);
+                int personId = ticket.getPerson().getId();
+                //              Person person = PersonBl.getPersonBl().findById(personId);
                 ticket.setPerson(PersonBl.getPersonBl().findById(ticket.getPerson().getId()));
                 return ticket;
             } else {
                 throw new NoTicketFoundException();
             }
-            }
         }
+    }
 
     public Ticket findByStatus(Status status) throws Exception {
         try (TicketDa ticketDa = new TicketDa()) {
@@ -152,13 +152,14 @@ public class TicketBl implements CRUD<Ticket> {
             }
         }
     }
+
     public Ticket findByUsername(String username) throws Exception {
         try (TicketDa ticketDa = new TicketDa()) {
             Person person = PersonBl.getPersonBl().findByUsername(username);
             Ticket ticket = ticketDa.findByUsername(person.getUsername());
-           ticket.setPerson(PersonBl.getPersonBl().findById(ticket.getPerson().getId()));
+            ticket.setPerson(PersonBl.getPersonBl().findById(ticket.getPerson().getId()));
 //            ticket.setPerson(PersonBl.getPersonBl().findByUsername(ticket.getPerson().getUsername()));
-           return ticket;
+            return ticket;
         }
     }
 }

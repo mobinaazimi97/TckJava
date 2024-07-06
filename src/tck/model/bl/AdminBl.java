@@ -3,6 +3,7 @@ package tck.model.bl;
 import lombok.Getter;
 import tck.controller.exceptions.AaccesssDeniedException;
 import tck.controller.exceptions.NoAdminFoundException;
+import tck.controller.exceptions.NoPersonFoundException;
 import tck.model.da.AdminDa;
 import tck.model.da.SignInDa;
 import tck.model.entity.*;
@@ -52,11 +53,11 @@ public class AdminBl implements CRUD<Admin> {
     @Override
     public List<Admin> findAll() throws Exception {
         try (AdminDa adminDa=new AdminDa()) {
-            List<Admin> adminList = adminDa.findAll();
-            if (!adminList.isEmpty()) {
-                return adminList;
+            List<Admin> personList = adminDa.findAll();
+            if (!personList.isEmpty()) {
+                return  personList;
             } else {
-                throw new NoAdminFoundException();
+                throw new NoPersonFoundException();
             }
         }
     }

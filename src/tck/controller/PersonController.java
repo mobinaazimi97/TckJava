@@ -76,13 +76,13 @@ public class PersonController implements Initializable {
                         .role(Role.valueOf(role.getText()))
                         .enabled(trueChk.isSelected())
                         .build();
-                PersonBl.getPersonBl().save(person);
+                showDataOnTable(PersonBl.getPersonBl().save(person));
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "person saved\n" + person.toString());
                 alert.show();
                 resetForm();
                 log.info("Person Saved" + person);
             } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "person save error\n" + e.getMessage());
+                Alert alert = new Alert(Alert.AlertType.ERROR, "person save error\n" + e.getMessage()) ;
                 alert.show();
                 log.error("Person Save Error" + e.getMessage());
             }
@@ -101,9 +101,8 @@ public class PersonController implements Initializable {
                         .email(emailTxt.getText())
                         .role(Role.valueOf(role.getText()))
                        .enabled(trueChk.isSelected())            //TODO
-//                        .enabled(falseChk.isSelected())
                         .build();
-                PersonBl.getPersonBl().save(person);
+               showDataOnTable(PersonBl.getPersonBl().save(person));
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "person updated\n" + person.toString());
                 alert.show();
                 resetForm();
@@ -135,7 +134,7 @@ public class PersonController implements Initializable {
             usernameTxt.setText(String.valueOf(person.getUsername()));
             passwordTxt.setText(String.valueOf(person.getPassword()));
             phoneTxt.setText(String.valueOf(person.getPhoneNumber()));
-           emailTxt.setText(String.valueOf(person.getEmail()));
+            emailTxt.setText(String.valueOf(person.getEmail()));
             if (person.getRole().equals(Role.User)) {
                 userRdo.setSelected(true);
             } else {
