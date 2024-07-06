@@ -53,31 +53,32 @@ public class OperateBl implements CRUD<Operator> {
 
     @Override
     public List<Operator> findAll() throws Exception {
-        try (OperateDa operateDa=new OperateDa()) {
+        try (OperateDa operateDa = new OperateDa()) {
             List<Operator> operatorList = operateDa.findAll();
             if (!operatorList.isEmpty()) {
 //                for (Operator operator : operatorList) {                                              //TODO
 //                    operator.setSignIn(SignInBl.getSignInBl().findByPersonId(operator.getSignIn().getPerson().getId()));
 //                }
-                    return operatorList;
-                } else{
-                    throw new AaccesssDeniedException();
-                }
+                return operatorList;
+            } else {
+                throw new AaccesssDeniedException();
             }
+        }
     }
 
     @Override
     public Operator findById(int id) throws Exception {
-        try (OperateDa operateDa=new OperateDa()) {
-            Operator operator= operateDa.findById(id);
+        try (OperateDa operateDa = new OperateDa()) {
+            Operator operator = operateDa.findById(id);
             if (operator != null) {
                 operator.setId(id);                            //TODO : TRUE ?
                 return operator;
             } else {
                 throw new AaccesssDeniedException();
             }
-            }
+        }
     }
+
     public Operator findByPersonId(int id) throws Exception {
         try (OperateDa operateDa = new OperateDa()) {
             //         Person person = PersonBl.getPersonBl().findById(id);
@@ -93,13 +94,14 @@ public class OperateBl implements CRUD<Operator> {
             }
         }
     }
+
     public Operator findByPerUsername(String username) throws Exception {
         try (OperateDa operateDa = new OperateDa()) {
             //         Person person = PersonBl.getPersonBl().findById(id);
             SignIn signIn = SignInBl.getSignInBl().findByPersonUsername(username);
             Operator operator = operateDa.findByPerUsername(signIn.getPerson().getUsername());
             if (operator != null) {
-   //              operator.getSignIn().getPerson().getUsername();                            //TODO
+                //              operator.getSignIn().getPerson().getUsername();                            //TODO
                 //               Person person = PersonBl.getPersonBl().findById(id);
                 operator.setSignIn(SignInBl.getSignInBl().findByPersonUsername(operator.getSignIn().getPerson().getUsername()));
                 return operator;
@@ -108,13 +110,14 @@ public class OperateBl implements CRUD<Operator> {
             }
         }
     }
+
     public Operator findByPerPassword(String password) throws Exception {
         try (OperateDa operateDa = new OperateDa()) {
             //         Person person = PersonBl.getPersonBl().findById(id);
             SignIn signIn = SignInBl.getSignInBl().findByPersonPassword(password);
             Operator operator = operateDa.findByPerPassword(signIn.getPerson().getPassword());
             if (operator != null) {
-   //             operator.getSignIn().getPerson().getPassword();                            //TODO
+                //             operator.getSignIn().getPerson().getPassword();                            //TODO
                 //               Person person = PersonBl.getPersonBl().findById(id);
                 operator.setSignIn(SignInBl.getSignInBl().findByPersonPassword(operator.getSignIn().getPerson().getPassword()));
                 return operator;
@@ -123,6 +126,7 @@ public class OperateBl implements CRUD<Operator> {
             }
         }
     }
+
     public Operator findByPerPhone(String phoneNumber) throws Exception {
         try (OperateDa operateDa = new OperateDa()) {
             //         Person person = PersonBl.getPersonBl().findById(id);
@@ -138,6 +142,7 @@ public class OperateBl implements CRUD<Operator> {
             }
         }
     }
+
     public Operator findByPerEmail(String email) throws Exception {
         try (OperateDa operateDa = new OperateDa()) {
             //         Person person = PersonBl.getPersonBl().findById(id);
@@ -153,6 +158,7 @@ public class OperateBl implements CRUD<Operator> {
             }
         }
     }
+
     public Operator findByAdminId(int id) throws Exception {
         try (OperateDa operateDa = new OperateDa()) {
             Admin admin = AdminBl.getAdminBl().findById(id);
@@ -167,6 +173,7 @@ public class OperateBl implements CRUD<Operator> {
             }
         }
     }
+
     public Operator findByAdminUsername(String user) throws Exception {
         try (OperateDa operateDa = new OperateDa()) {
             //         Person person = PersonBl.getPersonBl().findById(id);
@@ -181,7 +188,8 @@ public class OperateBl implements CRUD<Operator> {
                 throw new AaccesssDeniedException();
             }
         }
-        }
+    }
+
     public Operator findByAdminPassword(String pass) throws Exception {
         try (OperateDa operateDa = new OperateDa()) {
             //         Person person = PersonBl.getPersonBl().findById(id);

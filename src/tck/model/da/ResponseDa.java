@@ -115,23 +115,23 @@ public class ResponseDa implements AutoCloseable, CRUD<Response> {
         return response;
     }
 
-    public Response findByTicketId(int ticketId) throws Exception {
-        preparedStatement = connection.prepareStatement("select * from RESPONSE where TICKET_ID=?");
-        preparedStatement.setInt(1, ticketId);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        Response response = null;
-        if (resultSet.next()) {
-            response = Response
-                    .builder()
-                    .id(resultSet.getInt("response_id"))
-                    .person(Person.builder().id(resultSet.getInt("PERSON_ID")).build())
-                    .ticket(Ticket.builder().id(resultSet.getInt("TICKET_ID")).build())
-                    .answer(resultSet.getString("answer"))
-                    .date(resultSet.getDate("response_Date").toLocalDate())
-                    .build();
-        }
-        return response;
-    }
+//    public Response findByTicketId(int ticketId) throws Exception {
+//        preparedStatement = connection.prepareStatement("select * from RESPONSE where TICKET_ID=?");
+//        preparedStatement.setInt(1, ticketId);
+//        ResultSet resultSet = preparedStatement.executeQuery();
+//        Response response = null;
+//        if (resultSet.next()) {
+//            response = Response
+//                    .builder()
+//                    .id(resultSet.getInt("response_id"))
+//                    .person(Person.builder().id(resultSet.getInt("PERSON_ID")).build())
+//                    .ticket(Ticket.builder().id(resultSet.getInt("TICKET_ID")).build())
+//                    .answer(resultSet.getString("answer"))
+//                    .date(resultSet.getDate("response_Date").toLocalDate())
+//                    .build();
+//        }
+//        return response;
+//    }
 
     public Response findByAnswer(String answer) throws Exception {
         preparedStatement = connection.prepareStatement("select * from RESPONSE where answer LIKE? ORDER BY response_id");

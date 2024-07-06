@@ -88,20 +88,20 @@ public class ResponseBl implements CRUD<Response> {
         }
     }
 
-    public Response findByTicketId(int id) throws Exception {
-        try (ResponseDa responseDa = new ResponseDa()) {
-            Ticket ticket=TicketBl.getTicketBl().findById(id);
-            Response response = responseDa.findByTicketId(ticket.getId());
-            if (response != null) {
-                int ticketId = response.getTicket().getId();
- //               Ticket ticket = TicketBl.getTicketBl().findById(ticketId);
-                response.setTicket(TicketBl.getTicketBl().findById(response.getTicket().getId()));
-                return response;
-            } else {
-                throw new NoResponseFoundException();
-            }
-        }
-    }
+//    public Response findByTicketId(int id) throws Exception {
+//        try (ResponseDa responseDa = new ResponseDa()) {
+//            Ticket ticket=TicketBl.getTicketBl().findById(id);
+//            Response response = responseDa.findByTicketId(ticket.getId());
+//            if (response != null) {
+//                int ticketId = response.getTicket().getId();
+ //               Ticket ticket = TicketBl.getTicketBl().findById(ticketId);                    //TODO
+//                response.setTicket(TicketBl.getTicketBl().findById(response.getTicket().getId()));
+//                return response;
+//            } else {
+//                throw new NoResponseFoundException();
+//            }
+//        }
+//    }
     public Response findByPersonId(int id) throws Exception {
         try (ResponseDa responseDa = new ResponseDa()) {
             Person person=PersonBl.getPersonBl().findById(id);
