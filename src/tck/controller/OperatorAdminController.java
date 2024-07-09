@@ -127,7 +127,7 @@ public class OperatorAdminController implements Initializable {
         searchByAdminUserTxt.setOnKeyReleased(event -> {             //TODO
             try {
                 OperateBl.getOperateBl().findByAdminUsername(searchByAdminUserTxt.getText());                   // TODO : Wrong : List for showDataOnTable
-                log.info("find by admin username success" + Integer.parseInt(searchByAdminUserTxt.getText()));
+                log.info("find by admin username success" + searchByAdminUserTxt.getText());
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "search admin username error\n" + e.getMessage());
                 alert.show();
@@ -137,7 +137,7 @@ public class OperatorAdminController implements Initializable {
         searchByAdminPassTxt.setOnKeyReleased(event -> {             //TODO
             try {
                 OperateBl.getOperateBl().findByAdminPassword(searchByAdminPassTxt.getText());                   // TODO : Wrong : List for showDataOnTable
-                log.info("find by admin password success" + Integer.parseInt(searchByAdminPassTxt.getText()));
+                log.info("find by admin password success" + searchByAdminPassTxt.getText());
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "search admin password error\n" + e.getMessage());
                 alert.show();
