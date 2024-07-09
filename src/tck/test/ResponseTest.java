@@ -14,6 +14,7 @@ import java.time.LocalDate;
 
 public class ResponseTest {
     public static void main(String[] args) throws Exception {
+        Role role = Role.Admin;
         Person person=
                 Person.builder()
                         .id(1)
