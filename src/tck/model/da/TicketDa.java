@@ -34,8 +34,8 @@ public class TicketDa implements AutoCloseable, CRUD<Ticket> {
         preparedStatement.setInt(3, ticket.getPerson().getId());
         preparedStatement.setString(4, ticket.getTitle());
         preparedStatement.setString(5, ticket.getText());
-        preparedStatement.setString(6, ticket.getGroup().name());
-        preparedStatement.setString(7, ticket.getStatus().name());
+        preparedStatement.setString(6, String.valueOf(ticket.getGroup()));
+        preparedStatement.setString(7,String.valueOf(ticket.getStatus()));
         preparedStatement.setString(8, ticket.getPerson().getUsername());
     //    preparedStatement.execute();
         return ticket;
@@ -50,8 +50,8 @@ public class TicketDa implements AutoCloseable, CRUD<Ticket> {
         preparedStatement.setInt(2, ticket.getPerson().getId());
         preparedStatement.setString(3, ticket.getTitle());
         preparedStatement.setString(4, ticket.getText());
-        preparedStatement.setString(5, ticket.getGroup().name());
-        preparedStatement.setString(6, ticket.getStatus().name());
+        preparedStatement.setString(5, String.valueOf(ticket.getGroup()));
+        preparedStatement.setString(6,String.valueOf(ticket.getStatus()));
         preparedStatement.setDate(7, Date.valueOf(ticket.getTicketDate()));
         preparedStatement.setString(8, ticket.getPerson().getUsername());
         preparedStatement.execute();
@@ -78,6 +78,7 @@ public class TicketDa implements AutoCloseable, CRUD<Ticket> {
                     .builder()
                     .id(resultSet.getInt("ticket_id"))
                     .person(Person.builder().id(resultSet.getInt("PERSON_ID")).build())
+                    .person(Person.builder().username(resultSet.getString("user_name")).build())
                     .ticketDate(resultSet.getDate("ticket_date").toLocalDate())
                     .title(resultSet.getString("title"))
                     .text(resultSet.getString("text"))
@@ -174,7 +175,7 @@ public class TicketDa implements AutoCloseable, CRUD<Ticket> {
     }
 
     public Ticket findByTitle(String title) throws Exception {
-        preparedStatement = connection.prepareStatement("select * from TICKET where title LIKE? ORDER BY ID");
+        preparedStatement = connection.prepareStatement("select * from TICKET where title LIKE? ORDER BY TICKET_ID");
         preparedStatement.setString(1, title + "%");
         ResultSet resultSet = preparedStatement.executeQuery();
         Ticket ticket = null;
@@ -194,7 +195,7 @@ public class TicketDa implements AutoCloseable, CRUD<Ticket> {
     }
 
     public Ticket findByText(String text) throws Exception {
-        preparedStatement = connection.prepareStatement("select * from TICKET where text LIKE ? ORDER BY ID");
+        preparedStatement = connection.prepareStatement("select * from TICKET where text LIKE ? ORDER BY TICKET_ID");
         preparedStatement.setString(1, text + "%");
         ResultSet resultSet = preparedStatement.executeQuery();
         Ticket ticket = null;
@@ -243,6 +244,7 @@ public class TicketDa implements AutoCloseable, CRUD<Ticket> {
                     .builder()
                     .id(resultSet.getInt("ticket_id"))
                     .person(Person.builder().username(resultSet.getString("user_name")).build())
+                    .person(Person.builder().id(resultSet.getInt("user_name")).build())
                     .ticketDate(resultSet.getDate("TicketDate").toLocalDate())
                     .group(Group.valueOf(resultSet.getString("group_name")))
                     .title(resultSet.getString("title"))

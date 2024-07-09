@@ -24,7 +24,8 @@ import java.util.ResourceBundle;
 @Log4j
 
 
-public class TicketController implements Initializable {
+public class
+TicketController implements Initializable {
     @FXML
     private TextField ticketIdTxt, personIdTxt, personUserTxt , titleTxt, textTxt;
     @FXML

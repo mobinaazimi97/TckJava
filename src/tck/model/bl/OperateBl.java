@@ -79,11 +79,11 @@ public class OperateBl implements CRUD<Operator> {
         }
     }
 
-    public Operator findByPersonId(int id) throws Exception {
+    public Operator findByPerId(int id) throws Exception {
         try (OperateDa operateDa = new OperateDa()) {
             //         Person person = PersonBl.getPersonBl().findById(id);
             SignIn signIn = SignInBl.getSignInBl().findByPersonId(id);
-            Operator operator = operateDa.findByPersonId(signIn.getPerson().getId());
+            Operator operator = operateDa.findByPerId(signIn.getPerson().getId());
             if (operator != null) {
                 int personId = operator.getSignIn().getPerson().getId();
                 //               Person person = PersonBl.getPersonBl().findById(id);
@@ -152,6 +152,20 @@ public class OperateBl implements CRUD<Operator> {
                 //             operator.getSignIn().getPerson().getPassword();                            //TODO
                 //               Person person = PersonBl.getPersonBl().findById(id);
                 operator.setSignIn(SignInBl.getSignInBl().findByPersonEmail(operator.getSignIn().getPerson().getEmail()));
+                return operator;
+            } else {
+                throw new AaccesssDeniedException();
+            }
+        }
+    }
+    public Operator findBySignId(int id) throws Exception {
+        try (OperateDa operateDa = new OperateDa()) {
+            SignIn signIn = SignInBl.getSignInBl().findById(id);
+            Operator operator = operateDa.findBySignId(signIn.getId());
+            if (operator != null) {
+                int signId = operator.getSignIn().getId();
+                //           Person person = PersonBl.getPersonBl().findById(id);
+                operator.setSignIn(SignInBl.getSignInBl().findById(operator.getSignIn().getId()));
                 return operator;
             } else {
                 throw new AaccesssDeniedException();

@@ -57,7 +57,7 @@ create table SignIn
     password                     references PERSON,
     email                            references PERSON,
     phone_number            references PERSON,
-    admin_id                      references PERSON
+    admin_id                      references ADMIN
 );
 create sequence signIn_seq start with 1 increment by 1;
 
@@ -65,14 +65,14 @@ create table Operator
 (
     operate_id                      number primary key,
     operate_number            char(6),
-    person_id                       references SignIn,
-    user_name                     references SignIn,
+    person_id                       references SIGNIN,
+    user_name                     references SIGNIN,
     password                       references SIGNIN,
     email                              references SIGNIN,
-    phone_number             references SignIn,
-    sign_id                           references SignIn,
+    phone_number             references SIGNIN,
+    sign_id                           references SIGNIN,
     username                      references Admin,
     pass                               references Admin,
-    admin_id                       references SignIn
+    admin_id                       references SIGNIN
 );
 create sequence operator_seq start with 1 increment by 1;

@@ -80,4 +80,22 @@ public class WindowsManager {
         stage.setTitle("Sign In Page");
         stage.show();
     }
+    public static void showOperatorAdminForm() throws IOException {
+        Stage stage = new Stage();
+        Scene scene = new Scene(
+                FXMLLoader.load(WindowsManager.class.getResource("tck/view/operator.admin.fxml"))
+        );
+        stage.setScene(scene);
+        stage.setTitle("Operator.Admin Report:");
+        stage.show();
+    }
+    public static void showOperatorSignInForm() throws IOException {
+        Stage stage = new Stage();
+        Scene scene = new Scene(
+                FXMLLoader.load(WindowsManager.class.getResource("tck/view/operator.signIn.fxml"))
+        );
+        stage.setScene(scene);
+        stage.setTitle("Operator.Sign In Report :");
+        stage.show();
+    }
 }

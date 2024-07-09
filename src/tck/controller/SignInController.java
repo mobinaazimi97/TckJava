@@ -7,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import lombok.extern.log4j.Log4j;
 import tck.model.bl.PersonBl;
-import tck.model.da.PersonDa;
 import tck.model.da.SignInDa;
 import tck.model.entity.Person;
 
@@ -49,7 +48,7 @@ public class SignInController implements Initializable {
             }
         });
     }
-    private void resetForm() throws Exception{                                  //TODO : CHECK  !
+    private void resetForm() throws Exception{
         userTxt.clear();
         passTxt.clear();
         emailTxt.clear();

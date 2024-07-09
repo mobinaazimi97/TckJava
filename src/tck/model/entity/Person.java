@@ -24,7 +24,6 @@ public class Person {
     private Role role;
     private boolean enabled;
 
-
     @Override
     public String toString() {
         return new Gson().toJson(this);

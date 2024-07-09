@@ -134,7 +134,7 @@ public class SignInDa implements AutoCloseable, CRUD<SignIn> {
                     .id(resultSet.getInt("sign_id"))
                    .person(Person.builder().id(resultSet.getInt("person_id")).build())
                     .person(Person.builder().username(resultSet.getString("user_name")).build())
-//                    .person(Person.builder().password(resultSet.getString("password")).build())
+//                    .person(Person.builder().password(resultSet.getString("password")).build())               TODO
 //                    .person(Person.builder().email(resultSet.getString("email")).build())
 //                    .person(Person.builder().phoneNumber(resultSet.getString("phone_number")).build())
                     .admin(Admin.builder().id(resultSet.getInt("admin_id")).build())

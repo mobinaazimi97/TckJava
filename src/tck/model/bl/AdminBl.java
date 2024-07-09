@@ -5,7 +5,6 @@ import tck.controller.exceptions.AaccesssDeniedException;
 import tck.controller.exceptions.NoAdminFoundException;
 import tck.controller.exceptions.NoPersonFoundException;
 import tck.model.da.AdminDa;
-import tck.model.da.SignInDa;
 import tck.model.entity.*;
 import tck.model.tool.CRUD;
 
@@ -56,9 +55,9 @@ public class AdminBl implements CRUD<Admin> {
     @Override
     public List<Admin> findAll() throws Exception {
         try (AdminDa adminDa=new AdminDa()) {
-            List<Admin> personList = adminDa.findAll();
-            if (!personList.isEmpty()) {
-                return  personList;
+            List<Admin> adminList = adminDa.findAll();
+            if (!adminList.isEmpty()) {
+                return  adminList;
             } else {
                 throw new NoPersonFoundException();
             }
@@ -70,7 +69,9 @@ public class AdminBl implements CRUD<Admin> {
         try (AdminDa adminDa=new AdminDa()) {
             Admin admin = adminDa.findById(id);
             if (admin != null) {
-                admin.setId(id);                            //TODO : TRUE ?
+                int personId = admin.getPerson().getId();
+                Person person = PersonBl.getPersonBl().findById(id);
+                admin.setPerson(person);                           //TODO : TRUE ?
                 return admin;
             } else {
                 throw new NoAdminFoundException();

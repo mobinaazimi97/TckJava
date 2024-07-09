@@ -50,7 +50,7 @@ public class ResponseTest {
         System.out.println(ticket);
         ResponseBl.getResponseBl().save(response);
         System.out.println(response);
-        System.out.println(TicketBl.getTicketBl().findById(1));
+  //      System.out.println(TicketBl.getTicketBl().findById(1));
     }
     }
 

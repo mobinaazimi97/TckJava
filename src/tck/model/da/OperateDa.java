@@ -106,7 +106,7 @@ public class OperateDa implements AutoCloseable,CRUD<Operator> {
         }
             return operator;
     }
-    public Operator findByPersonId(int id) throws Exception {
+    public Operator findByPerId(int id) throws Exception {
         preparedStatement = connection.prepareStatement("select * from Operator where Person_id=?");
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
