@@ -6,17 +6,18 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lombok.extern.log4j.Log4j;
 import tck.model.bl.OperateBl;
 import tck.model.entity.Operator;
 import tck.model.entity.Person;
 import tck.model.entity.SignIn;
-
-import java.awt.*;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -27,7 +28,7 @@ public class OperatorSignInController implements Initializable {
     @FXML
     private TextField operatorIdTxt, operatorNumberTxt, signIdTxt, perIdTxt, perUsernameTxt, perPasswordTxt, perPhoneTxt, perMailTxt, searchSignIdTxt, searchPerIdTxt, searchPerUserTxt, searchPerPassTxt, searchPerPhoneTxt, searchPerMailTxt;
     @FXML
-    private Button saveBtn, editBtn, removeBtn;
+    private Button saveSignBtn, editSignBtn, removeSignBtn;
     @FXML
     private MenuItem closeMnu, newMnu;
     @FXML
@@ -61,7 +62,7 @@ public class OperatorSignInController implements Initializable {
             }
             log.info("Operator Closed");
         });
-        saveBtn.setOnAction(event -> {
+        saveSignBtn.setOnAction(event -> {
             try {
                 Operator operator = Operator
                         .builder()
@@ -85,7 +86,7 @@ public class OperatorSignInController implements Initializable {
                 log.error("Operator Data For Sign In Save Error" + e.getMessage());
             }
         });
-        editBtn.setOnAction(event -> {
+        editSignBtn.setOnAction(event -> {
             try {
                 Operator operator = Operator
                         .builder()
@@ -109,7 +110,7 @@ public class OperatorSignInController implements Initializable {
                 log.error("Operator Data For Sign In Update Error" + e.getMessage());
             }
         });
-        removeBtn.setOnAction(event -> {
+        removeSignBtn.setOnAction(event -> {
             try {
                 OperateBl.getOperateBl().remove(Integer.parseInt(operatorIdTxt.getText()));
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "operator data for signIn removed\n" + operatorIdTxt.getText());
@@ -194,7 +195,8 @@ public class OperatorSignInController implements Initializable {
             perMailTxt.setText(String.valueOf(operator.getSignIn().getPerson().getEmail()));
         });
     }
-    private void showDataOnTable(List<Operator> operateList) throws Exception {
+
+    private void showDataOnTable(List<Operator> operateList)  {
         ObservableList<Operator> observableList = FXCollections.observableList(operateList);
         operatorIdCol.setCellValueFactory(new PropertyValueFactory<>("operator id:"));
         operatorNumCol.setCellValueFactory(new PropertyValueFactory<>("operator number:"));
@@ -206,6 +208,7 @@ public class OperatorSignInController implements Initializable {
         perMailCol.setCellValueFactory(new PropertyValueFactory<>("person mail:"));
         operatorSignInTbl.setItems(observableList);
     }
+
     private void resetForm() throws Exception {
         operatorIdTxt.clear();
         operatorNumberTxt.clear();
@@ -217,4 +220,4 @@ public class OperatorSignInController implements Initializable {
         perMailTxt.clear();
         showDataOnTable(OperateBl.getOperateBl().findAll());
     }
-}
+    }
