@@ -14,7 +14,6 @@ import java.time.LocalDate;
 
 public class ResponseTest {
     public static void main(String[] args) throws Exception {
-        Role role = Role.Admin;
         Person person=
                 Person.builder()
                         .id(1)
@@ -34,7 +33,7 @@ public class ResponseTest {
                         .status(Status.answer)
                         .ticketDate(LocalDate.now())
                         .text("answered")
-                        .title("requiery")
+                        .title("request")
                         .person(person)
                         .build();
         Response response=
