@@ -52,7 +52,7 @@ public class AdminTest {
                 .ticket(ticket)
                 .response(response)
                 .build();
-        AdminBl.getAdminBl().findByPersonPass(person.getPassword());
-        System.out.println(person.getPassword()); //todo
+        AdminBl.getAdminBl().save(admin);
+        System.out.println(admin.getPerson()); //todo
     }
 }

@@ -83,7 +83,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
                     .email(resultSet.getString("email"))
                     .username(resultSet.getString("USER_NAME"))
                     .password(resultSet.getString("Password"))
-                    .role(Role.valueOf(resultSet.getString("Role")))
+                    .role(Role.valueOf(resultSet.getString("Role")))                    //TODO : No Enum Constant !
                     .enabled(resultSet.getBoolean("ENABLED"))
                     .build();
 
@@ -175,7 +175,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
                     .email(resultSet.getString("email"))
                     .username(resultSet.getString("User_Name"))
                     .password(resultSet.getString("Password"))
-                    .role(Role.valueOf(resultSet.getString("Role")))
+                   .role(Role.valueOf(resultSet.getString("role")))
                     .enabled(resultSet.getBoolean("ENABLED"))
                     .build();
         }

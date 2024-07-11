@@ -20,5 +20,6 @@ public class PersonTest {
                         .build();
         PersonBl.getPersonBl().save(person);
         System.out.println(person);
+        PersonBl.getPersonBl().findById(person.getId());
     }
 }

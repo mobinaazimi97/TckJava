@@ -69,8 +69,9 @@ public class SignInBl implements CRUD<SignIn> {
           SignIn signIn=signInDa.findById(id);
             if (signIn != null) {
                 int personId =signIn.getPerson().getId();
-                Person person = PersonBl.getPersonBl().findById(id);
-             signIn.setPerson(person);
+                Person person = PersonBl.getPersonBl().findById(personId);
+                signIn.setPerson(SignInBl.getSignInBl().findByPersonId(signIn.getPerson().getId()).getPerson());
+  //           signIn.setPerson(person);
                 return signIn;
             } else {
                 throw new FailedSignInException();

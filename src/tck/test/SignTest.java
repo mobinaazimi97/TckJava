@@ -57,5 +57,6 @@ public class SignTest {
                 .build();
         SignInBl.getSignInBl().save(signIn);
         System.out.println(signIn);
+        System.out.println(SignInBl.getSignInBl().findByPersonId(signIn.getPerson().getId()));
     }
 }
