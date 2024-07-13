@@ -34,8 +34,8 @@ public class TicketDa implements AutoCloseable, CRUD<Ticket> {
         preparedStatement.setInt(3, ticket.getPerson().getId());
         preparedStatement.setString(4, ticket.getTitle());
         preparedStatement.setString(5, ticket.getText());
-        preparedStatement.setString(6, String.valueOf(ticket.getGroup()));
-        preparedStatement.setString(7,String.valueOf(ticket.getStatus()));
+        preparedStatement.setString(6, ticket.getGroup().name());
+        preparedStatement.setString(7,ticket.getStatus().name());
         preparedStatement.setString(8, ticket.getPerson().getUsername());
     //    preparedStatement.execute();
         return ticket;
@@ -51,8 +51,8 @@ public class TicketDa implements AutoCloseable, CRUD<Ticket> {
         preparedStatement.setString(3, ticket.getTitle());
         preparedStatement.setString(4, ticket.getText());
         preparedStatement.setString(5, String.valueOf(ticket.getGroup()));
-        preparedStatement.setString(6,String.valueOf(ticket.getStatus()));
-        preparedStatement.setDate(7, Date.valueOf(ticket.getTicketDate()));
+        preparedStatement.setString(6, ticket.getGroup().name());
+        preparedStatement.setString(7,ticket.getStatus().name());
         preparedStatement.setString(8, ticket.getPerson().getUsername());
         preparedStatement.execute();
         return ticket;
