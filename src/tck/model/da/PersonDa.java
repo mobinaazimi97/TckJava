@@ -34,7 +34,8 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
         preparedStatement.setString(5, person.getPhoneNumber());
         preparedStatement.setString(6, person.getUsername());
         preparedStatement.setString(7, person.getPassword());
-        preparedStatement.setString(8, person.getRole().name());
+        preparedStatement.setString(8, String.valueOf(person.getRole()));
+   //     preparedStatement.setString(8,person.getRole().name());                         //TODO : Error : No Enum Constant In ResponseTest!
         preparedStatement.setBoolean(9, person.isEnabled());
 //        preparedStatement.execute();
         return person;
@@ -131,7 +132,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
                     .email(resultSet.getString("email"))
                     .username(resultSet.getString("User_Name"))
                     .password(resultSet.getString("Password"))
-                    .role(Role.valueOf(resultSet.getString("Role")))
+            //        .role(Role.valueOf(resultSet.getString("Role")))                      //TODO : Error No Enum Constant In PersonTest And Fx !
                     .enabled(resultSet.getBoolean("ENABLED"))
                     .build();
         }
@@ -153,7 +154,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
                     .email(resultSet.getString("email"))
                     .username(resultSet.getString("User_Name"))
                     .password(resultSet.getString("Password"))
-                   .role(Role.valueOf(resultSet.getString("role")))
+//                   .role(Role.valueOf(resultSet.getString("role")))                       // NO ENUM CONSTANT ERROR !
                     .enabled(resultSet.getBoolean("ENABLED"))
                     .build();
         }

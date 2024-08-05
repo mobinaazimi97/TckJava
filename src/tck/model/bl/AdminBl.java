@@ -1,9 +1,7 @@
 package tck.model.bl;
 
 import lombok.Getter;
-import tck.controller.exceptions.AaccesssDeniedException;
-import tck.controller.exceptions.NoAdminFoundException;
-import tck.controller.exceptions.NoPersonFoundException;
+import tck.controller.exceptions.*;
 import tck.model.da.AdminDa;
 import tck.model.entity.*;
 import tck.model.tool.CRUD;
@@ -59,7 +57,7 @@ public class AdminBl implements CRUD<Admin> {
             if (!adminList.isEmpty()) {
                 return  adminList;
             } else {
-                throw new NoPersonFoundException();
+                throw new NoAdminFoundException();
             }
         }
     }
@@ -108,7 +106,7 @@ public class AdminBl implements CRUD<Admin> {
                admin.setPerson(PersonBl.getPersonBl().findById(admin.getPerson().getId()));
                 return admin;
             } else {
-                throw new NoAdminFoundException();
+                throw new NoPersonFoundException();
             }
         }
     }
@@ -149,7 +147,7 @@ public class AdminBl implements CRUD<Admin> {
                admin.setTicket(TicketBl.getTicketBl().findById(admin.getTicket().getId()));
                 return admin;
             } else {
-                throw new NoAdminFoundException();
+                throw new NoTicketFoundException();
             }
         }
     }
@@ -163,7 +161,7 @@ public class AdminBl implements CRUD<Admin> {
                 admin.setResponse(ResponseBl.getResponseBl().findById(admin.getResponse().getId()));
                 return admin;
             } else {
-                throw new NoAdminFoundException();
+                throw new NoResponseFoundException();
             }
         }
     }

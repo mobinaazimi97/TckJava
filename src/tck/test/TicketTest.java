@@ -39,6 +39,7 @@ public class TicketTest {
     System.out.println(person);
     TicketBl.getTicketBl().save(ticket);
     System.out.println(ticket);
+ //   System.out.println(TicketBl.getTicketBl().findByTitle(ticket.getTitle()));
  //   System.out.println(TicketBl.getTicketBl().findById(1));
   }
 }

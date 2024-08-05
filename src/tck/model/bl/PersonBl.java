@@ -19,12 +19,12 @@ public class PersonBl implements CRUD<Person> {
     @Override
     public Person save(Person person) throws Exception {
         try (PersonDa personDa = new PersonDa()) {
-            if (personDa.findByUsername(person.getUsername()) == null) {
-                personDa.save(person);
-            } else {
-                throw new DuplicateUsernameException();
-            }
-//            personDa.save(person);
+//            if (personDa.findByUsername(person.getUsername()) == null) {
+//                personDa.save(person);
+//            } else {
+//                throw new DuplicateUsernameException();
+//            }
+            personDa.save(person);
             return person;
         }
     }

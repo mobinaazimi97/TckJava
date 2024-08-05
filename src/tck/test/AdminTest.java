@@ -22,7 +22,7 @@ public class AdminTest {
                         .email("www.mobina.com")
                         .username("mobi123")
                         .password("1234")
-       //                 .role(Role.Admin)
+                        .role(Role.Admin)
                         .enabled(true)
                         .build();
         Ticket ticket=
@@ -52,7 +52,13 @@ public class AdminTest {
                 .ticket(ticket)
                 .response(response)
                 .build();
-        AdminBl.getAdminBl().save(admin);
-        System.out.println(admin.getPerson()); //todo
+        System.out.println(AdminBl.getAdminBl().save(admin));
+ //       System.out.println(AdminBl.getAdminBl().findById(admin.getId()));
+//        System.out.println(admin);
+//        System.out.println(admin.getTicket()); //todo
+//        System.out.println(admin.getPerson());
+//        System.out.println(AdminBl.getAdminBl().findByPass(admin.getPass()));
+     //   System.out.println(AdminBl.getAdminBl().findById(admin.getId()));
+   //     System.out.println(AdminBl.getAdminBl().findAll());
     }
 }
