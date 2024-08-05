@@ -1,6 +1,7 @@
 package tck.model.bl;
 
 import lombok.Getter;
+import tck.controller.exceptions.DuplicateUsernameException;
 import tck.controller.exceptions.NoPersonFoundException;
 import tck.model.da.PersonDa;
 import tck.model.entity.Person;
@@ -18,10 +19,10 @@ public class PersonBl implements CRUD<Person> {
     @Override
     public Person save(Person person) throws Exception {
         try (PersonDa personDa = new PersonDa()) {
-            if (person.isEnabled()){
+            if (personDa.findByUsername(person.getUsername())==null){
                 personDa.save(person);
             }else {
-                throw new Exception("Person Does Not Have Enough Requirement !");
+                throw new DuplicateUsernameException();
             }
 //            personDa.save(person);
             return person;

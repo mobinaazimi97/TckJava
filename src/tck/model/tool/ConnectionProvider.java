@@ -23,7 +23,7 @@ public class ConnectionProvider {                                   //TODO : Err
         basicDataSource.setUsername("javase");
         basicDataSource.setPassword("java123");
         basicDataSource.setMinIdle(10);
-        basicDataSource.setMaxTotal(30);
+        basicDataSource.setMaxTotal(20);
         return basicDataSource.getConnection();
     }
 

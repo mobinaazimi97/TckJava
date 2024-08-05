@@ -8,7 +8,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lombok.extern.log4j.Log4j;
-import tck.model.bl.ResponseBl;
 import tck.model.bl.TicketBl;
 import tck.model.entity.Person;
 import tck.model.entity.Ticket;
@@ -16,7 +15,6 @@ import tck.model.entity.enums.Group;
 import tck.model.entity.enums.Status;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -27,7 +25,7 @@ import java.util.ResourceBundle;
 public class
 TicketController implements Initializable {
     @FXML
-    private TextField ticketIdTxt, personIdTxt, personUserTxt , titleTxt, textTxt;
+    private TextField ticketIdTxt, personIdTxt, personUserTxt, titleTxt, textTxt;
     @FXML
     private ComboBox<String> statusCmb;
     @FXML
@@ -204,6 +202,7 @@ TicketController implements Initializable {
     private void resetForm() throws Exception {
         ticketIdTxt.clear();
         personIdTxt.clear();
+        personUserTxt.clear();
         titleTxt.clear();
         textTxt.clear();
         ticketDatePick.setValue(null);

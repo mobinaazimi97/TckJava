@@ -22,7 +22,7 @@ public class AdminTest {
                         .email("www.mobina.com")
                         .username("mobi123")
                         .password("1234")
-                        .role(Role.Admin)
+       //                 .role(Role.Admin)
                         .enabled(true)
                         .build();
         Ticket ticket=

@@ -19,7 +19,7 @@ public class SignTest {
                         .email("www.mobina.com")
                         .username("mobi123")
                         .password("1234")
-                        .role(Role.valueOf(Role.Admin.name()))
+            //            .role(Role.valueOf(Role.Admin.name()))
                         .enabled(true)
                         .build();
         Response response=
