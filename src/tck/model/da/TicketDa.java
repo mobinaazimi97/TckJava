@@ -255,7 +255,7 @@ public class TicketDa implements AutoCloseable, CRUD<Ticket> {
     }
     @Override
     public void close() throws Exception {
-        preparedStatement.close();
+//        preparedStatement.close();
         connection.close();
         log.debug("Disconnected From The DataBase");
     }

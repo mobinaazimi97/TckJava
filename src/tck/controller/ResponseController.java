@@ -91,8 +91,8 @@ public class ResponseController implements Initializable {
                         .date(responseDatePicker.getValue())                                                //TODO :NOT found in UI  !!
                         .answer(answerTxt.getText())
                         .build();
-                ResponseBl.getResponseBl().save(response);
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "response edited\n" + response.toString());
+                ResponseBl.getResponseBl().edit(response);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "response edited\n" + response);
                 alert.show();
                 resetForm();
                 log.info("Response Updated" + response);

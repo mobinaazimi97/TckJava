@@ -102,7 +102,7 @@ public class PersonController implements Initializable {
                         .role(Role.valueOf(role.getText()))
                        .enabled(trueChk.isSelected())            //TODO
                         .build();
-               showDataOnTable(PersonBl.getPersonBl().save(person));
+               showDataOnTable(PersonBl.getPersonBl().edit(person));
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "person updated\n" + person.toString());
                 alert.show();
                 resetForm();

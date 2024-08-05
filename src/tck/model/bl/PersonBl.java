@@ -18,7 +18,12 @@ public class PersonBl implements CRUD<Person> {
     @Override
     public Person save(Person person) throws Exception {
         try (PersonDa personDa = new PersonDa()) {
-            personDa.save(person);
+            if (person.isEnabled()){
+                personDa.save(person);
+            }else {
+                throw new Exception("Person Does Not Have Enough Requirement !");
+            }
+//            personDa.save(person);
             return person;
         }
     }

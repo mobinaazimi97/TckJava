@@ -46,7 +46,7 @@ public class ResponseTest {
                         .build();
         PersonBl.getPersonBl().save(person);
         System.out.println(person);
-        TicketBl.getTicketBl().findByUsername("mobi123");
+        TicketBl.getTicketBl().findByUsername(person.getUsername());
         System.out.println(ticket);
         ResponseBl.getResponseBl().save(response);
         System.out.println(response);
