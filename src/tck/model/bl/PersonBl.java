@@ -19,9 +19,9 @@ public class PersonBl implements CRUD<Person> {
     @Override
     public Person save(Person person) throws Exception {
         try (PersonDa personDa = new PersonDa()) {
-            if (personDa.findByUsername(person.getUsername())==null){
+            if (personDa.findByUsername(person.getUsername()) == null) {
                 personDa.save(person);
-            }else {
+            } else {
                 throw new DuplicateUsernameException();
             }
 //            personDa.save(person);
@@ -111,6 +111,7 @@ public class PersonBl implements CRUD<Person> {
             }
         }
     }
+
     public Person findByPhoneNumber(String phoneNumber) throws Exception {
         try (PersonDa personDa = new PersonDa()) {
             Person person = personDa.findByPhoneNumber(phoneNumber);
@@ -121,6 +122,7 @@ public class PersonBl implements CRUD<Person> {
             }
         }
     }
+
     public Person findByEmail(String email) throws Exception {
         try (PersonDa personDa = new PersonDa()) {
             Person person = personDa.findByEmail(email);
