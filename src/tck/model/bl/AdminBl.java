@@ -97,7 +97,7 @@ public class AdminBl implements CRUD<Admin> {
             }
         }
     }
-    public Admin findByPersonId(int id) throws Exception {
+    public Admin findByPersonId(int id) throws Exception {                          //TODO
         try (AdminDa adminDa=new AdminDa()) {
             PersonDa personDa=new PersonDa();
   //          Person person = PersonBl.getPersonBl().findById(id);

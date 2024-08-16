@@ -1,9 +1,10 @@
 package tck.test;
 
+import tck.model.bl.PersonBl;
 import tck.model.bl.SignInBl;
 import tck.model.entity.*;
 import tck.model.entity.enums.Group;
-import tck.model.entity.enums.Role;
+
 import tck.model.entity.enums.Status;
 
 import java.time.LocalDate;
@@ -56,7 +57,9 @@ public class SignTest {
                 .admin(admin)
                 .build();
         SignInBl.getSignInBl().save(signIn);
-        System.out.println(signIn);
+        PersonBl.getPersonBl().save(person);
+//        PersonBl.getPersonBl().findById(person.getId());
+ //       System.out.println(signIn);
         System.out.println(SignInBl.getSignInBl().findByPersonId(signIn.getPerson().getId()));
     }
 }

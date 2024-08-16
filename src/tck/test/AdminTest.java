@@ -60,7 +60,7 @@ public class AdminTest {
  //       System.out.println(AdminBl.getAdminBl().findById(admin.getId()));
 //        System.out.println(admin);
 //        System.out.println(admin.getTicket()); //todo
-//        System.out.println(admin.getPerson());
+        System.out.println(admin.getPerson().getRole());
 //        System.out.println(AdminBl.getAdminBl().findByPass(admin.getPass()));
      //   System.out.println(AdminBl.getAdminBl().findById(admin.getId()));
    //     System.out.println(AdminBl.getAdminBl().findAll());

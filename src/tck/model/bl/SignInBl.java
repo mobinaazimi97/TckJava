@@ -1,7 +1,9 @@
 package tck.model.bl;
 
 import lombok.Getter;
+import lombok.extern.log4j.Log4j;
 import tck.controller.exceptions.FailedSignInException;
+import tck.model.da.PersonDa;
 import tck.model.da.SignInDa;
 import tck.model.entity.Admin;
 import tck.model.entity.Person;
@@ -9,11 +11,14 @@ import tck.model.entity.SignIn;
 import tck.model.tool.CRUD;
 
 import java.util.List;
+@Log4j
 
 public class SignInBl implements CRUD<SignIn> {
     @Getter
     private static SignInBl signInBl = new SignInBl();
-    private SignInBl(){}
+
+    private SignInBl() {
+    }
 
     @Override
     public SignIn save(SignIn signIn) throws Exception {
@@ -27,7 +32,7 @@ public class SignInBl implements CRUD<SignIn> {
     public SignIn edit(SignIn signIn) throws Exception {
         try (SignInDa signInDa = new SignInDa()) {
             if (signInDa.findById(signIn.getId()) != null) {
-             signInDa.edit(signIn);
+                signInDa.edit(signIn);
                 return signIn;
             } else {
                 throw new FailedSignInException();
@@ -38,9 +43,9 @@ public class SignInBl implements CRUD<SignIn> {
     @Override
     public SignIn remove(int id) throws Exception {
         try (SignInDa signInDa = new SignInDa()) {
-           SignIn signIn= signInDa.findById(id);
+            SignIn signIn = signInDa.findById(id);
             if (signIn != null) {
-               signInDa.remove(id);
+                signInDa.remove(id);
                 return signIn;
             } else {
                 throw new FailedSignInException();
@@ -50,40 +55,46 @@ public class SignInBl implements CRUD<SignIn> {
 
     @Override
     public List<SignIn> findAll() throws Exception {
-        try (SignInDa signInDa=new SignInDa()) {
-            List<SignIn> signInList =signInDa.findAll();
+        try (SignInDa signInDa = new SignInDa()) {
+            List<SignIn> signInList = signInDa.findAll();
             if (!signInList.isEmpty()) {
                 for (SignIn signIn : signInList) {
                     signIn.setPerson(PersonBl.getPersonBl().findById(signIn.getPerson().getId()));
                 }
                 return signInList;
             } else {
-                throw new FailedSignInException() ;
+                throw new FailedSignInException();
             }
         }
     }
 
     @Override
     public SignIn findById(int id) throws Exception {
-        try (SignInDa signInDa=new SignInDa()) {
-          SignIn signIn=signInDa.findById(id);
+        try (SignInDa signInDa = new SignInDa()) {
+            SignIn signIn = signInDa.findById(id);
             if (signIn != null) {
-                int personId =signIn.getPerson().getId();
+                int personId = signIn.getPerson().getId();
                 Person person = PersonBl.getPersonBl().findById(personId);
                 signIn.setPerson(SignInBl.getSignInBl().findByPersonId(signIn.getPerson().getId()).getPerson());
-  //           signIn.setPerson(person);
+                //           signIn.setPerson(person);
                 return signIn;
             } else {
                 throw new FailedSignInException();
             }
         }
     }
-    public SignIn findByPersonId(int id) throws Exception {
+
+    public SignIn findByPersonId(int id) throws Exception {                             //TODO
         try (SignInDa signInDa = new SignInDa()) {
-            Person person = PersonBl.getPersonBl().findById(id);
-            SignIn signIn = signInDa.findByPersonId(person.getId());
+            PersonDa personDa = new PersonDa();
+            //           Person person = PersonBl.getPersonBl().findById(id);
+       //    Person person = personDa.findById(id);
+            //           SignIn signIn = signInDa.findByPersonId(person.getId());
+         SignIn signIn = signInDa.findByPersonId(id);
+         signIn.getPerson().getId();
             if (signIn != null) {
-                int personId = signIn.getPerson().getId();
+                //         int personId = signIn.getPerson().getId();
+                signIn.getPerson().getId();
                 signIn.setPerson(PersonBl.getPersonBl().findById(signIn.getPerson().getId()));
                 return signIn;
             } else {

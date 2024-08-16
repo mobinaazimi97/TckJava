@@ -221,7 +221,7 @@ public class SignInDa implements AutoCloseable, CRUD<SignIn> {
 
     @Override
     public void close() throws Exception {
-        preparedStatement.close();
+//        preparedStatement.close();
         connection.close();
         log.debug("Disconnected From Database ");
     }
