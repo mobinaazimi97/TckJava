@@ -1,6 +1,7 @@
 package tck.test;
 
 import tck.model.bl.AdminBl;
+import tck.model.bl.PersonBl;
 import tck.model.entity.Admin;
 import tck.model.entity.Person;
 import tck.model.entity.Response;
@@ -53,6 +54,9 @@ public class AdminTest {
                 .response(response)
                 .build();
         System.out.println(AdminBl.getAdminBl().save(admin));
+        System.out.println(PersonBl.getPersonBl().save(person));
+        System.out.println(AdminBl.getAdminBl().findByPersonId(admin.getPerson().getId()));
+ //       System.out.println(AdminBl.getAdminBl().findByPass("1234567"));
  //       System.out.println(AdminBl.getAdminBl().findById(admin.getId()));
 //        System.out.println(admin);
 //        System.out.println(admin.getTicket()); //todo

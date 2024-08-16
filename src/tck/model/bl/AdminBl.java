@@ -3,6 +3,7 @@ package tck.model.bl;
 import lombok.Getter;
 import tck.controller.exceptions.*;
 import tck.model.da.AdminDa;
+import tck.model.da.PersonDa;
 import tck.model.entity.*;
 import tck.model.tool.CRUD;
 
@@ -21,7 +22,7 @@ public class AdminBl implements CRUD<Admin> {
                 adminDa.save(admin);
                 return admin;
 //            }else {
-//                throw new AaccesssDeniedException();
+//                throw new AccessDeniedException();
         }
     }
 
@@ -88,7 +89,7 @@ public class AdminBl implements CRUD<Admin> {
     }
     public Admin findByPass(String pass) throws Exception {
         try (AdminDa adminDa = new AdminDa()) {
-            Admin admin = adminDa.findByPass(pass);
+           Admin admin = adminDa.findByPass(pass);
             if (admin != null) {
                 return admin;
             } else {
@@ -98,10 +99,12 @@ public class AdminBl implements CRUD<Admin> {
     }
     public Admin findByPersonId(int id) throws Exception {
         try (AdminDa adminDa=new AdminDa()) {
-            Person person = PersonBl.getPersonBl().findById(id);
-            Admin admin= adminDa.findByPersonId(person.getId());
-            if (admin != null) {
-                int personId =admin.getPerson().getId();
+            PersonDa personDa=new PersonDa();
+  //          Person person = PersonBl.getPersonBl().findById(id);
+            Person person = personDa.findById(id);
+            Admin admin= adminDa.findByPersonId(id);
+            if (admin.getPerson() != null) {                           //TODO
+                admin.getPerson().getId();
  //               Person person = PersonBl.getPersonBl().findById(id);
                admin.setPerson(PersonBl.getPersonBl().findById(admin.getPerson().getId()));
                 return admin;
@@ -133,7 +136,7 @@ public class AdminBl implements CRUD<Admin> {
             if (!personList.isEmpty()) {
                 return adminList;
             } else {
-                throw new AaccesssDeniedException();
+                throw new AccessDeniedException();
             }
         }
     }

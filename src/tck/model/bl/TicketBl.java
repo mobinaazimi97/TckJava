@@ -157,7 +157,7 @@ public class TicketBl implements CRUD<Ticket> {
         try (TicketDa ticketDa = new TicketDa()) {
             Person person = PersonBl.getPersonBl().findByUsername(username);
             Ticket ticket = ticketDa.findByUsername(person.getUsername());
-            ticket.setPerson(PersonBl.getPersonBl().findById(ticket.getPerson().getId()));
+//          ticket.setPerson(PersonBl.getPersonBl().findById(ticket.getPerson().getId()));
 //            ticket.setPerson(PersonBl.getPersonBl().findByUsername(ticket.getPerson().getUsername()));
             return ticket;
         }

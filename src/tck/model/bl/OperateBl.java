@@ -1,12 +1,11 @@
 package tck.model.bl;
 
 import lombok.Getter;
-import tck.controller.exceptions.AaccesssDeniedException;
+import tck.controller.exceptions.AccessDeniedException;
 import tck.model.da.OperateDa;
 import tck.model.entity.Admin;
 import tck.model.entity.Operator;
 import tck.model.entity.SignIn;
-import tck.model.entity.Ticket;
 import tck.model.tool.CRUD;
 
 import java.util.List;
@@ -33,7 +32,7 @@ public class OperateBl implements CRUD<Operator> {
                 operateDa.edit(operator);
                 return operator;
             } else {
-                throw new AaccesssDeniedException();
+                throw new AccessDeniedException();
             }
         }
     }
@@ -46,7 +45,7 @@ public class OperateBl implements CRUD<Operator> {
                 operateDa.remove(id);
                 return operator;
             } else {
-                throw new AaccesssDeniedException();
+                throw new AccessDeniedException();
             }
         }
     }
@@ -61,7 +60,7 @@ public class OperateBl implements CRUD<Operator> {
 //                }
                 return operatorList;
             } else {
-                throw new AaccesssDeniedException();
+                throw new AccessDeniedException();
             }
         }
     }
@@ -74,7 +73,7 @@ public class OperateBl implements CRUD<Operator> {
                 operator.setId(id);                            //TODO : TRUE ?
                 return operator;
             } else {
-                throw new AaccesssDeniedException();
+                throw new AccessDeniedException();
             }
         }
     }
@@ -90,7 +89,7 @@ public class OperateBl implements CRUD<Operator> {
                 operator.setSignIn(SignInBl.getSignInBl().findByPersonId(operator.getSignIn().getPerson().getId()));
                 return operator;
             } else {
-                throw new AaccesssDeniedException();
+                throw new AccessDeniedException();
             }
         }
     }
@@ -106,7 +105,7 @@ public class OperateBl implements CRUD<Operator> {
                 operator.setSignIn(SignInBl.getSignInBl().findByPersonUsername(operator.getSignIn().getPerson().getUsername()));
                 return operator;
             } else {
-                throw new AaccesssDeniedException();
+                throw new AccessDeniedException();
             }
         }
     }
@@ -122,7 +121,7 @@ public class OperateBl implements CRUD<Operator> {
                 operator.setSignIn(SignInBl.getSignInBl().findByPersonPassword(operator.getSignIn().getPerson().getPassword()));
                 return operator;
             } else {
-                throw new AaccesssDeniedException();
+                throw new AccessDeniedException();
             }
         }
     }
@@ -138,7 +137,7 @@ public class OperateBl implements CRUD<Operator> {
                 operator.setSignIn(SignInBl.getSignInBl().findByPersonPhoneNumber(operator.getSignIn().getPerson().getPhoneNumber()));
                 return operator;
             } else {
-                throw new AaccesssDeniedException();
+                throw new AccessDeniedException();
             }
         }
     }
@@ -154,7 +153,7 @@ public class OperateBl implements CRUD<Operator> {
                 operator.setSignIn(SignInBl.getSignInBl().findByPersonEmail(operator.getSignIn().getPerson().getEmail()));
                 return operator;
             } else {
-                throw new AaccesssDeniedException();
+                throw new AccessDeniedException();
             }
         }
     }
@@ -168,7 +167,7 @@ public class OperateBl implements CRUD<Operator> {
                 operator.setSignIn(SignInBl.getSignInBl().findById(operator.getSignIn().getId()));
                 return operator;
             } else {
-                throw new AaccesssDeniedException();
+                throw new AccessDeniedException();
             }
         }
     }
@@ -183,7 +182,7 @@ public class OperateBl implements CRUD<Operator> {
                 operator.setAdmin(AdminBl.getAdminBl().findById(operator.getAdmin().getId()));
                 return operator;
             } else {
-                throw new AaccesssDeniedException();
+                throw new AccessDeniedException();
             }
         }
     }
@@ -199,7 +198,7 @@ public class OperateBl implements CRUD<Operator> {
                 operator.setAdmin(AdminBl.getAdminBl().findByUser(operator.getAdmin().getUser()));
                 return operator;
             } else {
-                throw new AaccesssDeniedException();
+                throw new AccessDeniedException();
             }
         }
     }
@@ -215,7 +214,7 @@ public class OperateBl implements CRUD<Operator> {
                 operator.setAdmin(AdminBl.getAdminBl().findByPass(operator.getAdmin().getPass()));
                 return operator;
             } else {
-                throw new AaccesssDeniedException();
+                throw new AccessDeniedException();
             }
         }
     }

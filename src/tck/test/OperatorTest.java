@@ -75,7 +75,7 @@ public class OperatorTest {
 
         OperateBl.getOperateBl().save(operator);
         System.out.println(operator);
-        System.out.println("find all: "+ OperateBl.getOperateBl().findAll());
+ //       System.out.println("find all: "+ OperateBl.getOperateBl().findAll());
 
     }
 }
